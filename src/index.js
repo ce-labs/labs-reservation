@@ -1,17 +1,32 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './index.css';
-import App from './App';
-import reportWebVitals from './reportWebVitals';
+import { BrowserRouter, Route, Switch, Redirect } from "react-router-dom";
+
+import "@fortawesome/fontawesome-free/css/all.min.css";
+import "./assets/styles/tailwind.css";
+
+// layouts
+
+import Auth from './layouts/Auth';
+import App from './layouts/App';
+
+// views without layouts
+
+import Index from './views/Index';
+import Profile from './views/Profile';
 
 ReactDOM.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>,
-  document.getElementById('root')
+  <BrowserRouter>
+    <Switch>
+      {/* add routes with layouts */}
+      <Route path="/app" component={App} />
+      <Route path="/auth" component={Auth} />
+      {/* add routes without layouts */}
+      <Route path="/profile" exact component={Profile} />
+      <Route path="/" exact component={Index} />
+      {/* add redirect for first page */}
+      <Redirect from="*" to="/" />
+    </Switch>
+  </BrowserRouter>,
+  document.getElementById("root")
 );
-
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
-reportWebVitals();
