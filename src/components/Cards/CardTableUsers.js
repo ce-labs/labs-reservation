@@ -6,9 +6,10 @@ import { UsersClient } from "../../clients/UsersClient";
 export default function CardTable({ color }) {
 
   const [currentUsers, setCurrentUsers] = useState([]);
+  const [category, setCategory] = useState('');
+  const [filter, setFilter] = useState('');
 
   let usersClient = new UsersClient();
-  let users = [];
   
   useEffect(() => { 
     getAllUsers();
@@ -16,8 +17,22 @@ export default function CardTable({ color }) {
 
   const getAllUsers = async() => {
     const currentUsers = await usersClient.getAllUsers();
-
     setCurrentUsers(currentUsers);
+  }
+
+  const handleInputChangeForFilter = async(e) => {
+    var value = e.target.value;
+    setFilter(value);
+  }
+
+  const handleInputChangeForCategory = async(e) => {
+      var value = e.target.value;
+      setCategory(value);
+  }
+
+  const searchUsers = async() => {
+    const response = await usersClient.searchUsers(category, filter);
+    setCurrentUsers(response);
   }
 
   const verifyUserStatus = (userStatus) => {
@@ -42,6 +57,41 @@ export default function CardTable({ color }) {
   
   return (
     <>
+      <div className="flex flex-wrap">
+            <div className="w-full lg:w-4/12 ">
+                <div className="relative w-full mb-3">
+                    <input
+                        type="text"
+                        className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
+                        onChange={handleInputChangeForFilter}
+                    />
+                </div>
+            </div>
+            <div className="w-full lg:w-3/12 " style={{paddingLeft:'20px'}}>
+                <div className="relative w-full mb-3">
+                    <select 
+                        name="category" id="category"        
+                        onChange={handleInputChangeForCategory}
+                        className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
+                    >
+                        <option value="firstName">Primer Nombre</option>
+                        <option value="lastName">Segundo Nombre</option>
+                        <option value="userId">Identificación</option>
+                        <option value="userType">Tipo de Usuario</option>
+                    </select>
+                </div>
+            </div>
+            <div className="w-full lg:w-4/12 px-4" style={{paddingTop:'3px'}} >
+                <button 
+                  className="bg-darkBlue-001 text-white active:bg-lightBlue-600 text-sm font-bold uppercase px-4 py-2 rounded shadow hover:shadow-lg outline-none focus:outline-none lg:mr-1 lg:mb-0 ml-3 mb-3 ease-linear transition-all duration-150"
+                  type="button"
+                >
+                    <a onClick={searchUsers}>
+                        <i class="fas fa-search"></i> Buscar Usuario (s)
+                    </a>
+                </button>
+              </div>
+        </div>
       <div
         className={
           "relative flex flex-col min-w-0 break-words w-full mb-6 shadow-lg rounded " +
@@ -130,7 +180,6 @@ export default function CardTable({ color }) {
               </tr>
             </thead>
             <tbody>
-
                 {currentUsers.map((item,index)=>{
                 return <tr key={index}>
                     <th className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-left flex items-center">
