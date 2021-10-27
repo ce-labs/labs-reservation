@@ -13,8 +13,16 @@ import FooterApp from "../components/Footers/FooterApp";
 import Profile from "../views/app/Profile";
 import Reservations from "../views/app/Reservations";
 import Users from "../views/app/Users";
+import { useHistory } from "react-router-dom";
+
 
 export default function App() {
+
+    let history = useHistory();
+
+    if(!localStorage.getItem('activeSession')){
+        history.push('/auth');
+    }
 
     return (
         <>
