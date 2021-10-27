@@ -1,23 +1,67 @@
 import React, {useState, useEffect} from "react";
 import { UsersClient } from "../../clients/UsersClient";
+import Modal from 'react-modal';
 
-// components
+
+const customStyles = { content: { top: '50%', left: '58%', right: 'auto', bottom: 'auto', marginRight: '-50%', transform: 'translate(-50%, -50%)' }, };
 
 export default function CardSettings() {
 
+  const [modalIsOpen, setIsOpen] = useState(false);
+
+
   const [userData, setUserData] = useState({});
-  
+  const [newEmail, setNewEmail] = useState('');
+  const [newPhone, setNewPhone] = useState('');
+  const [newPassword, setNewPassword] = useState('');
+
   let usersClient = new UsersClient();
 
   useEffect(() => { 
     getUserData();
   }, [])
 
+  const openModal = () => {setIsOpen(true)};
+  const closeModal = () => {setIsOpen(false)};
+
   const getUserData = async() => {
     const currentUserData = await usersClient.getSingleUser(localStorage.getItem('userId'));
     setUserData(currentUserData.data);
   }
 
+  const handleInputChangeForEmail = async(e) => {
+    var value = e.target.value;
+    setNewEmail(value);
+  }
+  const handleInputChangeForPhone = async(e) => {
+    var value = e.target.value;
+    setNewPhone(value);
+  }
+  const handleInputChangeForPassword = async(e) => {
+    var value = e.target.value;
+    setNewPassword(value);
+  }
+
+  const verifyInputData = () => {
+    if(newEmail === ''){
+        setNewEmail(userData.mail)
+    } 
+    if(newPhone === '') {
+        setNewPhone(userData.phone)
+    }
+    if(newPassword === '') {
+        setNewPassword(userData.password)
+    }
+    openModal();
+
+  }
+
+  const updateUser = async() => {
+    //alert('mail: ' +  newEmail + ' phone: '+ newPhone + ' password: ' + newPassword);
+    const response = await usersClient.updatePersonalInformation(userData.userId, newEmail, newPhone, newPassword);
+    closeModal();
+
+  }
 
   return (
     <>
@@ -38,7 +82,6 @@ export default function CardSettings() {
                 <div className="relative w-full mb-3">
                   <label
                     className="block uppercase text-blueGray-600 text-xs font-bold mb-2"
-                    htmlFor="grid-password"
                   >
                     Identificación
                   </label>
@@ -54,7 +97,6 @@ export default function CardSettings() {
                 <div className="relative w-full mb-3">
                   <label
                     className="block uppercase text-blueGray-600 text-xs font-bold mb-2"
-                    htmlFor="grid-password"
                   >
                     Tipo de Usuario
                   </label>
@@ -69,7 +111,6 @@ export default function CardSettings() {
                 <div className="relative w-full mb-3">
                   <label
                     className="block uppercase text-blueGray-600 text-xs font-bold mb-2"
-                    htmlFor="grid-password"
                   >
                     Estado de Usuario
                   </label>
@@ -84,7 +125,6 @@ export default function CardSettings() {
                 <div className="relative w-full mb-3">
                   <label
                     className="block uppercase text-blueGray-600 text-xs font-bold mb-2"
-                    htmlFor="grid-password"
                   >
                     Activo desde
                   </label>
@@ -107,7 +147,6 @@ export default function CardSettings() {
                 <div className="relative w-full mb-3">
                   <label
                     className="block uppercase text-blueGray-600 text-xs font-bold mb-2"
-                    htmlFor="grid-password"
                   >
                     Correo Electrónico
                   </label>
@@ -115,6 +154,7 @@ export default function CardSettings() {
                     type="text"
                     className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
                     defaultValue={userData.mail}
+                    onChange={handleInputChangeForEmail}
                   />
                 </div>
               </div>
@@ -122,7 +162,6 @@ export default function CardSettings() {
                 <div className="relative w-full mb-3">
                   <label
                     className="block uppercase text-blueGray-600 text-xs font-bold mb-2"
-                    htmlFor="grid-password"
                   >
                     Número Telefónico
                   </label>
@@ -130,6 +169,7 @@ export default function CardSettings() {
                     type="text"
                     className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
                     defaultValue={userData.phone}
+                    onChange={handleInputChangeForPhone}
                   />
                 </div>
               </div>
@@ -137,7 +177,6 @@ export default function CardSettings() {
                 <div className="relative w-full mb-3">
                   <label
                     className="block uppercase text-blueGray-600 text-xs font-bold mb-2"
-                    htmlFor="grid-password"
                   >
                     Contraseña 
                   </label>
@@ -145,10 +184,18 @@ export default function CardSettings() {
                     type="text"
                     className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
                     defaultValue={userData.password}
+                    onChange={handleInputChangeForPassword}
                   />
                 </div>
               </div>
-              
+              <div className="w-full lg:w-8/12 px-4" style={{marginLeft: 'auto', paddingTop:'25px'}}>
+                <a
+                  className="github-star ml-1 text-white font-bold px-6 py-4 rounded outline-none focus:outline-none mr-1 mb-1 bg-darkBlue-001 active:bg-blueGray-600 uppercase text-sm shadow hover:shadow-lg ease-linear transition-all duration-150"
+                  onClick={verifyInputData}
+                >
+                  <i class="fas fa-sign-in-alt"></i> Actualizar Información
+                </a>
+              </div>
        
             </div>
 
@@ -157,6 +204,23 @@ export default function CardSettings() {
           </form>
         </div>
       </div>
+      <div>
+      <Modal
+        isOpen={modalIsOpen}
+        onRequestClose={closeModal}
+        style={customStyles}
+        contentLabel="Example Modal"
+      >
+        <h2><b>Sistema de Reservación de Laboratorios</b></h2>
+        <div>¿Está seguro que desea actualizar su información de usuario?</div>
+        <form style={{marginTop:'20px'}}>
+          <input />
+          <button onClick={closeModal} style={{marginRight:'20px', color:'red'}}>Cancelar</button>
+          <button onClick={updateUser} style={{color:'green'}}>Actualizar Información</button>
+        </form>
+      </Modal>
+
+    </div>
     </>
   );
 }

@@ -119,7 +119,7 @@ export default function Profile() {
                       <i className="fas fa-phone mr-2 text-lg text-blueGray-400"></i> {userData.phone}
                       </p>
                       <a
-                        href="#pablo"
+                        href="#"
                         className="font-normal text-lightBlue-500"
                         onClick={openUpdateProfileModal}
                       >
@@ -140,7 +140,7 @@ export default function Profile() {
         style={customStyles}
         contentLabel="Example Modal"
       >
-        <h2>Sistema de Reservación de Laboratorios</h2>
+        <h2><b>Sistema de Reservación de Laboratorios</b></h2>
         <div>¿Está seguro que desea cerrar sesión?</div>
         <form style={{marginTop:'20px'}}>
           <input />
