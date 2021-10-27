@@ -7,6 +7,12 @@ export class UsersClient {
         return response;
     }
 
+    async getUserType(userId){        
+        const url = 'https://labs-reservation-api.herokuapp.com/api/v1/users/userType/' + userId;
+        const response =  await axios(url);
+        return response.data;
+    }
+
     async updatePersonalInformation(userId, mail, phone, password){
         const requestUrl = 'https://labs-reservation-api.herokuapp.com/api/v1/users/' + userId;
         const userData = {"mail": mail, "phone": phone, "password":password, "modificationAuthor":userId};

@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { LoginClient } from "../../clients/LoginClient";
+import { UsersClient } from "../../clients/UsersClient";
 import {toast, Toaster} from 'react-hot-toast';
 import { useHistory } from "react-router-dom";
 
@@ -12,6 +13,7 @@ export default function Login() {
     const [password, setPassword] = useState('');
 
     let loginClient = new LoginClient(); 
+    let usersClient = new UsersClient(); 
 
     const handleInputChangeForUserId = async(e) => {
         var value = e.target.value;
@@ -33,6 +35,8 @@ export default function Login() {
                 toast.error('Contraseña incorrecta.');
                 break;
             case 'OK':
+                const userType = await usersClient.getUserType(userId);
+                localStorage.setItem('userType', userType);
                 toast.success('Bienvenido: ' + userId);
                 localStorage.setItem('userData', {"userId":userId, "password":password});
                 localStorage.setItem('userId', userId);
