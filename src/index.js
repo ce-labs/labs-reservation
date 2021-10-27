@@ -13,7 +13,6 @@ import App from './layouts/App';
 // views without layouts
 
 import Index from './views/Index';
-import Profile from './views/Profile';
 
 ReactDOM.render(
   <BrowserRouter>
@@ -22,7 +21,6 @@ ReactDOM.render(
       <Route path="/app" component={App} />
       <Route path="/auth" component={Auth} />
       {/* add routes without layouts */}
-      <Route path="/profile" exact component={Profile} />
       <Route path="/" exact component={Index} />
       {/* add redirect for first page */}
       <Redirect from="*" to="/" />

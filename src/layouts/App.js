@@ -1,15 +1,23 @@
 import React from "react";
-import toast, { Toaster } from "react-hot-toast";
+import { Switch, Route, Redirect } from "react-router-dom";
+
+// views
+
+import Profile from "../views/app/Profile";
+import Reservations from "../views/app/Reservations";
+import Users from "../views/app/Users";
 
 export default function App() {
-    if(localStorage.getItem('activeSession')){
-        toast.success('Bienvenido de nuevo' + localStorage.getItem('userData'))
-    }
-     
+
     return (
         <>
-        <Toaster/>
-        <h1>App</h1>
+            <Switch>
+                <Route path="/app/reservations" exact component={Reservations} />
+                <Route path="/app/users" exact component={Users} />
+                <Route path="/app/profile" exact component={Profile} />
+                <Redirect from="/app" to="/app/reservations" />
+            </Switch>
+
         </>
     );
 }
