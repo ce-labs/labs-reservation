@@ -2,44 +2,35 @@ import React, { useEffect, useState } from "react";
 import Modal from 'react-modal';
 import { useHistory } from "react-router-dom";
 import { UsersClient } from "../../clients/UsersClient";
+import CardSettings from "../../components/Cards/CardSettings";
 
-const customStyles = {
-  content: {
-    top: '50%',
-    left: '58%',
-    right: 'auto',
-    bottom: 'auto',
-    marginRight: '-50%',
-    transform: 'translate(-50%, -50%)',
-  },
-};
+const customStyles = { content: { top: '50%', left: '58%', right: 'auto', bottom: 'auto', marginRight: '-50%', transform: 'translate(-50%, -50%)' }, };
 
 export default function Profile() {
 
   let history = useHistory();
 
-  const [modalIsOpen, setIsOpen] = useState(false);
+  const [modalLogoutIsOpen, setLogoutIsOpen] = useState(false);
+  const [modalUpdateProfileIsOpen, setUpdateProfileIsOpen] = useState(false);
   const [userData, setUserData] = useState({});
 
   let usersClient = new UsersClient();
 
-  useEffect(() => {
+  const openModal = () => {setLogoutIsOpen(true)};
+  const closeModal = () => {setLogoutIsOpen(false)};
+
+
+  const openUpdateProfileModal = () => {setUpdateProfileIsOpen(true)};
+  const closeUpdateProfileModal = () => {setUpdateProfileIsOpen(false)};
+
+  useEffect(() => { 
     getUserData();
   }, [])
-
-  function openModal() {
-    setIsOpen(true);
-  }
-
-  function closeModal() {
-    setIsOpen(false);
-  }
 
   const getUserData = async() => {
     const currentUserData = await usersClient.getSingleUser(localStorage.getItem('userId'));
     setUserData(currentUserData.data);
   }
-
 
   const logout = () => {
     localStorage.removeItem('activeSession');
@@ -48,7 +39,6 @@ export default function Profile() {
     history.push('/auth');
   }
   
-
   return (
     <>
       <main className="profile-page">
@@ -125,12 +115,13 @@ export default function Profile() {
                   <div className="flex flex-wrap justify-center">
                     <div className="w-full lg:w-9/12 px-4">
                       <p className="mb-4 text-lg leading-relaxed text-blueGray-700">
-                        {userData.mail} <br/> {userData.phone}
+                      <i className="fas fa-envelope mr-2 text-lg text-blueGray-400"></i> {userData.mail} <br/>
+                      <i className="fas fa-phone mr-2 text-lg text-blueGray-400"></i> {userData.phone}
                       </p>
                       <a
                         href="#pablo"
                         className="font-normal text-lightBlue-500"
-                        onClick={(e) => e.preventDefault()}
+                        onClick={openUpdateProfileModal}
                       >
                         Actualizar Información
                       </a>
@@ -144,7 +135,7 @@ export default function Profile() {
       </main>
       <div>
       <Modal
-        isOpen={modalIsOpen}
+        isOpen={modalLogoutIsOpen}
         onRequestClose={closeModal}
         style={customStyles}
         contentLabel="Example Modal"
@@ -157,6 +148,15 @@ export default function Profile() {
           <button onClick={logout} style={{color:'green'}}>Cerrar Sesión</button>
         </form>
       </Modal>
+
+      <Modal
+        isOpen={modalUpdateProfileIsOpen}
+        onRequestClose={closeUpdateProfileModal}
+        style={customStyles}
+      >
+        <CardSettings />
+      </Modal>
+
     </div>
     </>
   );

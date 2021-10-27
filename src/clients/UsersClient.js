@@ -6,5 +6,4 @@ export class UsersClient {
         const response =  await axios(url);
         return response;
     }
-
 }
