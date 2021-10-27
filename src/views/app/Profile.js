@@ -1,7 +1,39 @@
 import React from "react";
+import Modal from 'react-modal';
+import { useHistory } from "react-router-dom";
 
+const customStyles = {
+  content: {
+    top: '50%',
+    left: '58%',
+    right: 'auto',
+    bottom: 'auto',
+    marginRight: '-50%',
+    transform: 'translate(-50%, -50%)',
+  },
+};
 
 export default function Profile() {
+
+  let history = useHistory();
+
+  const [modalIsOpen, setIsOpen] = React.useState(false);
+
+  function openModal() {
+    setIsOpen(true);
+  }
+
+  function closeModal() {
+    setIsOpen(false);
+  }
+
+  const logout = () => {
+    localStorage.removeItem('activeSession');
+    closeModal();
+    localStorage.setItem('userData', {"userId":'', "password":''});
+    history.push('/auth');
+  }
+
   return (
     <>
       <main className="profile-page">
@@ -25,6 +57,7 @@ export default function Profile() {
                       <button
                         className="bg-darkBlue-001 active:bg-lightBlue-600 uppercase text-white font-bold hover:shadow-md shadow text-xs px-4 py-2 rounded outline-none focus:outline-none sm:mr-2 mb-1 ease-linear transition-all duration-150"
                         type="button"
+                        onClick={openModal}
                       >
                         Cerrar Sesión
                       </button>
@@ -93,6 +126,22 @@ export default function Profile() {
           </div>
         </section>
       </main>
+      <div>
+      <Modal
+        isOpen={modalIsOpen}
+        onRequestClose={closeModal}
+        style={customStyles}
+        contentLabel="Example Modal"
+      >
+        <h2>Sistema de Reservación de Laboratorios</h2>
+        <div>¿Está seguro que desea cerrar sesión?</div>
+        <form style={{marginTop:'20px'}}>
+          <input />
+          <button onClick={closeModal} style={{marginRight:'20px', color:'red'}}>Cancelar</button>
+          <button onClick={logout} style={{color:'green'}}>Cerrar Sesión</button>
+        </form>
+      </Modal>
+    </div>
     </>
   );
 }
