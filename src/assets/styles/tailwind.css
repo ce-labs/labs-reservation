@@ -1080,6 +1080,10 @@ select {
   }
 }
 
+.bg-readonly {
+  background-color: rgba(213, 213, 213);
+}
+
 .bg-black {
   --tw-bg-opacity: 1;
   background-color: rgba(0, 0, 0, var(--tw-bg-opacity));
@@ -2438,6 +2442,11 @@ select {
   --tw-text-opacity: 1;
   color: rgba(30, 41, 59, var(--tw-text-opacity));
 }
+
+.text-green-001 {
+    --tw-text-opacity: 1;
+    color: rgba(26, 159, 80, var(--tw-text-opacity));
+  }
 
 .hover\:text-lightBlue-600:hover {
   --tw-text-opacity: 1;

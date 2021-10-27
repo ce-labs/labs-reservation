@@ -1,8 +1,12 @@
 import React, { useState } from "react";
 import { LoginClient } from "../../clients/LoginClient";
 import {toast, Toaster} from 'react-hot-toast';
+import { useHistory } from "react-router-dom";
+
 
 export default function Login() {
+
+    let history = useHistory();
 
     const [userId, setUserId] = useState('');
     const [password, setPassword] = useState('');
@@ -31,8 +35,9 @@ export default function Login() {
             case 'OK':
                 toast.success('Bienvenido: ' + userId);
                 localStorage.setItem('userData', {"userId":userId, "password":password});
+                localStorage.setItem('userId', userId);
                 localStorage.setItem('activeSession', true);
-                window.location.replace('/app');
+                history.push('/app');
                 break;
             default:
                 break;
@@ -40,7 +45,7 @@ export default function Login() {
     }
 
     if(localStorage.getItem('activeSession')){
-        window.location.replace('/app');
+        history.push('/app');
     }
 
     return (
