@@ -1,10 +1,29 @@
 import axios from "axios";
 
 export class UsersClient {
+
+    async getAllUsers(){
+        const url = 'https://labs-reservation-api.herokuapp.com/api/v1/users/all';
+        const response =  await axios(url);
+        return response.data;
+    }
+
     async getSingleUser(userId){        
         const url = 'https://labs-reservation-api.herokuapp.com/api/v1/users/' + userId;
         const response =  await axios(url);
         return response;
+    }
+
+    async getUserType(userId){        
+        const url = 'https://labs-reservation-api.herokuapp.com/api/v1/users/userType/' + userId;
+        const response =  await axios(url);
+        return response.data;
+    }
+
+    async searchUsers(category, filter) {
+        const url = 'https://labs-reservation-api.herokuapp.com/api/v1/users/search/{"category":"' + category + '","filter":"' + filter + '"}';
+        const response =  await axios(url);
+        return response.data;
     }
 
     async updatePersonalInformation(userId, mail, phone, password){

@@ -1,5 +1,6 @@
 import React from "react";
 import { Switch, Route, Redirect } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 
 // components
 
@@ -13,8 +14,6 @@ import FooterApp from "../components/Footers/FooterApp";
 import Profile from "../views/app/Profile";
 import Reservations from "../views/app/Reservations";
 import Users from "../views/app/Users";
-import { useHistory } from "react-router-dom";
-
 
 export default function App() {
 

@@ -38,6 +38,18 @@ export default function Profile() {
     localStorage.setItem('userData', {"userId":'', "password":''});
     history.push('/auth');
   }
+
+  const verifyUserType = (userType) => {
+    if (userType === 'admin') {
+        return('Administrador')
+    } else if (userType === 'teachingStaff') {
+        return('Personal Administrativo')
+    } else if (userType === 'coordinationAssitant') {
+        return('Personal Asistente')
+    } else if (userType === 'operator') {
+        return('Operador')
+    }
+  }
   
   return (
     <>
@@ -100,7 +112,7 @@ export default function Profile() {
                   </div>
                   <div className="mb-2 text-blueGray-600 mt-10">
                     <i className="fas fa-briefcase mr-2 text-lg text-blueGray-400"></i>
-                    Tipo de Usuario: {userData.userType}
+                    Tipo de Usuario: {verifyUserType(userData.userType)}
                   </div>
                   <div className="mb-2 text-blueGray-600">
                     <i className="fas fa-university mr-2 text-lg text-blueGray-400"></i>
