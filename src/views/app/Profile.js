@@ -1,6 +1,7 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Modal from 'react-modal';
 import { useHistory } from "react-router-dom";
+import { UsersClient } from "../../clients/UsersClient";
 
 const customStyles = {
   content: {
@@ -17,7 +18,14 @@ export default function Profile() {
 
   let history = useHistory();
 
-  const [modalIsOpen, setIsOpen] = React.useState(false);
+  const [modalIsOpen, setIsOpen] = useState(false);
+  const [userData, setUserData] = useState({});
+
+  let usersClient = new UsersClient();
+
+  useEffect(() => {
+    getUserData();
+  }, [])
 
   function openModal() {
     setIsOpen(true);
@@ -27,12 +35,19 @@ export default function Profile() {
     setIsOpen(false);
   }
 
+  const getUserData = async() => {
+    const currentUserData = await usersClient.getSingleUser(localStorage.getItem('userId'));
+    setUserData(currentUserData.data);
+  }
+
+
   const logout = () => {
     localStorage.removeItem('activeSession');
     closeModal();
     localStorage.setItem('userData', {"userId":'', "password":''});
     history.push('/auth');
   }
+  
 
   return (
     <>
@@ -67,7 +82,7 @@ export default function Profile() {
                     <div className="flex justify-center py-4 lg:pt-4 pt-8">
                       <div className="mr-4 p-3 text-center">
                         <span className="text-xl font-bold block uppercase tracking-wide text-blueGray-600">
-                          00
+                          0
                         </span>
                         <span className="text-sm text-blueGray-400">
                           Reservaciones
@@ -75,11 +90,11 @@ export default function Profile() {
                       </div>
                       
                       <div className="lg:mr-4 p-3 text-center">
-                        <span className="text-xl font-bold block  tracking-wide text-blueGray-600">
-                          Activo
+                        <span className="text-xl font-bold block  tracking-wide text-green-001">
+                          activo
                         </span>
                         <span className="text-sm text-blueGray-400">
-                          Estado
+                          Estado de Usuario
                         </span>
                       </div>
                     </div>
@@ -87,36 +102,37 @@ export default function Profile() {
                 </div>
                 <div className="text-center mt-12">
                   <h3 className="text-4xl font-semibold leading-normal mb-2 text-blueGray-700 mb-2">
-                    Nombre Completo
+                    {userData.firstName} {userData.lastName}
                   </h3>
                   <div className="text-sm leading-normal mt-0 mb-2 text-blueGray-400 font-bold uppercase">
                     <i className="fas fa-map-marker-alt mr-2 text-lg text-blueGray-400"></i>{" "}
-                    Ubicación
+                    Cartago, Costa Rica
                   </div>
-                  <p className=" font-semibold leading-normal mb-2 text-blueGray-400 mb-2">
-                    Estado de Usuario
-                  </p>
                   <div className="mb-2 text-blueGray-600 mt-10">
                     <i className="fas fa-briefcase mr-2 text-lg text-blueGray-400"></i>
-                    Tipo de Usuario
+                    Tipo de Usuario: {userData.userType}
                   </div>
                   <div className="mb-2 text-blueGray-600">
                     <i className="fas fa-university mr-2 text-lg text-blueGray-400"></i>
-                    Universidad
+                    Instituto Tecnológico de Costa Rica
+                  </div>
+                  <div className="mb-2 text-blueGray-600">
+                    <i className="fas fa-history mr-2 text-lg text-blueGray-400"></i>
+                    Activo desde: {userData.creationDate}
                   </div>
                 </div>
                 <div className="mt-10 py-10 border-t border-blueGray-200 text-center">
                   <div className="flex flex-wrap justify-center">
                     <div className="w-full lg:w-9/12 px-4">
                       <p className="mb-4 text-lg leading-relaxed text-blueGray-700">
-                        correo electrónico <br/> numero de telefono
+                        {userData.mail} <br/> {userData.phone}
                       </p>
                       <a
                         href="#pablo"
                         className="font-normal text-lightBlue-500"
                         onClick={(e) => e.preventDefault()}
                       >
-                        Cambiar contraseña
+                        Actualizar Información
                       </a>
                     </div>
                   </div>
