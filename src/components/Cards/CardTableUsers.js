@@ -1,6 +1,10 @@
 import React, {useState, useEffect} from "react";
 import PropTypes from "prop-types";
 import { UsersClient } from "../../clients/UsersClient";
+import toast, { Toaster } from "react-hot-toast";
+
+
+import TableDropdown from "../Dropdowns/UsersDropdown";
 
 
 export default function CardTable({ color }) {
@@ -22,6 +26,22 @@ export default function CardTable({ color }) {
 
   const handleInputChangeForFilter = async(e) => {
     var value = e.target.value;
+    switch (value) {
+      case 'Administrador':
+        value = 'admin'
+        break;
+      case 'Personal Asistente':
+        value = 'coordinationAssitant'
+        break;
+      case 'Personal Administrativo':
+        value = 'teachingStaff'
+        break;
+      case 'Operador':
+        value = 'operator'
+        break;  
+      default:
+        break;
+    }
     setFilter(value);
   }
 
@@ -31,8 +51,12 @@ export default function CardTable({ color }) {
   }
 
   const searchUsers = async() => {
-    const response = await usersClient.searchUsers(category, filter);
+    if(category === 'option'){
+      toast.error('Debe seleccionar alguna opción')
+    }
+    const response = await usersClient.searchUsers(category, filter)
     setCurrentUsers(response);
+    toast.success('Mostrando ' + response.length + ' resultados.')
   }
 
   const verifyUserStatus = (userStatus) => {
@@ -57,6 +81,7 @@ export default function CardTable({ color }) {
   
   return (
     <>
+      <Toaster />
       <div className="flex flex-wrap">
             <div className="w-full lg:w-4/12 ">
                 <div className="relative w-full mb-3">
@@ -74,6 +99,7 @@ export default function CardTable({ color }) {
                         onChange={handleInputChangeForCategory}
                         className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
                     >
+                        <option value="option">Seleccione una opción</option>
                         <option value="firstName">Primer Nombre</option>
                         <option value="lastName">Segundo Nombre</option>
                         <option value="userId">Identificación</option>
@@ -177,6 +203,14 @@ export default function CardTable({ color }) {
                 >
                   Estado de Usuario
                 </th>
+                <th
+                  className={
+                    "px-6 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left " +
+                    (color === "light"
+                      ? "bg-blueGray-50 text-blueGray-500 border-blueGray-100"
+                      : "bg-lightBlue-800 text-lightBlue-300 border-lightBlue-700")
+                  }
+                ></th>
               </tr>
             </thead>
             <tbody>
@@ -211,6 +245,9 @@ export default function CardTable({ color }) {
                     </td>
                     <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
                         {verifyUserStatus(item.userStatus)}
+                    </td>
+                    <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-right">
+                      <TableDropdown userData={{"userId": item.userId, "password":item.password, "firstName":item.firstName, "lastName":item.lastName, "userType":item.userType, "userStatus": item.userStatus, "mail": item.mail, "phone": item.phone} }/>
                     </td>
                     </tr>})}
               

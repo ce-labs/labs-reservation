@@ -36,4 +36,15 @@ export class UsersClient {
           });
         return response.data;
     }
+
+
+    async removeUser(userId){
+        const requestUrl = 'https://labs-reservation-api.herokuapp.com/api/v1/users/' + userId;
+        const headers = { 'Content-Type': 'application/json' };
+        const response = await axios.delete(requestUrl, headers)
+          .catch((error) => {
+            return(error.response);
+          });
+        return response.data;
+    }
 }
