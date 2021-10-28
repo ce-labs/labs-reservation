@@ -1,17 +1,20 @@
 import React, {useState, useEffect} from "react";
 import PropTypes from "prop-types";
+import Modal from 'react-modal';
 import { UsersClient } from "../../clients/UsersClient";
 import toast, { Toaster } from "react-hot-toast";
 
-
 import TableDropdown from "../Dropdowns/UsersDropdown";
+import CardCreateUser from "./CardCreateUser";
 
+const customStyles = { content: { top: '50%', left: '58%', right: 'auto', bottom: 'auto', marginRight: '-50%', transform: 'translate(-50%, -50%)' }, };
 
 export default function CardTable({ color }) {
 
   const [currentUsers, setCurrentUsers] = useState([]);
   const [category, setCategory] = useState('');
   const [filter, setFilter] = useState('');
+  const [createUserIsOpen, setCreateUserIsOpen] = useState(false);
 
   let usersClient = new UsersClient();
   
@@ -23,6 +26,9 @@ export default function CardTable({ color }) {
     const currentUsers = await usersClient.getAllUsers();
     setCurrentUsers(currentUsers);
   }
+
+  const openModal = () => {setCreateUserIsOpen(true)};
+  const closeModal = () => {setCreateUserIsOpen(false)};
 
   const handleInputChangeForFilter = async(e) => {
     var value = e.target.value;
@@ -136,6 +142,13 @@ export default function CardTable({ color }) {
                 Lista de Usuarios
               </h3>
             </div>
+            <button
+              className="bg-darkBlue-001 active:bg-lightBlue-600 uppercase text-white font-bold hover:shadow-md shadow text-xs px-4 py-2 rounded outline-none focus:outline-none sm:mr-2 mb-1 ease-linear transition-all duration-150"
+              type="button"
+              onClick={openModal}
+            >
+              <i className="fas fa-plus"></i> Crear Nuevo Usuario
+            </button>
           </div>
         </div>
         <div className="block w-full overflow-x-auto">
@@ -250,11 +263,17 @@ export default function CardTable({ color }) {
                       <TableDropdown userData={{"userId": item.userId, "password":item.password, "firstName":item.firstName, "lastName":item.lastName, "userType":item.userType, "userStatus": item.userStatus, "mail": item.mail, "phone": item.phone} }/>
                     </td>
                     </tr>})}
-              
             </tbody>
           </table>
         </div>
       </div>
+      <Modal
+        isOpen={createUserIsOpen}
+        onRequestClose={closeModal}
+        style={customStyles}
+      >
+        <CardCreateUser/>
+      </Modal>
     </>
   );
 }
