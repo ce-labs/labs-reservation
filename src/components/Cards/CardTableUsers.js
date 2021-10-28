@@ -272,7 +272,7 @@ export default function CardTable({ color }) {
         onRequestClose={closeModal}
         style={customStyles}
       >
-        <CardCreateUser/>
+        <CardCreateUser />
       </Modal>
     </>
   );

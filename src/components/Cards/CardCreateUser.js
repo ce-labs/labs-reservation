@@ -1,12 +1,61 @@
 import React, {useState, useEffect} from "react";
+import Modal from 'react-modal';
+import toast from "react-hot-toast";
+import { UtilsClient } from "../../clients/UtilsClient";
 import { UsersClient } from "../../clients/UsersClient";
+import { useHistory } from "react-router";
+import { sleep } from "../../assets/utils/Sleep";
+
+const customStyles = { content: { top: '50%', left: '58%', right: 'auto', bottom: 'auto', marginRight: '-50%', transform: 'translate(-50%, -50%)' }, };
 
 
 export default function CardCreateUser() {
 
+  const [modalIsOpen, setIsOpen] = useState(false);
+  const [userTypes, setUserTypes] = useState([]);
+  const [userId, setUserId] = useState('');
+  const [firstName, setFirstName] = useState('');
+  const [lastName, setLastName] = useState('');
+  const [mail, setMail] = useState('');
+  const [phone, setPhone] = useState('');
+
+  let utilsClient = new UtilsClient();
   let usersClient = new UsersClient();
 
+  const openModal = () => {setIsOpen(true)};
+  const closeModal = () => {setIsOpen(false)};
 
+
+  useEffect(() => { 
+    getUserTypes();
+  }, [])
+
+  
+  const getUserTypes = async() => {
+    const response = await utilsClient.getUserTypes();
+    setUserTypes(response);
+  }
+
+  const handleUserId = async(e) => { var value = e.target.value; setUserId(value);}
+  const handleFirstName = async(e) => { var value = e.target.value; setFirstName(value);}
+  const handleLastName = async(e) => { var value = e.target.value; setLastName(value);}
+  const handleMail = async(e) => { var value = e.target.value; setMail(value);}
+  const handlePhone = async(e) => { var value = e.target.value; setPhone(value);}
+
+
+  const createUser = async() => {
+    //console.log(userId, 'ce2021labs1srl.', 'operator', firstName, lastName, mail, phone, localStorage.getItem('userId'));
+    const response = await usersClient.createUser(userId, 'ce2021labs1srl.', 'operator', firstName, lastName, mail, phone, localStorage.getItem('userId'));
+    if(response === '☑️ The user was created successfully ... ') {
+        toast.success('Usuario Creado exitosamente');
+        sleep(2000).then(()=>{
+            closeModal();
+            window.location.reload();
+        })
+    }
+
+
+  }
 
   return (
     <>
@@ -14,6 +63,7 @@ export default function CardCreateUser() {
         <div className="rounded-t bg-white mb-0 px-6 py-6">
           <div className="text-center flex justify-between">
             <h6 className="text-blueGray-700 text-xl font-bold">Crear Nuevo Usuario </h6>
+
           </div>
         </div>
         <div className="flex-auto px-4 lg:px-10 py-10 pt-0">
@@ -32,29 +82,27 @@ export default function CardCreateUser() {
                   <input
                     type="text"
                     className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
-                    defaultValue='asdsad'
+                    defaultValue=''
+                    onChange={handleUserId}
                   />
                 </div>
               </div>
-              <div className="w-full lg:w-6/12 px-4" >
+              <div className="w-full lg:w-6/12 px-4">
                 <div className="relative w-full mb-3">
-                    <label
-                        className="block uppercase text-blueGray-600 text-xs font-bold mb-2"
-                    >
-                        Tipo de Usuario
-                    </label>
-                    <select 
-                        name="category" id="category"        
+                  <label
+                    className="block uppercase text-blueGray-600 text-xs font-bold mb-2"
+                  >
+                    Tipo de Usuario
+                  </label>
+                    {/*<select 
                         className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
                     >
-                        <option value="option">Seleccione una opción</option>
-                        <option value="firstName">Primer Nombre</option>
-                        <option value="lastName">Segundo Nombre</option>
-                        <option value="userId">Identificación</option>
-                        <option value="userType">Tipo de Usuario</option>
-                    </select>
+                        {userTypes.map(data =>
+                            <option value={data.name}>{data.description}</option>
+                        )};
+                        </select>*/}
                 </div>
-            </div>
+              </div>
               <div className="w-full lg:w-6/12 px-4">
                 <div className="relative w-full mb-3">
                   <label
@@ -65,7 +113,8 @@ export default function CardCreateUser() {
                   <input
                     type="text"
                     className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
-                    defaultValue='asdsad'
+                    defaultValue=''
+                    onChange={handleFirstName}
                   />
                 </div>
               </div>
@@ -79,22 +128,8 @@ export default function CardCreateUser() {
                   <input
                     type="text"
                     className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
-                    defaultValue='asdsad'
-                  />
-                </div>
-              </div>
-            <div className="w-full lg:w-6/12 px-4">
-                <div className="relative w-full mb-3">
-                  <label
-                    className="block uppercase text-blueGray-600 text-xs font-bold mb-2"
-                  >
-                    Estado de Usuario
-                  </label>
-                  <input
-                    type="text"
-                    readOnly="true"
-                    className="border-0 px-3 py-3 bg-readonly rounded text-sm shadow   w-full  duration-150"
-                    defaultValue='activo'
+                    defaultValue=''
+                    onChange={handleLastName}
                   />
                 </div>
               </div>
@@ -103,17 +138,31 @@ export default function CardCreateUser() {
                   <label
                     className="block uppercase text-blueGray-600 text-xs font-bold mb-2"
                   >
-                    Contraseña
+                    Contraseña 
                   </label>
                   <input
                     type="text"
-                    readOnly="true"
+                    readOnly
+                    className="border-0 px-3 py-3 bg-readonly rounded text-sm shadow   w-full  duration-150"
+                    defaultValue='ce2021labs1srl.'
+                  />
+                </div>
+              </div>
+              <div className="w-full lg:w-6/12 px-4">
+                <div className="relative w-full mb-3">
+                  <label
+                    className="block uppercase text-blueGray-600 text-xs font-bold mb-2"
+                  >
+                    Estado de Usuario 
+                  </label>
+                  <input
+                    type="text"
+                    readOnly
                     className="border-0 px-3 py-3 bg-readonly rounded text-sm shadow   w-full  duration-150"
                     defaultValue='activo'
                   />
                 </div>
               </div>
-              
             </div>
 
             <hr className="mt-6 border-b-1 border-blueGray-300" />
@@ -132,7 +181,8 @@ export default function CardCreateUser() {
                   <input
                     type="text"
                     className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
-                    defaultValue='asdsad'
+                    defaultValue=''
+                    onChange={handleMail}
                   />
                 </div>
               </div>
@@ -146,16 +196,18 @@ export default function CardCreateUser() {
                   <input
                     type="text"
                     className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
-                    defaultValue='asdsa'
+                    defaultValue=''
+                    onChange={handlePhone}
                   />
                 </div>
               </div>
-    
+
               <div className="w-full lg:w-8/12 px-4" style={{marginLeft: 'auto', paddingTop:'25px'}}>
                 <a
                   className="github-star ml-1 text-white font-bold px-6 py-4 rounded outline-none focus:outline-none mr-1 mb-1 bg-darkBlue-001 active:bg-blueGray-600 uppercase text-sm shadow hover:shadow-lg ease-linear transition-all duration-150"
+                  onClick={openModal}
                 >
-                  <i class="fas fa-sign-in-alt"></i> Actualizar Información
+                  <i class="fas fa-plus"></i> Crear Nuevo Usuario
                 </a>
               </div>
        
@@ -166,6 +218,22 @@ export default function CardCreateUser() {
           </form>
         </div>
       </div>
+      <div>
+      <Modal
+        isOpen={modalIsOpen}
+        onRequestClose={closeModal}
+        style={customStyles}
+      >
+        <h2><b>Sistema de Reservación de Laboratorios</b></h2>
+        <div>¿Está seguro que desea crear el usuario con las especificaciones indicada?</div>
+        <form style={{marginTop:'20px'}}>
+          <input />
+          <button onClick={closeModal} style={{marginRight:'20px', color:'red'}}>Cancelar</button>
+          <a onClick={createUser} style={{color:'green'}}>Crear Usuario</a>
+        </form>
+      </Modal>
+
+    </div>
     </>
   );
 }

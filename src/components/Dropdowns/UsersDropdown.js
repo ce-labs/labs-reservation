@@ -2,8 +2,9 @@ import React, {useState} from "react";
 import { createPopper } from "@popperjs/core";
 import Modal from 'react-modal';
 import { UsersClient } from "../../clients/UsersClient";
-import toast, { Toaster } from "react-hot-toast";
+import toast from "react-hot-toast";
 import { useHistory } from "react-router";
+import { sleep } from "../../assets/utils/Sleep";
 
 const customStyles = { content: { top: '50%', left: '58%', right: 'auto', bottom: 'auto', marginRight: '-50%', transform: 'translate(-50%, -50%)' }, };
 
@@ -41,16 +42,20 @@ const NotificationDropdown = (
     console.log(userData)
   }
 
-  const deleteUser = () => {
-      usersClient.removeUser(userData.userId);
+  const deleteUser = async () => {
+      const response = await usersClient.removeUser(userData.userId);
       toast.success('Usuario Eliminado exitosamente');
-      closeModal();
-      history.push('/app/users');
+      //console.log(response);
+      //closeModal();
+      sleep(2000).then(()=>{
+          closeModal();
+          window.location.reload();
+      })
+
   }
 
   return (
     <>
-      <Toaster />
       <a
         className="text-blueGray-500 py-1 px-3"
         ref={btnDropdownRef}
@@ -105,7 +110,7 @@ const NotificationDropdown = (
         <form style={{marginTop:'20px'}}>
           <input />
           <button onClick={closeModal} style={{marginRight:'20px', color:'red'}}>Cancelar</button>
-          <button onClick={deleteUser} style={{color:'green'}}>Eliminar Usuario</button>
+          <a onClick={deleteUser} style={{color:'green'}}>Eliminar Usuario</a>
         </form>
       </Modal>
       </div>
