@@ -166,7 +166,7 @@ export default function Profile() {
         onRequestClose={closeUpdateProfileModal}
         style={customStyles}
       >
-        <CardSettings />
+        <CardSettings currentUser={localStorage.getItem('userId')} />
       </Modal>
 
     </div>
