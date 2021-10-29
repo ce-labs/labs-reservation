@@ -27,9 +27,9 @@ const NotificationDropdown = (
   };
 
   let usersClient = new UsersClient();
-  let history = useHistory();
 
   const [deleteUserIsOpen, setDeleteUserIsOpen] = useState(false);
+
 
   const openModal = () => {setDeleteUserIsOpen(true)};
   const closeModal = () => {setDeleteUserIsOpen(false)};
@@ -38,8 +38,15 @@ const NotificationDropdown = (
       console.log(userData)
   }
 
-  const updateUserStatus = () => {
-    console.log(userData)
+  const updateUserStatus = async() => {
+    var userStatus = '';
+    if(userData.userStatus === 'active') { userStatus = 'inactive' }
+    else if(userData.userStatus === 'inactive') { userStatus = 'active' }
+    const response = await usersClient.updateUserStatus(userData.userId, userStatus);
+    toast.success('Estado de Usuario actualizado exitosamente');
+    sleep(2000).then(()=>{
+        window.location.reload();
+    })
   }
 
   const deleteUser = async () => {
@@ -47,7 +54,7 @@ const NotificationDropdown = (
       toast.success('Usuario Eliminado exitosamente');
       //console.log(response);
       //closeModal();
-      sleep(2000).then(()=>{
+      sleep(1000).then(()=>{
           closeModal();
           window.location.reload();
       })
@@ -85,7 +92,7 @@ const NotificationDropdown = (
           className={
             "text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-blueGray-700"
           }
-          onClick={(e) => e.preventDefault()}
+          onClick={updateUserStatus}
         >
           <i class="fas fa-edit"></i> Actualizar Estado
         </a>
