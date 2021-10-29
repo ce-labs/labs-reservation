@@ -229,7 +229,7 @@ export default function CardCreateUser() {
         <form style={{marginTop:'20px'}}>
           <input />
           <button onClick={closeModal} style={{marginRight:'20px', color:'red'}}>Cancelar</button>
-          <a onClick={createUser} style={{color:'green'}}>Crear Usuario</a>
+          <button type="button" onClick={createUser} style={{color:'green'}}>Crear Usuario</button>
         </form>
       </Modal>
 

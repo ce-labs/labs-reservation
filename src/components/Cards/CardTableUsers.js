@@ -37,7 +37,7 @@ export default function CardTable({ color }) {
         value = 'admin'
         break;
       case 'Personal Asistente':
-        value = 'coordinationAssitant'
+        value = 'coordinationStaff'
         break;
       case 'Personal Administrativo':
         value = 'teachingStaff'
@@ -92,6 +92,10 @@ export default function CardTable({ color }) {
       return(<><TableDropdown userData={{"userId": userId, "password":password, "firstName":firstName, "lastName":lastName, "userType":userType, "userStatus": userStatus, "mail": mail, "phone": phone} }/></>)
     }
   }
+
+  if(localStorage.getItem('userType') === 'operator' || localStorage.getItem('userType') === 'teachingStaff'){
+    return(<></>);
+  }
   
   return (
     <>
@@ -126,9 +130,9 @@ export default function CardTable({ color }) {
                   className="bg-darkBlue-001 text-white active:bg-lightBlue-600 text-sm font-bold uppercase px-4 py-2 rounded shadow hover:shadow-lg outline-none focus:outline-none lg:mr-1 lg:mb-0 ml-3 mb-3 ease-linear transition-all duration-150"
                   type="button"
                 >
-                    <a onClick={searchUsers}>
+                    <button type="button" onClick={searchUsers}>
                         <i class="fas fa-search"></i> Buscar Usuario (s)
-                    </a>
+                    </button>
                 </button>
               </div>
         </div>

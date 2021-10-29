@@ -3,8 +3,49 @@ import React from "react";
 import { Link } from "react-router-dom";
 
 export default function Sidebar() {
+  
   const [collapseShow, setCollapseShow] = React.useState("hidden");
+
+  const setUsersActions = () => {
+    if(localStorage.getItem('userType') === 'operator' || localStorage.getItem('userType') === 'teachingStaff'){
+      return(<></>)
+    } else {
+      return(
+      <>
+            <Link
+        className={
+          "text-xs uppercase py-3 font-bold block " +
+          (window.location.href.indexOf("/app/users") !== -1
+          ? "text-darkBlue-600 hover:text-darkBlue-600"
+          : "text-blueGray-700 hover:text-blueGray-500")
+        }
+        to="/app/users"
+      >
+        <i
+          className={
+            "fas fa-users mr-2 text-sm " +
+            (window.location.href.indexOf("/app/users") !== -1
+              ? "opacity-75"
+              : "text-blueGray-300")
+          }
+        ></i>{" "}
+        Usuarios
+      </Link>
+      </>)
+    }
+  }
+
+  {/*const setUsersActions = () => { 
+    return(
+      <li className="items-center">
+
+      </li>
+    )
+  }*/}
+
+
   return (
+
     <>
       <nav className="md:left-0 md:block md:fixed md:top-0 md:bottom-0 md:overflow-y-auto md:flex-row md:flex-nowrap md:overflow-hidden shadow-xl bg-white flex flex-wrap items-center justify-between relative md:w-64 z-10 py-4 px-6">
         <div className="md:flex-col md:items-stretch md:min-h-full md:flex-nowrap px-0 flex flex-wrap items-center justify-between w-full mx-auto">
@@ -76,8 +117,8 @@ export default function Sidebar() {
                 <Link
                   className={
                     "text-xs uppercase py-3 font-bold block " +
-                    (window.location.href.indexOf("/admin/dashboard") !== -1
-                      ? "text-lightBlue-500 hover:text-lightBlue-600"
+                    (window.location.href.indexOf("/app/reservations") !== -1
+                    ? "text-darkBlue-600 hover:text-darkBlue-600"
                       : "text-blueGray-700 hover:text-blueGray-500")
                   }
                   to="/app/reservations"
@@ -95,33 +136,15 @@ export default function Sidebar() {
               </li>
 
               <li className="items-center">
-                <Link
-                  className={
-                    "text-xs uppercase py-3 font-bold block " +
-                    (window.location.href.indexOf("/app/users") !== -1
-                    ? "text-lightBlue-500 hover:text-lightBlue-600"
-                    : "text-blueGray-700 hover:text-blueGray-500")
-                  }
-                  to="/app/users"
-                >
-                  <i
-                    className={
-                      "fas fa-users mr-2 text-sm " +
-                      (window.location.href.indexOf("/admin/settings") !== -1
-                        ? "opacity-75"
-                        : "text-blueGray-300")
-                    }
-                  ></i>{" "}
-                  Usuarios
-                </Link>
+                {setUsersActions()}
               </li>
 
               <li className="items-center">
                 <Link
                   className={
                     "text-xs uppercase py-3 font-bold block " +
-                    (window.location.href.indexOf("/admin/tables") !== -1
-                    ? "text-lightBlue-500 hover:text-lightBlue-600"
+                    (window.location.href.indexOf("/app/profile") !== -1
+                    ? "text-darkBlue-600 hover:text-darkBlue-600"
                     : "text-blueGray-700 hover:text-blueGray-500")
                   }
                   to="/app/profile"
@@ -150,15 +173,7 @@ export default function Sidebar() {
             {/* Navigation */}
 
             <ul className="md:flex-col md:min-w-full flex flex-col list-none md:mb-4">
-              <li className="items-center">
-                <Link
-                  className="text-blueGray-700 hover:text-blueGray-500 text-xs uppercase py-3 font-bold block"
-                  to="/"
-                >
-                  <i className="fas fa-file text-blueGray-400 mr-2 text-sm"></i>{" "}
-                  Licencia MIT
-                </Link>
-              </li>
+
 
               <li className="items-center">
                 <Link

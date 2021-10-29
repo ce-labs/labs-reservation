@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
+import toast, { Toaster } from "react-hot-toast";
 import Modal from 'react-modal';
 import { useHistory } from "react-router-dom";
+import { sleep } from "../../assets/utils/Sleep";
 import { UsersClient } from "../../clients/UsersClient";
 import CardSettings from "../../components/Cards/CardSettings";
 
@@ -13,6 +15,8 @@ export default function Profile() {
   const [modalLogoutIsOpen, setLogoutIsOpen] = useState(false);
   const [modalUpdateProfileIsOpen, setUpdateProfileIsOpen] = useState(false);
   const [userData, setUserData] = useState({});
+  const [userStatus, setUserStatus] = useState('');
+  const [userReservations, setUserReservations] = useState('');
 
   let usersClient = new UsersClient();
 
@@ -25,6 +29,8 @@ export default function Profile() {
 
   useEffect(() => { 
     getUserData();
+    getUserStatus();
+    getUserReservations();
   }, [])
 
   const getUserData = async() => {
@@ -32,11 +38,30 @@ export default function Profile() {
     setUserData(currentUserData.data);
   }
 
+  const getUserStatus = async() => {
+    const currentUserStatus = await usersClient.getUserStatus(localStorage.getItem('userId'));
+    if(currentUserStatus === 'active'){
+      setUserStatus('activo');
+      return(<></>)
+    } else if(currentUserStatus === 'inactive'){
+      setUserStatus('inactivo');
+    }
+  }
+
+  const getUserReservations = async() => {
+    const userReservations = await usersClient.getUserReservations(localStorage.getItem('userId'));
+    setUserReservations(userReservations);
+  }
+
   const logout = () => {
+    toast.success('Cerrando Sesión ...');
     localStorage.removeItem('activeSession');
-    closeModal();
     localStorage.setItem('userData', {"userId":'', "password":''});
-    history.push('/auth');
+
+    sleep(1500).then(()=>{
+      closeModal();
+      history.push('/auth');
+    })
   }
 
   const verifyUserType = (userType) => {
@@ -44,7 +69,7 @@ export default function Profile() {
         return('Administrador')
     } else if (userType === 'teachingStaff') {
         return('Personal Administrativo')
-    } else if (userType === 'coordinationAssitant') {
+    } else if (userType === 'coordinationStaff') {
         return('Personal Asistente')
     } else if (userType === 'operator') {
         return('Operador')
@@ -53,6 +78,7 @@ export default function Profile() {
   
   return (
     <>
+    <Toaster/>
       <main className="profile-page">
         <section className="relative  h-500-px"></section>
         <section className="relative py-6 ">
@@ -84,7 +110,7 @@ export default function Profile() {
                     <div className="flex justify-center py-4 lg:pt-4 pt-8">
                       <div className="mr-4 p-3 text-center">
                         <span className="text-xl font-bold block uppercase tracking-wide text-blueGray-600">
-                          0
+                          {userReservations}
                         </span>
                         <span className="text-sm text-blueGray-400">
                           Reservaciones
@@ -92,8 +118,8 @@ export default function Profile() {
                       </div>
                       
                       <div className="lg:mr-4 p-3 text-center">
-                        <span className="text-xl font-bold block  tracking-wide text-green-001">
-                          activo
+                        <span className="text-xl font-bold block tracking-wide text-blueGray-600">
+                          {userStatus}
                         </span>
                         <span className="text-sm text-blueGray-400">
                           Estado de Usuario
@@ -157,7 +183,7 @@ export default function Profile() {
         <form style={{marginTop:'20px'}}>
           <input />
           <button onClick={closeModal} style={{marginRight:'20px', color:'red'}}>Cancelar</button>
-          <button onClick={logout} style={{color:'green'}}>Cerrar Sesión</button>
+          <button type='button' onClick={logout} style={{color:'green'}}>Cerrar Sesión</button>
         </form>
       </Modal>
 

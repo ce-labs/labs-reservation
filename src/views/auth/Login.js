@@ -3,6 +3,7 @@ import { LoginClient } from "../../clients/LoginClient";
 import { UsersClient } from "../../clients/UsersClient";
 import {toast, Toaster} from 'react-hot-toast';
 import { useHistory } from "react-router-dom";
+import { sleep } from "../../assets/utils/Sleep";
 
 
 export default function Login() {
@@ -37,11 +38,23 @@ export default function Login() {
             case 'OK':
                 const userType = await usersClient.getUserType(userId);
                 localStorage.setItem('userType', userType);
-                toast.success('Bienvenido: ' + userId);
-                localStorage.setItem('userData', {"userId":userId, "password":password});
-                localStorage.setItem('userId', userId);
-                localStorage.setItem('activeSession', true);
-                history.push('/app');
+                const userStatus = await usersClient.getUserStatus(userId);
+                localStorage.setItem('userStatus', userStatus);
+                if(userStatus === 'inactive') {
+                    toast.error('Su estado de usuario es inactvo \n Favor contactar al correo: celabscr@gmail.com');
+                    sleep(2500).then(()=>{
+                        history.push('/auth');
+                      })   
+                } else if(userStatus === 'active') {
+                    toast.success('Bienvenido: ' + userId);
+                    localStorage.setItem('userData', {"userId":userId, "password":password});
+                    localStorage.setItem('userId', userId);
+                    localStorage.setItem('activeSession', true);
+                    sleep(1500).then(()=>{
+                        history.push('/app');
+                      })  
+                }
+              
                 break;
             default:
                 break;
@@ -93,19 +106,6 @@ export default function Login() {
                         onChange={handleInputChangeForPassword}
                         />
                     </div>
-                    {/*<div>
-                        <label className="inline-flex items-center cursor-pointer">
-                        <input
-                            id="customCheckLogin"
-                            type="checkbox"
-                            className="form-checkbox border-0 rounded text-blueGray-700 ml-1 w-5 h-5 ease-linear transition-all duration-150"
-                        />
-                        <span className="ml-2 text-sm font-semibold text-blueGray-600">
-                            Remember me
-                        </span>
-                        </label>
-                    </div>*/}
-
                     <div className="text-center mt-6" style={{'marginBottom': `20px`}}>
                         <button
                         className="bg-darkBlue-001 text-white active:bg-blueGray-600 text-sm font-bold uppercase px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 w-full ease-linear transition-all duration-150"

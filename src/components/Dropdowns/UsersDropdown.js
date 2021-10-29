@@ -52,6 +52,7 @@ const NotificationDropdown = (
     sleep(2000).then(()=>{
         window.location.reload();
     })
+    
   }
 
   const deleteUser = async () => {
@@ -122,7 +123,7 @@ const NotificationDropdown = (
         <form style={{marginTop:'20px'}}>
           <input />
           <button onClick={closeModal} style={{marginRight:'20px', color:'red'}}>Cancelar</button>
-          <a onClick={deleteUser} style={{color:'green'}}>Eliminar Usuario</a>
+          <button type="button" onClick={deleteUser} style={{color:'green'}}>Eliminar Usuario</button>
         </form>
       </Modal>
 
