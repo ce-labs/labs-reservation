@@ -37,7 +37,7 @@ export default function CardTable({ color }) {
         value = 'admin'
         break;
       case 'Personal Asistente':
-        value = 'coordinationAssitant'
+        value = 'coordinationStaff'
         break;
       case 'Personal Administrativo':
         value = 'teachingStaff'
@@ -91,6 +91,10 @@ export default function CardTable({ color }) {
     } else {
       return(<><TableDropdown userData={{"userId": userId, "password":password, "firstName":firstName, "lastName":lastName, "userType":userType, "userStatus": userStatus, "mail": mail, "phone": phone} }/></>)
     }
+  }
+
+  if(localStorage.getItem('userType') === 'operator' || localStorage.getItem('userType') === 'teachingStaff'){
+    return(<></>);
   }
   
   return (

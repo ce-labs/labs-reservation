@@ -50,7 +50,7 @@ export default function Profile() {
         return('Administrador')
     } else if (userType === 'teachingStaff') {
         return('Personal Administrativo')
-    } else if (userType === 'coordinationAssitant') {
+    } else if (userType === 'coordinationStaff') {
         return('Personal Asistente')
     } else if (userType === 'operator') {
         return('Operador')
