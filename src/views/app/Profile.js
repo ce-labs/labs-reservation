@@ -15,6 +15,8 @@ export default function Profile() {
   const [modalLogoutIsOpen, setLogoutIsOpen] = useState(false);
   const [modalUpdateProfileIsOpen, setUpdateProfileIsOpen] = useState(false);
   const [userData, setUserData] = useState({});
+  const [userStatus, setUserStatus] = useState('');
+  const [userReservations, setUserReservations] = useState('');
 
   let usersClient = new UsersClient();
 
@@ -27,11 +29,28 @@ export default function Profile() {
 
   useEffect(() => { 
     getUserData();
+    getUserStatus();
+    getUserReservations();
   }, [])
 
   const getUserData = async() => {
     const currentUserData = await usersClient.getSingleUser(localStorage.getItem('userId'));
     setUserData(currentUserData.data);
+  }
+
+  const getUserStatus = async() => {
+    const currentUserStatus = await usersClient.getUserStatus(localStorage.getItem('userId'));
+    if(currentUserStatus === 'active'){
+      setUserStatus('activo');
+      return(<></>)
+    } else if(currentUserStatus === 'inactive'){
+      setUserStatus('inactivo');
+    }
+  }
+
+  const getUserReservations = async() => {
+    const userReservations = await usersClient.getUserReservations(localStorage.getItem('userId'));
+    setUserReservations(userReservations);
   }
 
   const logout = () => {
@@ -91,7 +110,7 @@ export default function Profile() {
                     <div className="flex justify-center py-4 lg:pt-4 pt-8">
                       <div className="mr-4 p-3 text-center">
                         <span className="text-xl font-bold block uppercase tracking-wide text-blueGray-600">
-                          0
+                          {userReservations}
                         </span>
                         <span className="text-sm text-blueGray-400">
                           Reservaciones
@@ -99,8 +118,8 @@ export default function Profile() {
                       </div>
                       
                       <div className="lg:mr-4 p-3 text-center">
-                        <span className="text-xl font-bold block  tracking-wide text-green-001">
-                          activo
+                        <span className="text-xl font-bold block tracking-wide text-blueGray-600">
+                          {userStatus}
                         </span>
                         <span className="text-sm text-blueGray-400">
                           Estado de Usuario

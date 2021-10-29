@@ -24,7 +24,13 @@ export class UsersClient {
       const url = 'https://labs-reservation-api.herokuapp.com/api/v1/users/userStatus/' + userId;
       const response =  await axios(url);
       return response.data;
-  }
+    }
+
+    async getUserReservations(userId){        
+      const url = 'https://labs-reservation-api.herokuapp.com/api/v1/users/reservations/' + userId;
+      const response =  await axios(url);
+      return response.data;
+    }
 
     async searchUsers(category, filter) {
         const url = 'https://labs-reservation-api.herokuapp.com/api/v1/users/search/{"category":"' + category + '","filter":"' + filter + '"}';
