@@ -38,13 +38,23 @@ export default function Login() {
             case 'OK':
                 const userType = await usersClient.getUserType(userId);
                 localStorage.setItem('userType', userType);
-                toast.success('Bienvenido: ' + userId);
-                localStorage.setItem('userData', {"userId":userId, "password":password});
-                localStorage.setItem('userId', userId);
-                localStorage.setItem('activeSession', true);
-                sleep(1500).then(()=>{
-                    history.push('/app');
-                  })                
+                const userStatus = await usersClient.getUserStatus(userId);
+                localStorage.setItem('userStatus', userStatus);
+                if(userStatus === 'inactive') {
+                    toast.error('Su estado de usuario es inactvo \n Favor contactar al correo: celabscr@gmail.com');
+                    sleep(2500).then(()=>{
+                        history.push('/auth');
+                      })   
+                } else if(userStatus === 'active') {
+                    toast.success('Bienvenido: ' + userId);
+                    localStorage.setItem('userData', {"userId":userId, "password":password});
+                    localStorage.setItem('userId', userId);
+                    localStorage.setItem('activeSession', true);
+                    sleep(1500).then(()=>{
+                        history.push('/app');
+                      })  
+                }
+              
                 break;
             default:
                 break;
