@@ -3,9 +3,7 @@ import { createPopper } from "@popperjs/core";
 import Modal from 'react-modal';
 import { UsersClient } from "../../clients/UsersClient";
 import toast from "react-hot-toast";
-import { useHistory } from "react-router";
 import { sleep } from "../../assets/utils/Sleep";
-import CardUpdateUser from "../Cards/CardUserUpdate";
 import CardSettings from "../Cards/CardSettings";
 
 const customStyles = { content: { top: '50%', left: '58%', right: 'auto', bottom: 'auto', marginRight: '-50%', transform: 'translate(-50%, -50%)' }, };
