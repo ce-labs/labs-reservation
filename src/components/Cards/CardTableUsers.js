@@ -5,7 +5,7 @@ import { UsersClient } from "../../clients/UsersClient";
 import toast, { Toaster } from "react-hot-toast";
 
 import TableDropdown from "../Dropdowns/UsersDropdown";
-import CardCreateUser from "./CardCreateUser";
+import CardCreateUser from "./CardUserCreate";
 
 const customStyles = { content: { top: '50%', left: '58%', right: 'auto', bottom: 'auto', marginRight: '-50%', transform: 'translate(-50%, -50%)' }, };
 
@@ -82,6 +82,14 @@ export default function CardTable({ color }) {
         return('Personal Asistente')
     } else if (userType === 'operator') {
         return('Operador')
+    }
+  }
+
+  const setUserActions = (userId, password, firstName, lastName, userType, userStatus, mail, phone) => {
+    if(localStorage.getItem('userType') != 'admin' ){
+      return(<></>)
+    } else {
+      return(<><TableDropdown userData={{"userId": userId, "password":password, "firstName":firstName, "lastName":lastName, "userType":userType, "userStatus": userStatus, "mail": mail, "phone": phone} }/></>)
     }
   }
   
@@ -259,9 +267,11 @@ export default function CardTable({ color }) {
                     <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
                         {verifyUserStatus(item.userStatus)}
                     </td>
-                    <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-right">
-                      <TableDropdown userData={{"userId": item.userId, "password":item.password, "firstName":item.firstName, "lastName":item.lastName, "userType":item.userType, "userStatus": item.userStatus, "mail": item.mail, "phone": item.phone} }/>
-                    </td>
+                    {/*<TableDropdown userData={{"userId": item.userId, "password":item.password, "firstName":item.firstName, "lastName":item.lastName, "userType":item.userType, "userStatus": item.userStatus, "mail": item.mail, "phone": item.phone} }/>
+                      */}
+                      <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-right">
+                      {setUserActions(item.userId, item.password, item.firstName, item.lastName, item.userType, item.userStatus, item.mail, item.phone)}
+                      </td>
                     </tr>})}
             </tbody>
           </table>

@@ -2,10 +2,11 @@ import React, {useState, useEffect} from "react";
 import { UsersClient } from "../../clients/UsersClient";
 import Modal from 'react-modal';
 import {toast, Toaster} from 'react-hot-toast';
+import { sleep } from "../../assets/utils/Sleep";
 
 const customStyles = { content: { top: '50%', left: '58%', right: 'auto', bottom: 'auto', marginRight: '-50%', transform: 'translate(-50%, -50%)' }, };
 
-export default function CardSettings() {
+export default function CardSettings({currentUser}) {
 
   const [modalIsOpen, setIsOpen] = useState(false);
 
@@ -25,7 +26,8 @@ export default function CardSettings() {
   const closeModal = () => {setIsOpen(false)};
 
   const getUserData = async() => {
-    const currentUserData = await usersClient.getSingleUser(localStorage.getItem('userId'));
+    //alert(currentUser)
+    const currentUserData = await usersClient.getSingleUser(currentUser);
     setUserData(currentUserData.data);
   }
 
@@ -59,11 +61,15 @@ export default function CardSettings() {
   const updateUser = async() => {
     //alert('mail: ' +  newEmail + ' phone: '+ newPhone + ' password: ' + newPassword);
     const clientResponse = await usersClient.updatePersonalInformation(userData.userId, newEmail, newPhone, newPassword);
-    closeModal();
+    //closeModal();
     switch (clientResponse) {
         case '☑️ The user was modified successfully ... ':
             toast.success('Usuario actualizado exitosamente.');
             //history.push('/app');
+            sleep(2000).then(()=>{
+              closeModal();
+              window.location.reload();
+          })
             break;
         default:
             break;
@@ -73,7 +79,6 @@ export default function CardSettings() {
 
   return (
     <>
-      <Toaster />
       <div className="relative flex flex-col min-w-0 break-words w-full mb-6 shadow-lg rounded-lg bg-blueGray-100 border-0">
         <div className="rounded-t bg-white mb-0 px-6 py-6">
           <div className="text-center flex justify-between">
@@ -225,7 +230,7 @@ export default function CardSettings() {
         <form style={{marginTop:'20px'}}>
           <input />
           <button onClick={closeModal} style={{marginRight:'20px', color:'red'}}>Cancelar</button>
-          <button onClick={updateUser} style={{color:'green'}}>Actualizar Información</button>
+          <a onClick={updateUser} style={{color:'green'}}>Actualizar Información</a>
         </form>
       </Modal>
 

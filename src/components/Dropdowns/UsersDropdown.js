@@ -5,6 +5,8 @@ import { UsersClient } from "../../clients/UsersClient";
 import toast from "react-hot-toast";
 import { useHistory } from "react-router";
 import { sleep } from "../../assets/utils/Sleep";
+import CardUpdateUser from "../Cards/CardUserUpdate";
+import CardSettings from "../Cards/CardSettings";
 
 const customStyles = { content: { top: '50%', left: '58%', right: 'auto', bottom: 'auto', marginRight: '-50%', transform: 'translate(-50%, -50%)' }, };
 
@@ -29,10 +31,13 @@ const NotificationDropdown = (
   let usersClient = new UsersClient();
 
   const [deleteUserIsOpen, setDeleteUserIsOpen] = useState(false);
-
+  const [updateUserIsOpen, setUpdateUserIsOpen] = useState(false);
 
   const openModal = () => {setDeleteUserIsOpen(true)};
   const closeModal = () => {setDeleteUserIsOpen(false)};
+  
+  const openUpdateModal = () => {setUpdateUserIsOpen(true)};
+  const closeUpdateModal = () => {setUpdateUserIsOpen(false)};
 
   const updateUser = () => {
       console.log(userData)
@@ -84,7 +89,7 @@ const NotificationDropdown = (
           className={
             "text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-blueGray-700"
           }
-          onClick={updateUser}
+          onClick={openUpdateModal}
         >
           <i class="fas fa-edit"></i> Modificar
         </a>
@@ -119,6 +124,14 @@ const NotificationDropdown = (
           <button onClick={closeModal} style={{marginRight:'20px', color:'red'}}>Cancelar</button>
           <a onClick={deleteUser} style={{color:'green'}}>Eliminar Usuario</a>
         </form>
+      </Modal>
+
+      <Modal
+        isOpen={updateUserIsOpen}
+        onRequestClose={closeUpdateModal}
+        style={customStyles}
+      >
+        <CardSettings currentUser={userData.userId}/>
       </Modal>
       </div>
     </>
