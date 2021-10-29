@@ -2348,6 +2348,19 @@ select {
   text-align: right;
 }
 
+
+.text-darkBlue-001 {
+  color: rgba(20, 12, 60);
+}
+
+.text-darkBlue-500 {
+  color: #3a23ae ;
+}
+
+.text-darkBlue-600 {
+  color: #c4242c ;
+}
+
 .text-black {
   --tw-text-opacity: 1;
   color: rgba(0, 0, 0, var(--tw-text-opacity));

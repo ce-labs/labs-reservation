@@ -230,7 +230,7 @@ export default function CardSettings({currentUser}) {
         <form style={{marginTop:'20px'}}>
           <input />
           <button onClick={closeModal} style={{marginRight:'20px', color:'red'}}>Cancelar</button>
-          <a onClick={updateUser} style={{color:'green'}}>Actualizar Información</a>
+          <button type="button" onClick={updateUser} style={{color:'green'}}>Actualizar Información</button>
         </form>
       </Modal>
 

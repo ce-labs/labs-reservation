@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
+import toast, { Toaster } from "react-hot-toast";
 import Modal from 'react-modal';
 import { useHistory } from "react-router-dom";
+import { sleep } from "../../assets/utils/Sleep";
 import { UsersClient } from "../../clients/UsersClient";
 import CardSettings from "../../components/Cards/CardSettings";
 
@@ -33,10 +35,14 @@ export default function Profile() {
   }
 
   const logout = () => {
+    toast.success('Cerrando Sesión ...');
     localStorage.removeItem('activeSession');
-    closeModal();
     localStorage.setItem('userData', {"userId":'', "password":''});
-    history.push('/auth');
+
+    sleep(1500).then(()=>{
+      closeModal();
+      history.push('/auth');
+    })
   }
 
   const verifyUserType = (userType) => {
@@ -53,6 +59,7 @@ export default function Profile() {
   
   return (
     <>
+    <Toaster/>
       <main className="profile-page">
         <section className="relative  h-500-px"></section>
         <section className="relative py-6 ">
@@ -157,7 +164,7 @@ export default function Profile() {
         <form style={{marginTop:'20px'}}>
           <input />
           <button onClick={closeModal} style={{marginRight:'20px', color:'red'}}>Cancelar</button>
-          <button onClick={logout} style={{color:'green'}}>Cerrar Sesión</button>
+          <button type='button' onClick={logout} style={{color:'green'}}>Cerrar Sesión</button>
         </form>
       </Modal>
 
