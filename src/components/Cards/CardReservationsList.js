@@ -1,4 +1,5 @@
 import React, {useState, useEffect} from "react";
+import toast from "react-hot-toast";
 import { ReservationsClient } from "../../clients/ReservationsClient";
 
 // components
@@ -6,7 +7,8 @@ import { ReservationsClient } from "../../clients/ReservationsClient";
 export default function CardReservationsList() {
 
   const [reservations, setReservations] = useState([]);
-  const [showDescription, setShowDescription] = useState('');
+  const [category, setCategory] = useState('');
+  const [filter, setFilter] = useState('');
 
   let reservationsClient = new ReservationsClient();
 
@@ -17,7 +19,25 @@ export default function CardReservationsList() {
   const getReservations = async() => {
     const currentReservations = await reservationsClient.getSemesterReservations(localStorage.getItem('currentSemester-Year'), localStorage.getItem('currentSemester-Semester'));
     setReservations(currentReservations);
-    setShowDescription(currentReservations.showDescription)
+  }
+
+  const handleInputChangeForFilter = async(e) => {
+    var value = e.target.value;
+    setFilter(value);
+  }
+
+  const handleInputChangeForCategory = async(e) => {
+      var value = e.target.value;
+      setCategory(value);
+  }
+
+  const searchReservations = async() => {
+    if(category === 'option'){
+      toast.error('Debe seleccionar alguna opción')
+    }
+    const response = await reservationsClient.searchReservations(localStorage.getItem('currentSemester-Year'), localStorage.getItem('currentSemester-Semester'), category, filter); 
+    setReservations(response);
+    toast.success('Mostrando ' + response.length + ' resultados.')
   }
 
   const adminHeader = () => {
@@ -70,10 +90,10 @@ export default function CardReservationsList() {
       }
   }
 
-  const showDescriptionActions = (description) => {
-    if(showDescription == 'no') {
-        return(<></>)
-    } else {
+  const showDescriptionActions = (show, description) => {
+    if(show === 'no') {
+        return(<><h3 className="text-darkBlue-600">⚠️ Descripción no disponible</h3></>)
+    } else if(show === 'yes'){
         return(<>{description}</>)
     }
   }
@@ -115,7 +135,7 @@ export default function CardReservationsList() {
                         {item.scheduleSection}
                         </td>
                         <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
-                        {showDescriptionActions(item.description)}
+                        {showDescriptionActions(item.showDescription, item.description)}
                         </td>
                         <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
                         {item.manager}
@@ -141,10 +161,45 @@ export default function CardReservationsList() {
     }
   }
 
-
       
   return (
     <>
+          <div className="flex flex-wrap">
+            <div className="w-full lg:w-4/12 ">
+                <div className="relative w-full mb-3">
+                    <input
+                        type="text"
+                        className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
+                        onChange={handleInputChangeForFilter}
+                    />
+                </div>
+            </div>
+            <div className="w-full lg:w-3/12 " style={{paddingLeft:'20px'}}>
+                <div className="relative w-full mb-3">
+                    <select 
+                        name="category" id="category"        
+                        onChange={handleInputChangeForCategory}
+                        className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
+                    >
+                        <option value="option">Seleccione una opción</option>
+                        <option value="laboratory">Laboratorio</option>
+                        <option value="scheduleSection">Horario</option>
+                        <option value="week">Semana</option>
+                        <option value="date">Fecha</option>
+                    </select>
+                </div>
+            </div>
+            <div className="w-full lg:w-4/12 px-4" style={{paddingTop:'3px'}} >
+                <button 
+                  className="bg-darkBlue-001 text-white active:bg-lightBlue-600 text-sm font-bold uppercase px-4 py-2 rounded shadow hover:shadow-lg outline-none focus:outline-none lg:mr-1 lg:mb-0 ml-3 mb-3 ease-linear transition-all duration-150"
+                  type="button"
+                >
+                    <button type="button" onClick={searchReservations}>
+                        <i class="fas fa-search"></i> Buscar Reservaciones
+                    </button>
+                </button>
+              </div>
+        </div>
       <div className="relative flex flex-col min-w-0 break-words bg-white w-full mb-6 shadow-lg rounded">
         <div className="rounded-t mb-0 px-4 py-3 border-0">
           <div className="flex flex-wrap items-center">
