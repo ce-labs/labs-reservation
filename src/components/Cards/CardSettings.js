@@ -18,6 +18,9 @@ export default function CardSettings({currentUser}) {
   const [newEmail, setNewEmail] = useState('');
   const [newPhone, setNewPhone] = useState('');
   const [newPassword, setNewPassword] = useState('');
+  const [userStatus, setUserStatus] = useState('');
+  const [userType, setUserType] = useState('');
+
 
   let usersClient = new UsersClient();
 
@@ -29,9 +32,10 @@ export default function CardSettings({currentUser}) {
   const closeModal = () => {setIsOpen(false)};
 
   const getUserData = async() => {
-    //alert(currentUser)
     const currentUserData = await usersClient.getSingleUser(currentUser);
     setUserData(currentUserData.data);
+    verifyUserStatus(currentUserData.data.userStatus);
+    verifyUserType(currentUserData.data.userType);
   }
 
   const handleInputChangeForEmail = async(e) => {
@@ -47,6 +51,33 @@ export default function CardSettings({currentUser}) {
     setNewPassword(value);
   }
 
+  const verifyUserType = (type) => {
+    switch (type) {
+      case 'admin':
+        type = 'Administrador'
+        break;
+      case 'coordinationStaff':
+        type = 'Personal Asistente'
+        break;
+      case 'teachingStaff':
+        type = 'Personal Administrativo'
+        break;
+      case 'operator':
+        type = 'Operador'
+        break;  
+      default:
+        break;
+    }
+    setUserType(type);
+  }
+
+  const verifyUserStatus = (status) => {
+    if(status === 'active'){
+      setUserStatus('Activo')
+    } else if(status === 'inactive'){
+      setUserStatus('Inactivo')
+    }    
+  }
 
 
   const verifyInputData = () => {
@@ -82,6 +113,7 @@ export default function CardSettings({currentUser}) {
 
   return (
     <>
+
       <div className="relative flex flex-col min-w-0 break-words w-full mb-6 shadow-lg rounded-lg bg-blueGray-100 border-0">
         <div className="rounded-t bg-white mb-0 px-6 py-6">
           <div className="text-center flex justify-between">
@@ -120,7 +152,7 @@ export default function CardSettings({currentUser}) {
                   <input
                     type="email"
                     className="border-0 px-3 py-3 bg-readonly rounded text-sm shadow   w-full  duration-150"
-                    defaultValue={userData.userType}
+                    defaultValue={userType}
                   />
                 </div>
               </div>
@@ -134,7 +166,7 @@ export default function CardSettings({currentUser}) {
                   <input
                     type="text"
                     className="border-0 px-3 py-3 bg-readonly rounded text-sm shadow   w-full  duration-150"
-                    defaultValue={userData.userStatus}
+                    defaultValue={userStatus}
                   />
                 </div>
               </div>
