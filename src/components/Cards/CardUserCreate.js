@@ -14,6 +14,7 @@ export default function CardCreateUser() {
   const [modalIsOpen, setIsOpen] = useState(false);
   const [userTypes, setUserTypes] = useState([]);
   const [userId, setUserId] = useState('');
+  const [userType, setUserType] = useState('');
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
   const [mail, setMail] = useState('');
@@ -41,6 +42,7 @@ export default function CardCreateUser() {
   const handleLastName = async(e) => { var value = e.target.value; setLastName(value);}
   const handleMail = async(e) => { var value = e.target.value; setMail(value);}
   const handlePhone = async(e) => { var value = e.target.value; setPhone(value);}
+  const handleUserType = async(e) => { var value = e.target.value; setUserType(value);}
 
   const verifyInputData = () => {
     if(userId === '' || firstName === '' || lastName === '' || mail === '' || phone === ''){
@@ -54,10 +56,10 @@ export default function CardCreateUser() {
     }
   }
 
-
   const createUser = async() => {
+    if(userType === 'option'){setUserType('operator')}
     //console.log(userId, 'ce2021labs1srl.', 'operator', firstName, lastName, mail, phone, localStorage.getItem('userId'));
-    const response = await usersClient.createUser(userId, 'ce2021labs1srl.', 'operator', firstName, lastName, mail, phone, localStorage.getItem('userId'));
+    const response = await usersClient.createUser(userId, 'ce2021labs1srl.', userType, firstName, lastName, mail, phone, localStorage.getItem('userId'));
     if(response === '☑️ The user was created successfully ... ') {
         toast.success('Usuario Creado exitosamente');
         sleep(2000).then(()=>{
@@ -65,7 +67,6 @@ export default function CardCreateUser() {
             window.location.reload();
         })
     }
-
 
   }
 
@@ -103,16 +104,19 @@ export default function CardCreateUser() {
                 <div className="relative w-full mb-3">
                   <label
                     className="block uppercase text-blueGray-600 text-xs font-bold mb-2"
-                  >
+                    >
                     Tipo de Usuario
                   </label>
-                    {/*<select 
-                        className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
+                    <select 
+                    style={{maxWidth:'200px', width:'500px'}}
+                    className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
+                    onChange={handleUserType}
                     >
+                        <option value="option">Seleccione una opción</option>
                         {userTypes.map(data =>
                             <option value={data.name}>{data.description}</option>
                         )};
-                        </select>*/}
+                        </select>
                 </div>
               </div>
               <div className="w-full lg:w-6/12 px-4">
