@@ -4,6 +4,7 @@ import { UsersClient } from "../../clients/UsersClient";
 import {toast, Toaster} from 'react-hot-toast';
 import { useHistory } from "react-router-dom";
 import { sleep } from "../../assets/utils/Sleep";
+import { UtilsClient } from "../../clients/UtilsClient";
 
 
 export default function Login() {
@@ -15,6 +16,7 @@ export default function Login() {
 
     let loginClient = new LoginClient(); 
     let usersClient = new UsersClient(); 
+    let utilsClient = new UtilsClient();
 
     const handleInputChangeForUserId = async(e) => {
         var value = e.target.value;
@@ -38,6 +40,9 @@ export default function Login() {
             case 'OK':
                 const userType = await usersClient.getUserType(userId);
                 localStorage.setItem('userType', userType);
+                const currentSemesterData = await utilsClient.getCurrentSemester();
+                localStorage.setItem('currentSemester-Year', currentSemesterData[0].year);
+                localStorage.setItem('currentSemester-Semester', currentSemesterData[0].semester);
                 const userStatus = await usersClient.getUserStatus(userId);
                 localStorage.setItem('userStatus', userStatus);
                 if(userStatus === 'inactive') {

@@ -59,10 +59,16 @@ export default function CardTable({ color }) {
   const searchUsers = async() => {
     if(category === 'option'){
       toast.error('Debe seleccionar alguna opción')
+    } else {
+      const response = await usersClient.searchUsers(category, filter);
+      if(response.length === 0){
+        toast.error('No se encontraron resultados con las especificaciones indicadas ...');
+      } else {
+        toast.success('Mostrando ' + response.length + ' resultados.')
+      }
+      setCurrentUsers(response);
     }
-    const response = await usersClient.searchUsers(category, filter)
-    setCurrentUsers(response);
-    toast.success('Mostrando ' + response.length + ' resultados.')
+
   }
 
   const verifyUserStatus = (userStatus) => {
@@ -78,7 +84,7 @@ export default function CardTable({ color }) {
         return('Administrador')
     } else if (userType === 'teachingStaff') {
         return('Personal Administrativo')
-    } else if (userType === 'coordinationAssitant') {
+    } else if (userType === 'coordinationStaff') {
         return('Personal Asistente')
     } else if (userType === 'operator') {
         return('Operador')
@@ -92,6 +98,24 @@ export default function CardTable({ color }) {
       return(<><TableDropdown userData={{"userId": userId, "password":password, "firstName":firstName, "lastName":lastName, "userType":userType, "userStatus": userStatus, "mail": mail, "phone": phone} }/></>)
     }
   }
+
+  const setCreateUserButton = () => {
+    if(localStorage.getItem('userType') != 'admin' ){
+      return(<></>)
+    } else {
+      return(
+        <>
+            <button
+              className="bg-darkBlue-001 active:bg-lightBlue-600 uppercase text-white font-bold hover:shadow-md shadow text-xs px-4 py-2 rounded outline-none focus:outline-none sm:mr-2 mb-1 ease-linear transition-all duration-150"
+              type="button"
+              onClick={openModal}
+            >
+              <i className="fas fa-plus"></i> Crear Nuevo Usuario
+            </button>
+        </>
+      )
+    }
+    }
 
   if(localStorage.getItem('userType') === 'operator' || localStorage.getItem('userType') === 'teachingStaff'){
     return(<></>);
@@ -154,13 +178,7 @@ export default function CardTable({ color }) {
                 Lista de Usuarios
               </h3>
             </div>
-            <button
-              className="bg-darkBlue-001 active:bg-lightBlue-600 uppercase text-white font-bold hover:shadow-md shadow text-xs px-4 py-2 rounded outline-none focus:outline-none sm:mr-2 mb-1 ease-linear transition-all duration-150"
-              type="button"
-              onClick={openModal}
-            >
-              <i className="fas fa-plus"></i> Crear Nuevo Usuario
-            </button>
+                {setCreateUserButton()}
           </div>
         </div>
         <div className="block w-full overflow-x-auto">
