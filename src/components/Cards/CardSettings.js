@@ -4,7 +4,8 @@ import Modal from 'react-modal';
 import {toast, Toaster} from 'react-hot-toast';
 import { sleep } from "../../assets/utils/Sleep";
 import validator from 'validator' 
-
+import { checkMailFormat, checkPhoneFormat } from "../../assets/utils/CheckFomats";
+ 
 
 const customStyles = { content: { top: '50%', left: '58%', right: 'auto', bottom: 'auto', marginRight: '-50%', transform: 'translate(-50%, -50%)' }, };
 
@@ -46,26 +47,14 @@ export default function CardSettings({currentUser}) {
     setNewPassword(value);
   }
 
-  const checkMailFormat = () => {
-    let re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-     if(re.test(newEmail)) {
-       return true;
-    } else {
-      return false;
-    }
-  }
 
-  const checkPhoneFormat = () => {
-    const isValidPhoneNumber = validator.isMobilePhone(newPhone);
-    return (isValidPhoneNumber)
-  }
 
   const verifyInputData = () => {
     if(newEmail === ''){ setNewEmail(userData.mail) } 
     if(newPhone === '') { setNewPhone(userData.phone) }
     if(newPassword === '') { setNewPassword(userData.password) }
 
-    if(!checkMailFormat() ||  !checkPhoneFormat()) {
+    if(!checkMailFormat(newEmail) ||  !checkPhoneFormat(newPhone)) {
       toast.error('Formato de Correo Electrónico o Número Telefónico Incorrecto ...')
     } else {
       openModal();

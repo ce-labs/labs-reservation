@@ -3,8 +3,8 @@ import Modal from 'react-modal';
 import toast from "react-hot-toast";
 import { UtilsClient } from "../../clients/UtilsClient";
 import { UsersClient } from "../../clients/UsersClient";
-import { useHistory } from "react-router";
 import { sleep } from "../../assets/utils/Sleep";
+import { checkMailFormat, checkPhoneFormat } from "../../assets/utils/CheckFomats";
 
 const customStyles = { content: { top: '50%', left: '58%', right: 'auto', bottom: 'auto', marginRight: '-50%', transform: 'translate(-50%, -50%)' }, };
 
@@ -41,6 +41,18 @@ export default function CardCreateUser() {
   const handleLastName = async(e) => { var value = e.target.value; setLastName(value);}
   const handleMail = async(e) => { var value = e.target.value; setMail(value);}
   const handlePhone = async(e) => { var value = e.target.value; setPhone(value);}
+
+  const verifyInputData = () => {
+    if(userId === '' || firstName === '' || lastName === '' || mail === '' || phone === ''){
+      toast.error('Debe llenar todos los espacios ...')
+    } else {
+      if(!checkMailFormat(mail) ||  !checkPhoneFormat(phone)) {
+        toast.error('Formato de Correo Electrónico o Número Telefónico Incorrecto ...')
+      } else {
+        openModal();
+      }
+    }
+  }
 
 
   const createUser = async() => {
@@ -205,7 +217,7 @@ export default function CardCreateUser() {
               <div className="w-full lg:w-8/12 px-4" style={{marginLeft: 'auto', paddingTop:'25px'}}>
                 <a
                   className="github-star ml-1 text-white font-bold px-6 py-4 rounded outline-none focus:outline-none mr-1 mb-1 bg-darkBlue-001 active:bg-blueGray-600 uppercase text-sm shadow hover:shadow-lg ease-linear transition-all duration-150"
-                  onClick={openModal}
+                  onClick={verifyInputData}
                 >
                   <i class="fas fa-plus"></i> Crear Nuevo Usuario
                 </a>
