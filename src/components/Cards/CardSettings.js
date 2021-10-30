@@ -3,6 +3,8 @@ import { UsersClient } from "../../clients/UsersClient";
 import Modal from 'react-modal';
 import {toast, Toaster} from 'react-hot-toast';
 import { sleep } from "../../assets/utils/Sleep";
+import validator from 'validator' 
+
 
 const customStyles = { content: { top: '50%', left: '58%', right: 'auto', bottom: 'auto', marginRight: '-50%', transform: 'translate(-50%, -50%)' }, };
 
@@ -44,18 +46,30 @@ export default function CardSettings({currentUser}) {
     setNewPassword(value);
   }
 
-  const verifyInputData = () => {
-    if(newEmail === ''){
-        setNewEmail(userData.mail)
-    } 
-    if(newPhone === '') {
-        setNewPhone(userData.phone)
+  const checkMailFormat = () => {
+    let re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+     if(re.test(newEmail)) {
+       return true;
+    } else {
+      return false;
     }
-    if(newPassword === '') {
-        setNewPassword(userData.password)
-    }
-    openModal();
+  }
 
+  const checkPhoneFormat = () => {
+    const isValidPhoneNumber = validator.isMobilePhone(newPhone);
+    return (isValidPhoneNumber)
+  }
+
+  const verifyInputData = () => {
+    if(newEmail === ''){ setNewEmail(userData.mail) } 
+    if(newPhone === '') { setNewPhone(userData.phone) }
+    if(newPassword === '') { setNewPassword(userData.password) }
+
+    if(!checkMailFormat() ||  !checkPhoneFormat()) {
+      toast.error('Formato de Correo Electrónico o Número Telefónico Incorrecto ...')
+    } else {
+      openModal();
+    }
   }
 
   const updateUser = async() => {
@@ -165,7 +179,7 @@ export default function CardSettings({currentUser}) {
                     Correo Electrónico
                   </label>
                   <input
-                    type="text"
+                    type="email"
                     className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
                     defaultValue={userData.mail}
                     onChange={handleInputChangeForEmail}
