@@ -59,10 +59,16 @@ export default function CardTable({ color }) {
   const searchUsers = async() => {
     if(category === 'option'){
       toast.error('Debe seleccionar alguna opción')
+    } else {
+      const response = await usersClient.searchUsers(category, filter);
+      if(response.length === 0){
+        toast.error('No se encontraron resultados con las especificaciones indicadas ...');
+      } else {
+        toast.success('Mostrando ' + response.length + ' resultados.')
+      }
+      setCurrentUsers(response);
     }
-    const response = await usersClient.searchUsers(category, filter)
-    setCurrentUsers(response);
-    toast.success('Mostrando ' + response.length + ' resultados.')
+
   }
 
   const verifyUserStatus = (userStatus) => {

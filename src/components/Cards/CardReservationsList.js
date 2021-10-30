@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from "react";
-import toast from "react-hot-toast";
+import toast, { Toaster } from "react-hot-toast";
 import { ReservationsClient } from "../../clients/ReservationsClient";
 
 // components
@@ -34,10 +34,15 @@ export default function CardReservationsList() {
   const searchReservations = async() => {
     if(category === 'option'){
       toast.error('Debe seleccionar alguna opción')
+    } else{ 
+      const response = await reservationsClient.searchReservations(localStorage.getItem('currentSemester-Year'), localStorage.getItem('currentSemester-Semester'), category, filter); 
+      if(response.length === 0){
+        toast.error('No se encontraron resultados con las especificaciones indicadas ...');
+      } else {
+        toast.success('Mostrando ' + response.length + ' resultados.')
+      }
+      setReservations(response);
     }
-    const response = await reservationsClient.searchReservations(localStorage.getItem('currentSemester-Year'), localStorage.getItem('currentSemester-Semester'), category, filter); 
-    setReservations(response);
-    toast.success('Mostrando ' + response.length + ' resultados.')
   }
 
   const adminHeader = () => {
@@ -63,6 +68,9 @@ export default function CardReservationsList() {
             <>
               <th className="px-6 bg-blueGray-50 text-blueGray-500 align-middle border border-solid border-blueGray-100 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left">
                 Laboratorio
+              </th>
+              <th className="px-6 bg-blueGray-50 text-blueGray-500 align-middle border border-solid border-blueGray-100 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left">
+                Semana
               </th>
               <th className="px-6 bg-blueGray-50 text-blueGray-500 align-middle border border-solid border-blueGray-100 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left">
                 Fecha
@@ -129,6 +137,9 @@ export default function CardReservationsList() {
                         {item.laboratory}
                         </th>
                         <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
+                        {item.week}
+                        </td>
+                        <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
                         {item.date}
                         </td>
                         <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
@@ -164,6 +175,7 @@ export default function CardReservationsList() {
       
   return (
     <>
+          <Toaster/>
           <div className="flex flex-wrap">
             <div className="w-full lg:w-4/12 ">
                 <div className="relative w-full mb-3">
