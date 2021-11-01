@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from "react";
-import toast from "react-hot-toast";
+import toast, { Toaster } from "react-hot-toast";
 import { BlockadesClient } from "../../clients/BlockadesClient";
 
 // components
@@ -48,6 +48,43 @@ export default function CardBlockadesList() {
 
   return (
     <>
+          <Toaster/>
+          <div className="flex flex-wrap">
+            <div className="w-full lg:w-4/12 ">
+                <div className="relative w-full mb-3">
+                    <input
+                        type="text"
+                        className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
+                        onChange={handleInputChangeForFilter}
+                    />
+                </div>
+            </div>
+            <div className="w-full lg:w-3/12 " style={{paddingLeft:'20px'}}>
+                <div className="relative w-full mb-3">
+                    <select 
+                        name="category" id="category"        
+                        onChange={handleInputChangeForCategory}
+                        className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
+                    >
+                        <option value="option">Seleccione una opción</option>
+                        <option value="laboratory">Laboratorio</option>
+                        <option value="scheduleSection">Horario</option>
+                        <option value="day">Día</option>
+                        <option value="description">Descripción</option>
+                    </select>
+                </div>
+            </div>
+            <div className="w-full lg:w-4/12 px-4" style={{paddingTop:'3px'}} >
+                <button 
+                  className="bg-darkBlue-001 text-white active:bg-lightBlue-600 text-sm font-bold uppercase px-4 py-2 rounded shadow hover:shadow-lg outline-none focus:outline-none lg:mr-1 lg:mb-0 ml-3 mb-3 ease-linear transition-all duration-150"
+                  type="button"
+                >
+                    <button type="button" onClick={searchBlockades}>
+                        <i class="fas fa-search"></i> Buscar Reservaciones
+                    </button>
+                </button>
+              </div>
+        </div>
       <div className="relative flex flex-col min-w-0 break-words bg-white w-full mb-6 shadow-lg rounded">
         <div className="rounded-t mb-0 px-4 py-3 border-0">
           <div className="flex flex-wrap items-center">
