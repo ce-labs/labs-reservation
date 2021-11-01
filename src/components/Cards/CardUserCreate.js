@@ -66,7 +66,10 @@ export default function CardCreateUser() {
             closeModal();
             window.location.reload();
         })
-    }
+    } else if(response === '⚠️ There is already a user with the given id ...') {
+      toast.error('Ya existe un usuario con el mismo id. \n Intente de nuevo.');
+      closeModal();
+  }
 
   }
 
