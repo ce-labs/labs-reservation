@@ -21,7 +21,7 @@ export default function Index() {
                 laboratorios del Área Académica de Ingeniería en Computadores. Está destinada para que operadores, profesores y personal 
                 administrativo realicen la gestión de reservaciones desde su computadora.
               </p>
-              <div className="mt-12">
+              <div className="mt-12" to='/auth'>
                 <button 
                   className="github-star ml-1 text-white font-bold px-6 py-4 rounded outline-none focus:outline-none mr-1 mb-1 bg-darkBlue-001 active:bg-blueGray-600 uppercase text-sm shadow hover:shadow-lg ease-linear transition-all duration-150"
                   type="button"
