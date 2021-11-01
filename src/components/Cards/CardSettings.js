@@ -3,6 +3,9 @@ import { UsersClient } from "../../clients/UsersClient";
 import Modal from 'react-modal';
 import {toast, Toaster} from 'react-hot-toast';
 import { sleep } from "../../assets/utils/Sleep";
+import validator from 'validator' 
+import { checkMailFormat, checkPhoneFormat } from "../../assets/utils/CheckFomats";
+ 
 
 const customStyles = { content: { top: '50%', left: '58%', right: 'auto', bottom: 'auto', marginRight: '-50%', transform: 'translate(-50%, -50%)' }, };
 
@@ -15,6 +18,9 @@ export default function CardSettings({currentUser}) {
   const [newEmail, setNewEmail] = useState('');
   const [newPhone, setNewPhone] = useState('');
   const [newPassword, setNewPassword] = useState('');
+  const [userStatus, setUserStatus] = useState('');
+  const [userType, setUserType] = useState('');
+
 
   let usersClient = new UsersClient();
 
@@ -26,9 +32,10 @@ export default function CardSettings({currentUser}) {
   const closeModal = () => {setIsOpen(false)};
 
   const getUserData = async() => {
-    //alert(currentUser)
     const currentUserData = await usersClient.getSingleUser(currentUser);
     setUserData(currentUserData.data);
+    verifyUserStatus(currentUserData.data.userStatus);
+    verifyUserType(currentUserData.data.userType);
   }
 
   const handleInputChangeForEmail = async(e) => {
@@ -44,18 +51,45 @@ export default function CardSettings({currentUser}) {
     setNewPassword(value);
   }
 
-  const verifyInputData = () => {
-    if(newEmail === ''){
-        setNewEmail(userData.mail)
-    } 
-    if(newPhone === '') {
-        setNewPhone(userData.phone)
+  const verifyUserType = (type) => {
+    switch (type) {
+      case 'admin':
+        type = 'Administrador'
+        break;
+      case 'coordinationStaff':
+        type = 'Personal Asistente'
+        break;
+      case 'teachingStaff':
+        type = 'Personal Administrativo'
+        break;
+      case 'operator':
+        type = 'Operador'
+        break;  
+      default:
+        break;
     }
-    if(newPassword === '') {
-        setNewPassword(userData.password)
-    }
-    openModal();
+    setUserType(type);
+  }
 
+  const verifyUserStatus = (status) => {
+    if(status === 'active'){
+      setUserStatus('Activo')
+    } else if(status === 'inactive'){
+      setUserStatus('Inactivo')
+    }    
+  }
+
+
+  const verifyInputData = () => {
+    if(newEmail === ''){ setNewEmail(userData.mail) } 
+    if(newPhone === '') { setNewPhone(userData.phone) }
+    if(newPassword === '') { setNewPassword(userData.password) }
+
+    if(!checkMailFormat(newEmail) ||  !checkPhoneFormat(newPhone)) {
+      toast.error('Formato de Correo Electrónico o Número Telefónico Incorrecto ...')
+    } else {
+      openModal();
+    }
   }
 
   const updateUser = async() => {
@@ -79,6 +113,7 @@ export default function CardSettings({currentUser}) {
 
   return (
     <>
+
       <div className="relative flex flex-col min-w-0 break-words w-full mb-6 shadow-lg rounded-lg bg-blueGray-100 border-0">
         <div className="rounded-t bg-white mb-0 px-6 py-6">
           <div className="text-center flex justify-between">
@@ -117,7 +152,7 @@ export default function CardSettings({currentUser}) {
                   <input
                     type="email"
                     className="border-0 px-3 py-3 bg-readonly rounded text-sm shadow   w-full  duration-150"
-                    defaultValue={userData.userType}
+                    defaultValue={userType}
                   />
                 </div>
               </div>
@@ -131,7 +166,7 @@ export default function CardSettings({currentUser}) {
                   <input
                     type="text"
                     className="border-0 px-3 py-3 bg-readonly rounded text-sm shadow   w-full  duration-150"
-                    defaultValue={userData.userStatus}
+                    defaultValue={userStatus}
                   />
                 </div>
               </div>
@@ -165,7 +200,7 @@ export default function CardSettings({currentUser}) {
                     Correo Electrónico
                   </label>
                   <input
-                    type="text"
+                    type="email"
                     className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
                     defaultValue={userData.mail}
                     onChange={handleInputChangeForEmail}

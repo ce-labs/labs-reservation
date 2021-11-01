@@ -22,12 +22,14 @@ export default function Index() {
                 administrativo realicen la gestión de reservaciones desde su computadora.
               </p>
               <div className="mt-12">
-                <a
-                  href="/auth"
+                <button 
                   className="github-star ml-1 text-white font-bold px-6 py-4 rounded outline-none focus:outline-none mr-1 mb-1 bg-darkBlue-001 active:bg-blueGray-600 uppercase text-sm shadow hover:shadow-lg ease-linear transition-all duration-150"
+                  type="button"
                 >
-                  <i class="fas fa-sign-in-alt"></i> Iniciar Sesión
-                </a>
+                    <a href="/auth">
+                        <i class="fas fa-sign-in-alt"></i> Iniciar Sesión
+                    </a>
+                </button>
               </div>
             </div>
           </div>

@@ -8,4 +8,10 @@ export class UtilsClient {
         return response.data;
     }
 
+    async getCurrentSemester(){
+        const url = 'https://labs-reservation-api.herokuapp.com/api/v1/utils/semester';
+        const response =  await axios(url);
+        return response.data;
+    }
+
 }
