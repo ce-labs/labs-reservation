@@ -7,9 +7,27 @@ export default function Reservations() {
   let history = useHistory();
   return (
     <>
-      <button type="button" onClick={()=> {history.replace('/app/reservations/reservations')}} style={{marginTop:'150px', marginRight:'30px', backgroundColor:'#000', color:'#fff'}}>lista de reservaciones</button>
-      <button type="button" onClick={()=> {history.replace('/app/reservations/blockades')}} style={{marginTop:'150px', backgroundColor:'#000', color:'#fff'}}>lista de bloqueos</button>
-      <CardCalendar />
+      <div className="flex flex-wrap mt-4">
+        <div className="w-full mb-12 px-4" style={{paddingTop:'150px'}}>
+          <CardCalendar />
+        </div>
+      </div>
+      <div className="relative  " style={{margin: 'auto', width: '35%', padding: '10px'}}>
+      <button
+              className="bg-darkBlue-001 active:bg-lightBlue-600 uppercase text-white font-bold hover:shadow-md shadow text-xs px-4 py-2 rounded outline-none focus:outline-none sm:mr-2 mb-1 ease-linear transition-all duration-150"
+              type="button"
+              onClick={()=> {history.replace('/app/reservations/reservations')}}
+            >
+              <i className="fas fa-list"></i> Lista general de reservaciones
+            </button>
+            <button
+              className="bg-darkBlue-001 active:bg-lightBlue-600 uppercase text-white font-bold hover:shadow-md shadow text-xs px-4 py-2 rounded outline-none focus:outline-none sm:mr-2 mb-1 ease-linear transition-all duration-150"
+              type="button"
+              onClick={()=> {history.replace('/app/reservations/blockades')}}
+            >
+              <i className="fas fa-lock"></i> Lista general de bloqueos
+            </button>
+      </div>
     </>
   );
 }

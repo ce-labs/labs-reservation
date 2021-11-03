@@ -1,129 +1,113 @@
-import React, { useState } from "react";
-import FullCalendar, { formatDate } from '@fullcalendar/react'
-import dayGridPlugin from '@fullcalendar/daygrid'
-import timeGridPlugin from '@fullcalendar/timegrid'
-import interactionPlugin from '@fullcalendar/interaction'
-import { INITIAL_EVENTS, createEventId } from '../../assets/utils/Events';
+import React, { useState } from 'react';
+import 'resize-observer-polyfill/dist/ResizeObserver.global';
+import { TimeGridScheduler, classes } from '@remotelock/react-week-scheduler';
+import '@remotelock/react-week-scheduler/index.css';
 
+const rangeStrings = [
+  ['2019-03-05 09:00', '2019-03-05 11:30', 'asdsadasd'],
+  ['2019-03-07 01:30', '2019-03-07 03:00'],
+  ['2019-03-07 05:30', '2019-03-07 10:00'],
+  ['2019-03-08 12:30', '2019-03-08 01:30'],
+];
+
+const defaultSchedule = rangeStrings.map(range =>
+  range.map(dateString => new Date(dateString)),
+);
 
 export default function CardCalendar() {
+  const [schedule, setSchedule] = useState(defaultSchedule);
 
-    const [weekendsVisible, setWeekendsVisible] = useState(true);
-    const [currentEvents, setCurrentEvents] = useState([]);
-    
-    const renderSidebar = () => {
-        return(
-            <>
-                <div className='demo-app-sidebar'>
-                    <div className='demo-app-sidebar-section'>
-                    <h2>Instructions</h2>
-                    <ul>
-                        <li>Select dates and you will be prompted to create a new event</li>
-                        <li>Drag, drop, and resize events</li>
-                        <li>Click an event to delete it</li>
-                    </ul>
-                    </div>
-                    <div className='demo-app-sidebar-section'>
-                    <label>
-                        <input
-                        type='checkbox'
-                        checked={weekendsVisible}
-                        onChange={handleWeekendsToggle}
-                        ></input>
-                        toggle weekends
+  return (
+    <>
+        <div className="flex flex-wrap">
+            <div className="w-full lg:w-3/12 " >
+                <div className="relative w-full mb-3">
+                    <label
+                      className="block uppercase text-blueGray-600 text-xs font-bold mb-2"
+                    >
+                      Laboratorio
                     </label>
-                    </div>
-                    <div className='demo-app-sidebar-section'>
-                    <h2>All Events ({currentEvents.length})</h2>
-                    <ul>
-                        {currentEvents.map(renderSidebarEvent)}
-                    </ul>
-                    </div>
-                </div>
-            </>
-        )
-    }
-
-    const handleWeekendsToggle = () => {
-        setWeekendsVisible(!weekendsVisible)
-        {/*this.setState({
-          weekendsVisible: !this.state.weekendsVisible
-        })*/}
-      }
-
-    function renderSidebarEvent (event) {
-        return (
-          <li key={event.id}>
-            <b>{formatDate(event.start, {year: 'numeric', month: 'short', day: 'numeric'})}</b>
-            <i>{event.title}</i>
-          </li>
-        )
-    }
-
-    const handleDateSelect = (selectInfo) => {
-        let title = prompt('Please enter a new title for your event')
-        let calendarApi = selectInfo.view.calendar
-    
-        calendarApi.unselect() // clear date selection
-    
-        if (title) {
-          calendarApi.addEvent({
-            id: createEventId(),
-            title,
-            start: selectInfo.startStr,
-            end: selectInfo.endStr,
-            allDay: selectInfo.allDay
-          })
-        }
-    }
-
-    const handleEventClick = (clickInfo) => {
-        {/*if (confirm(`Are you sure you want to delete the event '${clickInfo.event.title}'`)) {
-          clickInfo.event.remove()
-        }*/}
-      }
-
-    const handleEvents = (events) => {
-        setCurrentEvents(events);
-      }
-
-    function renderEventContent(eventInfo) {
-        return (
-          <>
-            <b>{eventInfo.timeText}</b> - 
-            <i>{eventInfo.event.title}</i>
-          </>
-        )
-      }
-
-    return(
-        <>
-            <div className='demo-app'>
-                {renderSidebar}
-                <div className='demo-app-main'>
-                <FullCalendar
-                    plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin]}
-                    headerToolbar={{
-                    left: '',
-                    center: 'title',
-                    right: ''
-                    }}
-                    initialView='timeGridWeek'
-                    editable={true}
-                    selectable={false}
-                    selectMirror={false}
-                    dayMaxEvents={false}
-                    weekends={weekendsVisible}
-                    initialEvents={INITIAL_EVENTS} // alternatively, use the `events` setting to fetch from a feed
-                    select={handleDateSelect}
-                    eventContent={renderEventContent} // custom render function
-                    eventClick={handleEventClick}
-                    eventsSet={handleEvents} 
-                />
+                    <select 
+                        name="category" id="category"        
+                        onChange='{handleInputChangeForCategory}'
+                        className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
+                    >
+                        <option value="option">Seleccione una opción</option>
+                        <option value="laboratory">Laboratorio</option>
+                        <option value="scheduleSection">Horario</option>
+                        <option value="day">Día</option>
+                        <option value="description">Descripción</option>
+                    </select>
                 </div>
             </div>
-        </>
-    )
+            <div className="w-full lg:w-3/12 " style={{paddingLeft:'20px'}}>
+                <div className="relative w-full mb-3">
+                    <label
+                      className="block uppercase text-blueGray-600 text-xs font-bold mb-2"
+                    >
+                      Semana
+                    </label>
+                    <select 
+                        name="category" id="category"        
+                        onChange='{handleInputChangeForCategory}'
+                        className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
+                    >
+                        <option value="option">Seleccione una opción</option>
+                        <option value="laboratory">Laboratorio</option>
+                        <option value="scheduleSection">Horario</option>
+                        <option value="day">Día</option>
+                        <option value="description">Descripción</option>
+                    </select>
+                </div>
+            </div>
+            <div className="w-full lg:w-3/12" style={{paddingLeft:'20px'}}>
+            <div className="relative w-full mb-3">
+                <label
+                  className="block uppercase text-blueGray-100 text-xs font-bold mb-2"
+                 >
+                  .
+                </label>
+                <button 
+                  className="border-0 px-3 py-3 placeholder-blueGray-300 bg-darkBlue-001 text-white active:bg-lightBlue-600  rounded text-sm shadow focus:outline-none focus:ring ease-linear transition-all duration-150"
+                  type="button"
+                >
+                    <button type="button" onClick='{searchBlockades}'>
+                        <i class="fas fa-search"></i> Buscar Reservaciones
+                    </button>
+                </button>
+              </div>
+            </div>
+        <div  className="relative flex flex-col min-w-0 break-words w-full mb-6 shadow-lg rounded ">
 
+        <div className="block w-full overflow-x-auto">
 
+        <div
+          style={{
+            width: "100%",
+            height: "700px",
+            "--cell-height": "20px",
+            "--cell-width": "50px"
+          }}
+        >
+          <TimeGridScheduler
+            classes={classes}
+            style={{ width: "100%", height: "100%" }}
+            originDate={new Date("2019-03-04")}
+            schedule={schedule}
+            
+            onChange={setSchedule}
+            visualGridVerticalPrecision={45}
+            verticalPrecision={15}
+            cellClickPrecision={60}
+
+            disabled={true}
+          />
+        </div>
+        </div>
+        </div>
+        </div>
+    </>
+
+   
+  );
 }

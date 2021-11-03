@@ -43,6 +43,7 @@ export default function Login() {
                 const currentSemesterData = await utilsClient.getCurrentSemester();
                 localStorage.setItem('currentSemester-Year', currentSemesterData[0].year);
                 localStorage.setItem('currentSemester-Semester', currentSemesterData[0].semester);
+                localStorage.setItem('currentSemester-Week', currentSemesterData[0].week);
                 const userStatus = await usersClient.getUserStatus(userId);
                 localStorage.setItem('userStatus', userStatus);
                 if(userStatus === 'inactive') {
