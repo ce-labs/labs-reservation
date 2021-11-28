@@ -16,8 +16,8 @@ export default function Sidebar() {
         className={
           "text-xs uppercase py-3 font-bold block " +
           (window.location.href.indexOf("/app/users") !== -1
-          ? "text-darkBlue-600 hover:text-darkBlue-600"
-          : "text-blueGray-700 hover:text-blueGray-500")
+          ? "text-black hover:text-blueGray-700 "
+          : "text-blueGray-800 hover:text-blueGray-600")
         }
         to="/app/users"
       >
@@ -107,9 +107,9 @@ export default function Sidebar() {
             {/* Divider */}
             <hr className="my-4 md:min-w-full" />
             {/* Heading */}
-            <h6 className="md:min-w-full text-blueGray-500 text-xs uppercase font-bold block pt-1 pb-4 no-underline">
+            {/*<h6 className="md:min-w-full text-blueGray-500 text-xs uppercase font-bold block pt-1 pb-4 no-underline">
               Páginas 
-            </h6>
+            </h6>*/}
             {/* Navigation */}
 
             <ul className="md:flex-col md:min-w-full flex flex-col list-none">
@@ -118,8 +118,8 @@ export default function Sidebar() {
                   className={
                     "text-xs uppercase py-3 font-bold block " +
                     (window.location.href.indexOf("/app/reservations") !== -1
-                    ? "text-darkBlue-600 hover:text-darkBlue-600"
-                      : "text-blueGray-700 hover:text-blueGray-500")
+                    ? "text-black hover:text-blueGray-700"
+                    : "text-blueGray-800 hover:text-blueGray-600")
                   }
                   to="/app/reservations"
                 >
@@ -144,8 +144,8 @@ export default function Sidebar() {
                   className={
                     "text-xs uppercase py-3 font-bold block " +
                     (window.location.href.indexOf("/app/profile") !== -1
-                    ? "text-darkBlue-600 hover:text-darkBlue-600"
-                    : "text-blueGray-700 hover:text-blueGray-500")
+                    ? "text-black hover:text-blueGray-700 "
+                    : "text-blueGray-800 hover:text-blueGray-600")
                   }
                   to="/app/profile"
                 >
@@ -162,51 +162,14 @@ export default function Sidebar() {
               </li>
             </ul>
 
-   
-
-            {/* Divider */}
-            <hr className="my-4 md:min-w-full" />
-            {/* Heading */}
-            <h6 className="md:min-w-full text-blueGray-500 text-xs uppercase font-bold block pt-1 pb-4 no-underline">
-              Otros Recursos
-            </h6>
-            {/* Navigation */}
-
-            <ul className="md:flex-col md:min-w-full flex flex-col list-none md:mb-4">
-
-
+          </div>
+          <ul className="md:flex-col md:min-w-full flex flex-col list-none">
               <li className="items-center">
-                <Link
-                  className="text-blueGray-700 hover:text-blueGray-500 text-xs uppercase py-3 font-bold block"
-                  to="/"
-                >
-                  <i className="fas fa-scroll text-blueGray-400 mr-2 text-sm"></i>{" "}
-                  Términos y Condiciones
-                </Link>
-              </li>
-
-              <li className="items-center">
-                <Link
-                  className="text-blueGray-700 hover:text-blueGray-500 text-xs uppercase py-3 font-bold block"
-                  to="/"
-                >
-                  <i className="fas fa-user-secret text-blueGray-400 mr-2 text-sm"></i>{" "}
-                  Política de Privacidad
-                </Link>
-              </li>
-
-              <li className="items-center">
-                <Link
-                  className="text-blueGray-700 hover:text-blueGray-500 text-xs uppercase py-3 font-bold block"
-                  to="/"
-                >
-                  <i className="fas fa-envelope text-blueGray-400 mr-2 text-sm"></i>{" "}
-                  Contacto
-                </Link>
+                <a className="text-black hover:text-blueGray-700 align-middle text-xs mt-0 mb-2" href="https://github.com/ce-labs" target="_blank">
+                    Sistema de Reservación de Laboratorios v1.0 
+                </a>
               </li>
             </ul>
-
-          </div>
         </div>
       </nav>
     </>

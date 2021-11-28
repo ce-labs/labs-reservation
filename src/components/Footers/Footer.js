@@ -28,30 +28,8 @@ export default function Footer() {
             <div className="w-full lg:w-6/12 px-4">
               <h4 className="text-3xl font-semibold">¡Mantente en contacto!</h4>
               <h5 className="text-lg mt-0 mb-2 text-blueGray-600">
-                Para cualquier duda acerca de la plataforma: celabscr@gmail.com
+                Para cualquier duda sobre la plataforma: celabscr@gmail.com
               </h5>
-              <div className="mt-6 lg:mb-0 mb-6">
-                <button
-                  className="bg-white text-blueGray-800 shadow-lg font-normal h-10 w-10 items-center justify-center align-center rounded-full outline-none focus:outline-none mr-2"
-                  type="button"
-                >
-                 <a href='mailto:celabscr@gmail.com'
-                     target="_blank"
-                     rel="noreferrer">
-                    <i className="fas fa-envelope"></i>
-                  </a>
-                </button>
-                <button
-                  className="bg-white text-blueGray-800 shadow-lg font-normal h-10 w-10 items-center justify-center align-center rounded-full outline-none focus:outline-none mr-2"
-                  type="button"                  
-                >
-                  <a href='https://github.com/ce-labs'
-                     target="_blank"
-                     rel="noreferrer">
-                    <i className="fab fa-github"></i>
-                  </a>
-                </button>
-              </div>
             </div>
             <div className="w-full lg:w-6/12 px-4">
               <div className="flex flex-wrap items-top mb-6">
@@ -88,7 +66,7 @@ export default function Footer() {
                         className="text-blueGray-600 hover:text-blueGray-800 font-semibold block pb-2 text-sm"
                         href="https://github.com/ce-labs/labs-reservation/blob/main/LICENSE.md"
                       >
-                        Licencia MIT 
+                        Licencia  
                       </a>
                     </li>
                     <li>

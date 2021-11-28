@@ -12,9 +12,9 @@ export default function FooterApp() {
                 Copyright © {new Date().getFullYear()}{" "}
                 <a
                   href="https://github.com/ce-labs"
-                  className="text-black hover:text-blueGray-300 text-sm font-semibold py-1"
+                  className="text-black hover:text-blueGray-700 text-sm font-semibold py-1"
                 >
-                  ce-labs
+                  Sistema de Reservación de Laboratorios
                 </a>
               </div>
             </div>
@@ -23,7 +23,7 @@ export default function FooterApp() {
                 <li>
                   <a
                     href="https://github.com/ce-labs"
-                    className="text-black hover:text-blueGray-300 text-sm font-semibold block py-1 px-3"
+                    className="text-black hover:text-blueGray-700 text-sm font-semibold block py-1 px-3"
                   >
                     CE Labs
                   </a>
@@ -31,15 +31,15 @@ export default function FooterApp() {
                 <li>
                   <a
                         href="https://github.com/ce-labs/labs-reservation/blob/main/LICENSE.md"
-                        className="text-black hover:text-blueGray-300 text-sm font-semibold block py-1 px-3"
+                        className="text-black hover:text-blueGray-700 text-sm font-semibold block py-1 px-3"
                   >
-                    Licencia MIT
+                    Licencia 
                   </a>
                 </li>
                 <li>
                   <a
                         href="mailto:celabscr@gmail.com"
-                        className="text-black hover:text-blueGray-300 text-sm font-semibold block py-1 px-3"
+                        className="text-black hover:text-blueGray-700 text-sm font-semibold block py-1 px-3"
                   >
                     Contacto
                   </a>

@@ -1,7 +1,19 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import ProfileDropdown from "../Dropdowns/ProfileDropdown";
 
 
 export default function Navbar() {
+
+  const [navbarTitle, setNavbarTitle] = useState('');
+
+  useEffect(() => {
+    getTitle();
+  })
+
+  const getTitle = () => {
+    setNavbarTitle(window.location.pathname)
+  }
+
   return (
     <>
       {/* Navbar */}
@@ -13,8 +25,11 @@ export default function Navbar() {
             href=""
             onClick={(e) => e.preventDefault()}
           >
-            Sistema de Reservación de Laboratorios
+            {navbarTitle}
           </a>
+          <ul className="flex-col md:flex-row list-none items-center hidden md:flex">
+            <ProfileDropdown />
+          </ul>
         </div>
       </nav>
       {/* End Navbar */}

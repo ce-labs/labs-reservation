@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import 'resize-observer-polyfill/dist/ResizeObserver.global';
 import { TimeGridScheduler, classes } from '@remotelock/react-week-scheduler';
 import '@remotelock/react-week-scheduler/index.css';
+import '../../assets/styles/scheduler.css';
 
 const rangeStrings = [
   ['2019-03-05 09:00', '2019-03-05 11:30', 'asdsadasd'],
@@ -86,7 +87,8 @@ export default function CardCalendar() {
             width: "100%",
             height: "700px",
             "--cell-height": "20px",
-            "--cell-width": "50px"
+            "--cell-width": "50px",
+            "--color-event-hover-background": "#ff0000"
           }}
         >
           <TimeGridScheduler
@@ -94,13 +96,14 @@ export default function CardCalendar() {
             style={{ width: "100%", height: "100%" }}
             originDate={new Date("2019-03-04")}
             schedule={schedule}
-            
+                        
             onChange={setSchedule}
             visualGridVerticalPrecision={45}
             verticalPrecision={15}
             cellClickPrecision={60}
 
-            disabled={true}
+            disabled={false}
+            
           />
         </div>
         </div>

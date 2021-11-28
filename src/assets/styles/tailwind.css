@@ -47,7 +47,9 @@ Remove the margin in all browsers.
 
 body {
   margin: 0;
+  background-color: rgba(241, 245, 249, 1);
 }
+
 
 /**
 Improve consistency of default fonts in all browsers. (https://github.com/sindresorhus/modern-normalize/issues/3)
