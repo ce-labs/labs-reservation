@@ -3,8 +3,8 @@ import { UsersClient } from "../../clients/UsersClient";
 import Modal from 'react-modal';
 import {toast, Toaster} from 'react-hot-toast';
 import { sleep } from "../../assets/utils/Sleep";
-import validator from 'validator' 
 import { checkMailFormat, checkPhoneFormat } from "../../assets/utils/CheckFomats";
+import { useHistory } from "react-router-dom";
  
 
 const customStyles = { content: { top: '50%', left: '58%', right: 'auto', bottom: 'auto', marginRight: '-50%', transform: 'translate(-50%, -50%)' }, };
@@ -21,7 +21,7 @@ export default function CardSettings({currentUser}) {
   const [userStatus, setUserStatus] = useState('');
   const [userType, setUserType] = useState('');
 
-
+  let history = useHistory();
   let usersClient = new UsersClient();
 
   useEffect(() => { 
@@ -85,7 +85,7 @@ export default function CardSettings({currentUser}) {
     if(newPhone === '') { setNewPhone(userData.phone) }
     if(newPassword === '') { setNewPassword(userData.password) }
 
-    if(!checkMailFormat(newEmail) ||  !checkPhoneFormat(newPhone)) {
+    if(!checkMailFormat(userData.mail) ||  !checkPhoneFormat(userData.phone)) {
       toast.error('Formato de Correo Electrónico o Número Telefónico Incorrecto ...')
     } else {
       openModal();
@@ -93,16 +93,14 @@ export default function CardSettings({currentUser}) {
   }
 
   const updateUser = async() => {
-    //alert('mail: ' +  newEmail + ' phone: '+ newPhone + ' password: ' + newPassword);
     const clientResponse = await usersClient.updatePersonalInformation(userData.userId, newEmail, newPhone, newPassword);
-    //closeModal();
     switch (clientResponse) {
         case '☑️ The user was modified successfully ... ':
             toast.success('Usuario actualizado exitosamente.');
-            //history.push('/app');
             sleep(2000).then(()=>{
               closeModal();
               window.location.reload();
+              //history.push('/app/profile');
           })
             break;
         default:
@@ -113,7 +111,6 @@ export default function CardSettings({currentUser}) {
 
   return (
     <>
-
       <div className="relative flex flex-col min-w-0 break-words w-full mb-6 shadow-lg rounded-lg bg-blueGray-100 border-0">
         <div className="rounded-t bg-white mb-0 px-6 py-6">
           <div className="text-center flex justify-between">
@@ -239,7 +236,7 @@ export default function CardSettings({currentUser}) {
               </div>
               <div className="w-full lg:w-8/12 px-4" style={{marginLeft: 'auto', paddingTop:'25px'}}>
                 <a
-                  className="github-star ml-1 text-white font-bold px-6 py-4 rounded outline-none focus:outline-none mr-1 mb-1 bg-darkBlue-001 active:bg-blueGray-600 uppercase text-sm shadow hover:shadow-lg ease-linear transition-all duration-150"
+                  className="github-star ml-1 text-white font-bold px-6 py-4 rounded outline-none focus:outline-none mr-1 mb-1 bg-darkBlue-001 active:bg-lightBlue-600 uppercase text-sm shadow hover:shadow-lg ease-linear transition-all duration-150"
                   onClick={verifyInputData}
                 >
                   <i class="fas fa-sign-in-alt"></i> Actualizar Información

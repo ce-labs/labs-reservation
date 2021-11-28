@@ -30,7 +30,7 @@ export default function App() {
             <Sidebar />
             <div className="relative md:ml-64 bg-blueGray-100">
                 <Navbar />
-                <div className="px-4 md:px-10 mx-auto w-full -m-24">
+                <div className=" mx-auto -m-24">
                     <Switch>
                         <Route path="/app/reservations" exact component={Reservations} />
                         <Route path="/app/reservations/reservations" exact component={ReservationsList} />
