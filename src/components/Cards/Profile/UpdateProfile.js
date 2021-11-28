@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { UsersClient } from "../../../clients/UsersClient";
 import Modal from 'react-modal';
-import CardSettings from "../CardSettings";
+import CardSettings from "../Users/CardSettings";
 
 const customStyles = { content: { top: '50%', left: '58%', right: 'auto', bottom: 'auto', marginRight: '-50%', transform: 'translate(-50%, -50%)' }, };
 
@@ -40,13 +40,13 @@ export default function UpdateProfile() {
 
   return (
     <>
-      <div className="relative flex flex-col min-w-0 break-words w-full mb-6 shadow-lg rounded-lg bg-white border-0 mt-6">
-        <div className="rounded-t bg-spotify-grey mb-0 px-6 py-6">
+      <div className="relative flex flex-col min-w-0 break-words w-full mb-6 shadow-lg rounded-lg border-0 mt-6">
+        <div className="rounded-t bg-spotify-grey mb-0 px-6 py-6 bg-white" >
           <div className="text-center flex justify-between">
             <h6 className="text-blueGray-600 text-xl font-bold">Información de Usuario</h6>
           </div>
         </div>
-        <div className="flex-auto px-4 lg:px-10 py-10 pt-0">
+        <div className="flex-auto px-4 lg:px-10 py-10 pt-0 bg-blueGray-100">
           <form>
             <h6 className="text-blueGray-500 text-sm mt-3 mb-6 font-bold uppercase">
               Infomación Personal

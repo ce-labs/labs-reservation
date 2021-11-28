@@ -4,7 +4,7 @@ import Modal from 'react-modal';
 import { UsersClient } from "../../clients/UsersClient";
 import toast from "react-hot-toast";
 import { sleep } from "../../assets/utils/Sleep";
-import CardSettings from "../Cards/CardSettings";
+import CardSettings from "../Cards/Users/CardSettings";
 
 const customStyles = { content: { top: '50%', left: '58%', right: 'auto', bottom: 'auto', marginRight: '-50%', transform: 'translate(-50%, -50%)' }, };
 

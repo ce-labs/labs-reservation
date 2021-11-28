@@ -5,7 +5,7 @@ import { sleep } from "../../assets/utils/Sleep";
 import { useHistory } from "react-router-dom";
 import Modal from 'react-modal';
 
-const customStyles = { content: { backgroundColor: '#242424', color: '#fff', top: '50%', left: '58%', right: 'auto', bottom: 'auto', marginRight: '-50%', transform: 'translate(-80%, -50%)' }, };
+const customStyles = { content: { backgroundColor: '#fff', color: '#000', top: '50%', left: '58%', right: 'auto', bottom: 'auto', marginRight: '-50%', transform: 'translate(-80%, -50%)' }, };
 
 const ProfileDropdown = () => {
   // dropdown props

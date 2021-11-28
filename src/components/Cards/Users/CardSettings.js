@@ -1,9 +1,9 @@
 import React, {useState, useEffect} from "react";
-import { UsersClient } from "../../clients/UsersClient";
+import { UsersClient } from "../../../clients/UsersClient";
 import Modal from 'react-modal';
 import {toast, Toaster} from 'react-hot-toast';
-import { sleep } from "../../assets/utils/Sleep";
-import { checkMailFormat, checkPhoneFormat } from "../../assets/utils/CheckFomats";
+import { sleep } from "../../../assets/utils/Sleep";
+import { checkMailFormat, checkPhoneFormat } from "../../../assets/utils/CheckFomats";
 import { useHistory } from "react-router-dom";
  
 
@@ -120,7 +120,7 @@ export default function CardSettings({currentUser}) {
         </div>
         <div className="flex-auto px-4 lg:px-10 py-10 pt-0">
           <form>
-            <h6 className="text-blueGray-400 text-sm mt-3 mb-6 font-bold uppercase">
+            <h6 className="text-blueGray-500 text-sm mt-3 mb-6 font-bold uppercase">
               Información General 
             </h6>
             <div className="flex flex-wrap">
@@ -132,9 +132,9 @@ export default function CardSettings({currentUser}) {
                     Identificación
                   </label>
                   <input
-                    readOnly
+                    readOnly="true"
                     type="text"
-                    className="border-0 px-3 py-3 bg-readonly rounded text-sm shadow   w-full  duration-150"
+                    className="border-0 px-3 py-3 bg-blueGray-200 rounded text-sm shadow   w-full  duration-150"
                     defaultValue={userData.userId}
                   />
                 </div>
@@ -147,8 +147,9 @@ export default function CardSettings({currentUser}) {
                     Tipo de Usuario
                   </label>
                   <input
+                    readOnly="true"
                     type="email"
-                    className="border-0 px-3 py-3 bg-readonly rounded text-sm shadow   w-full  duration-150"
+                    className="border-0 px-3 py-3 bg-blueGray-200 rounded text-sm shadow   w-full  duration-150"
                     defaultValue={userType}
                   />
                 </div>
@@ -161,8 +162,9 @@ export default function CardSettings({currentUser}) {
                     Estado de Usuario
                   </label>
                   <input
+                    readOnly="true"
                     type="text"
-                    className="border-0 px-3 py-3 bg-readonly rounded text-sm shadow   w-full  duration-150"
+                    className="border-0 px-3 py-3 bg-blueGray-200 rounded text-sm shadow   w-full  duration-150"
                     defaultValue={userStatus}
                   />
                 </div>
@@ -175,8 +177,9 @@ export default function CardSettings({currentUser}) {
                     Activo desde
                   </label>
                   <input
+                    readOnly="true"
                     type="text"
-                    className="border-0 px-3 py-3 bg-readonly rounded text-sm shadow   w-full  duration-150"
+                    className="border-0 px-3 py-3 bg-blueGray-200 rounded text-sm shadow   w-full  duration-150"
                     defaultValue={userData.creationDate}
                   />
                 </div>
@@ -185,7 +188,7 @@ export default function CardSettings({currentUser}) {
 
             <hr className="mt-6 border-b-1 border-blueGray-300" />
 
-            <h6 className="text-blueGray-400 text-sm mt-3 mb-6 font-bold uppercase">
+            <h6 className="text-blueGray-500 text-sm mt-3 mb-6 font-bold uppercase">
               Información de Contacto
             </h6>
             <div className="flex flex-wrap">

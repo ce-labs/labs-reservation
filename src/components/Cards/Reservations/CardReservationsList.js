@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from "react";
 import toast, { Toaster } from "react-hot-toast";
-import { ReservationsClient } from "../../clients/ReservationsClient";
+import { ReservationsClient } from "../../../clients/ReservationsClient";
 
 // components
 

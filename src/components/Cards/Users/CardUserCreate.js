@@ -1,10 +1,10 @@
 import React, {useState, useEffect} from "react";
 import Modal from 'react-modal';
 import toast from "react-hot-toast";
-import { UtilsClient } from "../../clients/UtilsClient";
-import { UsersClient } from "../../clients/UsersClient";
-import { sleep } from "../../assets/utils/Sleep";
-import { checkMailFormat, checkPhoneFormat } from "../../assets/utils/CheckFomats";
+import { UtilsClient } from "../../../clients/UtilsClient";
+import { UsersClient } from "../../../clients/UsersClient";
+import { sleep } from "../../../assets/utils/Sleep";
+import { checkMailFormat, checkPhoneFormat } from "../../../assets/utils/CheckFomats";
 
 const customStyles = { content: { top: '50%', left: '58%', right: 'auto', bottom: 'auto', marginRight: '-50%', transform: 'translate(-50%, -50%)' }, };
 

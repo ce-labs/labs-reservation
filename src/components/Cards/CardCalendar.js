@@ -35,9 +35,6 @@ export default function CardCalendar() {
                     >
                         <option value="option">Seleccione una opción</option>
                         <option value="laboratory">Laboratorio</option>
-                        <option value="scheduleSection">Horario</option>
-                        <option value="day">Día</option>
-                        <option value="description">Descripción</option>
                     </select>
                 </div>
             </div>
@@ -55,9 +52,6 @@ export default function CardCalendar() {
                     >
                         <option value="option">Seleccione una opción</option>
                         <option value="laboratory">Laboratorio</option>
-                        <option value="scheduleSection">Horario</option>
-                        <option value="day">Día</option>
-                        <option value="description">Descripción</option>
                     </select>
                 </div>
             </div>

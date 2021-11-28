@@ -5,7 +5,7 @@ import { sleep } from "../../assets/utils/Sleep";
 
 //components 
 
-import CardTable from "../../components/Cards/CardTableUsers";
+import CardTable from "../../components/Cards/Users/CardTableUsers";
 
 export default function Users() {
 
@@ -25,7 +25,7 @@ export default function Users() {
     <>
     <Toaster/>
       <div className="flex flex-wrap mt-4">
-        <div className="w-full mb-12 px-4" style={{paddingTop:'150px'}}>
+        <div className="w-full mb-12 px-4" style={{paddingTop:'150px', paddingLeft:'50px', paddingRight:'50px'}}>
           <CardTable/>
         </div>
       </div>

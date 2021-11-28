@@ -1,10 +1,10 @@
 import React, {useState, useEffect} from "react";
 import PropTypes from "prop-types";
 import Modal from 'react-modal';
-import { UsersClient } from "../../clients/UsersClient";
+import { UsersClient } from "../../../clients/UsersClient";
 import toast, { Toaster } from "react-hot-toast";
 
-import TableDropdown from "../Dropdowns/UsersDropdown";
+import TableDropdown from "../../Dropdowns/UsersDropdown";
 import CardCreateUser from "./CardUserCreate";
 
 const customStyles = { content: { top: '50%', left: '58%', right: 'auto', bottom: 'auto', marginRight: '-50%', transform: 'translate(-50%, -50%)' }, };
@@ -57,7 +57,7 @@ export default function CardTable({ color }) {
   }
 
   const searchUsers = async() => {
-    if(category === 'option'){
+    if(category === 'option' || category === ''){
       toast.error('Debe seleccionar alguna opción')
     } else {
       const response = await usersClient.searchUsers(category, filter);
@@ -151,12 +151,11 @@ export default function CardTable({ color }) {
             </div>
             <div className="w-full lg:w-4/12 px-4" style={{paddingTop:'3px'}} >
                 <button 
-                  className="bg-darkBlue-001 text-white active:bg-lightBlue-600 text-sm font-bold uppercase px-4 py-2 rounded shadow hover:shadow-lg outline-none focus:outline-none lg:mr-1 lg:mb-0 ml-3 mb-3 ease-linear transition-all duration-150"
+                  className=" text-white font-bold px-6 py-3 rounded outline-none focus:outline-none  bg-darkBlue-001 active:bg-lightBlue-600 uppercase text-sm shadow hover:shadow-lg"
                   type="button"
+                  onClick={searchUsers}
                 >
-                    <button type="button" onClick={searchUsers}>
                         <i class="fas fa-search"></i> Buscar Usuario (s)
-                    </button>
                 </button>
               </div>
         </div>
@@ -175,7 +174,7 @@ export default function CardTable({ color }) {
                   (color === "light" ? "text-blueGray-700" : "text-white")
                 }
               >
-                Lista de Usuarios
+                Listado de Usuarios
               </h3>
             </div>
                 {setCreateUserButton()}
@@ -261,7 +260,7 @@ export default function CardTable({ color }) {
                 return <tr key={index}>
                     <th className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-left flex items-center">
                     <img
-                        src={require("../../assets/img/user.png").default}
+                        src={require("../../../assets/img/user.png").default}
                         className="h-12 w-12 bg-white rounded-full border"
                         alt="..."
                     ></img>{" "}
