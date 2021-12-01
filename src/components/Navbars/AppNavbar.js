@@ -1,17 +1,15 @@
 import React, { useEffect, useState } from "react";
-import ProfileDropdown from "../Dropdowns/ProfileDropdown";
 
-
-export default function Navbar() {
+export default function AppNavbar() {
 
   const [navbarTitle, setNavbarTitle] = useState('');
 
   useEffect(() => {
     getTitle();
-  })
+  });
 
   const getTitle = () => {
-    setNavbarTitle(window.location.pathname)
+    setNavbarTitle(window.location.pathname);
   }
 
   return (
@@ -22,14 +20,15 @@ export default function Navbar() {
           {/* Brand */}
           <a
             className="text-white text-sm uppercase hidden lg:inline-block font-semibold"
-            href=""
+            href="#pablo"
             onClick={(e) => e.preventDefault()}
           >
             {navbarTitle}
           </a>
-          <ul className="flex-col md:flex-row list-none items-center hidden md:flex">
+
+          {/*<ul className="flex-col md:flex-row list-none items-center hidden md:flex">
             <ProfileDropdown />
-          </ul>
+          </ul>*/}
         </div>
       </nav>
       {/* End Navbar */}

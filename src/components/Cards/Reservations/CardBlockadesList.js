@@ -33,9 +33,11 @@ export default function CardBlockadesList() {
   }
 
   const searchBlockades = async() => {
-    if(category === 'option'){
+    if(category === 'option' || category === ''){
       toast.error('Debe seleccionar alguna opción')
-    } else{ 
+    } if (filter === ''){
+      getBlockades();
+    }else{ 
       const response = await blockadesClient.searchBlockades(localStorage.getItem('currentSemester-Year'), localStorage.getItem('currentSemester-Semester'), category, filter); 
       if(response.length === 0){
         toast.error('No se encontraron resultados con las especificaciones indicadas ...');
@@ -80,7 +82,7 @@ export default function CardBlockadesList() {
                   type="button"
                 >
                     <button type="button" onClick={searchBlockades}>
-                        <i class="fas fa-search"></i> Buscar Reservaciones
+                        <i class="fas fa-search"></i> Buscar Bloqueos
                     </button>
                 </button>
               </div>

@@ -32,9 +32,12 @@ export default function CardReservationsList() {
   }
 
   const searchReservations = async() => {
-    if(category === 'option'){
+    if(category === 'option' || category === ''){
       toast.error('Debe seleccionar alguna opción')
-    } else{ 
+    } if (filter === ''){
+      getReservations();
+    }
+    else{ 
       const response = await reservationsClient.searchReservations(localStorage.getItem('currentSemester-Year'), localStorage.getItem('currentSemester-Semester'), category, filter); 
       if(response.length === 0){
         toast.error('No se encontraron resultados con las especificaciones indicadas ...');

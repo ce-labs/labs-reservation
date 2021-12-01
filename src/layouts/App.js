@@ -5,7 +5,7 @@ import { useHistory } from "react-router-dom";
 // components
 
 import Sidebar from "../components/Sidebar/Sidebar";
-import Navbar from "../components/Navbars/AppNavbar";
+import AppNavbar from "../components/Navbars/AppNavbar";
 import FooterApp from "../components/Footers/FooterApp";
 
 
@@ -29,7 +29,7 @@ export default function App() {
         <>
             <Sidebar />
             <div className="relative md:ml-64 bg-blueGray-100">
-                <Navbar />
+                <AppNavbar />
                 <div className=" mx-auto -m-24">
                     <Switch>
                         <Route path="/app/reservations" exact component={Reservations} />

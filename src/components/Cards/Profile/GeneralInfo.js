@@ -31,7 +31,7 @@ export default function GeneralInfo() {
   const logout = () => {
         toast.success('Cerrando Sesión ....');
         localStorage.removeItem('activeSession');
-        localStorage.setItem('userData', {"userId":'', "password":''});
+        localStorage.setItem('userId', '');
 
         sleep(2500).then(()=>{
             history.push('/auth');

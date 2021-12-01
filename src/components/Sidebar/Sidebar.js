@@ -12,7 +12,7 @@ export default function Sidebar() {
     } else {
       return(
       <>
-            <Link
+      <Link
         className={
           "text-xs uppercase py-3 font-bold block " +
           (window.location.href.indexOf("/app/users") !== -1
@@ -34,14 +34,6 @@ export default function Sidebar() {
       </>)
     }
   }
-
-  {/*const setUsersActions = () => { 
-    return(
-      <li className="items-center">
-
-      </li>
-    )
-  }*/}
 
 
   return (
@@ -93,16 +85,6 @@ export default function Sidebar() {
                 </div>
               </div>
             </div>
-            {/* Form */}
-            <form className="mt-6 mb-4 md:hidden">
-              <div className="mb-3 pt-0">
-                <input
-                  type="text"
-                  placeholder="Search"
-                  className="border-0 px-3 py-2 h-12 border border-solid  border-blueGray-500 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-base leading-snug shadow-none outline-none focus:outline-none w-full font-normal"
-                />
-              </div>
-            </form>
 
             {/* Divider */}
             <hr className="my-4 md:min-w-full" />
