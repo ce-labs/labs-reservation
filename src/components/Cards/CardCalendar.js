@@ -1,25 +1,73 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import 'resize-observer-polyfill/dist/ResizeObserver.global';
 import { TimeGridScheduler, classes } from '@remotelock/react-week-scheduler';
 import '@remotelock/react-week-scheduler/index.css';
 import '../../assets/styles/scheduler.css';
-
-const rangeStrings = [
-  ['2019-03-05 09:00', '2019-03-05 11:30', 'asdsadasd'],
-  ['2019-03-07 01:30', '2019-03-07 03:00'],
-  ['2019-03-07 05:30', '2019-03-07 10:00'],
-  ['2019-03-08 12:30', '2019-03-08 01:30'],
-];
-
-const defaultSchedule = rangeStrings.map(range =>
-  range.map(dateString => new Date(dateString)),
-);
+import { UtilsClient } from '../../clients/UtilsClient';
+import toast, { Toaster } from 'react-hot-toast';
+import { ReservationsClient } from '../../clients/ReservationsClient';
 
 export default function CardCalendar() {
-  const [schedule, setSchedule] = useState(defaultSchedule);
+  const [schedule, setSchedule] = useState([]);
+  const [labs, setLabs] = useState([]);
+  const [weeks, setWeeks] = useState([]);
+  const [filter, setFilter] = useState('');
+  const [category, setCategory] = useState('');
+  const [startDate, setStartDate] = useState('2021-01-04');
+
+
+  const handleInputChangeForFilter = async(e) => { var value = e.target.value; setFilter(value); }
+  const handleInputChangeForCategory = async(e) => { var value = e.target.value; setCategory(value); }
+
+  let utilsClient = new UtilsClient();
+  let reservationsClient = new ReservationsClient();
+
+  useEffect(() => {
+    getLabsList();
+    setWeeksList();
+  }, [])
+
+  const getLabsList = async() => {
+    const response = await utilsClient.getLabs();
+    setLabs(response);
+  }
+
+  const setWeeksList = () => {
+    var list = [];
+    var k = 1;
+    while(k < 19){
+      list.push(k);
+      k++;
+    }
+    setWeeks(list);
+  }
+
+  const searchReservations = async() => {
+    if(category === 'option' || category === '' || filter === 'option' || filter === ''){
+      toast.error('Debe especificar el laboratorio y una semana')
+    } else{
+      const currentStartDate = await utilsClient.getCurrentSemester();
+      setStartDate(currentStartDate[0][category])
+     
+      const reservationsResponse = await reservationsClient.getCalendarReservations(localStorage.getItem('currentSemester-Year'), localStorage.getItem('currentSemester-Semester'), category, filter) 
+      if(reservationsResponse.length === 0){
+        toast.error('No se encontraron reservaciones en el periodo seleccionado');
+      } else {
+        var datesRange = [];
+        for(var k in reservationsResponse){
+          datesRange.push([reservationsResponse[k].startDate, reservationsResponse[k].endingDate, reservationsResponse[k].description])
+        }
+        console.log(datesRange);
+
+
+        setSchedule(datesRange);
+      }
+    }
+  } 
 
   return (
     <>
+        <Toaster />
         <div className="flex flex-wrap">
             <div className="w-full lg:w-3/12 " >
                 <div className="relative w-full mb-3">
@@ -30,11 +78,13 @@ export default function CardCalendar() {
                     </label>
                     <select 
                         name="category" id="category"        
-                        onChange='{handleInputChangeForCategory}'
+                        onChange={handleInputChangeForFilter}
                         className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
                     >
                         <option value="option">Seleccione una opción</option>
-                        <option value="laboratory">Laboratorio</option>
+                        {labs.map(data =>
+                            <option value={data.name}>{data.name}</option>
+                        )};
                     </select>
                 </div>
             </div>
@@ -47,11 +97,13 @@ export default function CardCalendar() {
                     </label>
                     <select 
                         name="category" id="category"        
-                        onChange='{handleInputChangeForCategory}'
+                        onChange={handleInputChangeForCategory}
                         className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
                     >
                         <option value="option">Seleccione una opción</option>
-                        <option value="laboratory">Laboratorio</option>
+                        {weeks.map(data =>
+                            <option value={data}>{data}</option>
+                        )};
                     </select>
                 </div>
             </div>
@@ -65,10 +117,9 @@ export default function CardCalendar() {
                 <button 
                   className="border-0 px-3 py-3 placeholder-blueGray-300 bg-darkBlue-001 text-white active:bg-lightBlue-600  rounded text-sm shadow focus:outline-none focus:ring ease-linear transition-all duration-150"
                   type="button"
+                  onClick={searchReservations}
                 >
-                    <button type="button" onClick='{searchBlockades}'>
-                        <i class="fas fa-search"></i> Buscar Reservaciones
-                    </button>
+                  <i class="fas fa-search"></i> Buscar Reservaciones
                 </button>
               </div>
             </div>
@@ -88,15 +139,17 @@ export default function CardCalendar() {
           <TimeGridScheduler
             classes={classes}
             style={{ width: "100%", height: "100%" }}
-            originDate={new Date("2019-03-04")}
+            originDate={startDate}
+            
             schedule={schedule}
                         
-            onChange={setSchedule}
+            //onChange={setSchedule}
             visualGridVerticalPrecision={45}
             verticalPrecision={15}
             cellClickPrecision={60}
 
-            disabled={false}
+            disabled={true}
+            //hiddenDays={0}
             
           />
         </div>

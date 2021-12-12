@@ -1,24 +1,3 @@
-let eventGuid = 0
-
-export const INITIAL_EVENTS = [
-  /*{
-    id: createEventId(),
-    title: 'CE1101 - INTRODUCCIÓN A LA PROGRAMACIÓN',
-    start: '2021-11-01' + 'T07:30:00',
-    end: '2021-11-01' + 'T09:20:00',
-  },
-  {
-    id: createEventId(),
-    title: 'CE1102 - TALLER DE PROGRAMACIÓN',
-    start: '2021-11-01' + 'T09:30:00',
-    end: '2021-11-01' + 'T11:20:00'
-  }*/
-]
-
-export function createEventId() {
-  return String(eventGuid++)
-}
-
 function jsonConcat(o1, o2) {
   for (var key in o2) {
       o1[key] = o2[key];
@@ -39,6 +18,5 @@ export const setReservationsLimits = (reservations) => {
     let event = jsonConcat(date, {id: reservations[i].reservationId, title: reservations[i].description, description: reservations[i].manager})
     data.push(event);
   }
-  //console.log(data);
   return(data);
 }

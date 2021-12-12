@@ -64,7 +64,7 @@ export default function GeneralInfo() {
               {userData.userId}
             </div>
             <div className="text-sm leading-normal mt-0 mb-2 text-blueGray-600  ">
-              <i className="fas fa-map-marker-alt mr-2 text-lg text-blueGray-400"></i>{" "}
+              <i className="fas fa-envelope mr-2 text-lg text-blueGray-400"></i>{" "}
               {userData.mail}
             </div>
           </div>

@@ -14,4 +14,10 @@ export class UtilsClient {
         return response.data;
     }
 
+    async getLabs(){
+        const url = 'https://labs-reservation-api.herokuapp.com/api/v1/utils/labs';
+        const response =  await axios(url);
+        return response.data;
+    }
+
 }

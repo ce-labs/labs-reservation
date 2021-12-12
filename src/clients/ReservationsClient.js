@@ -15,10 +15,18 @@ export class ReservationsClient {
     }
 
     async searchReservations(year, semester, category, filter) {
-        const url = 'https://labs-reservation-api.herokuapp.com/api/v1/data/reservations/search/{"year":"' + year + '","semester":"' + semester + '","category":"' + category + '","filter":"' + filter + '"}';
+        const url = 'https://labs-reservation-api.herokuapp.com/api/v1/reservations/filter/{"year":"' + year + '","semester":"' + semester + '","category":"' + category + '","filter":"' + filter + '"}';
         const response =  await axios(url);
         return response.data;
     }
+
+    async getCalendarReservations(year, semester, week, laboratory){
+        const url = 'https://labs-reservation-api.herokuapp.com/api/v1/data/reservations/search/{"year":"' + year + '","semester":"' + semester + '","week":"' + week + '","laboratory":"' + laboratory + '"}';
+        const response =  await axios(url);
+        return response.data;
+    }
+
+
 
 
 }
