@@ -55,8 +55,11 @@ export default function CardReservationsList() {
                 <th className="px-6 bg-blueGray-50 text-blueGray-500 align-middle border border-solid border-blueGray-100 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left">
                   Laboratorio
                 </th>
-                <th className="px-6 bg-blueGray-50 text-blueGray-500 align-middle border border-solid border-blueGray-100 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left">
+                {/*<th className="px-6 bg-blueGray-50 text-blueGray-500 align-middle border border-solid border-blueGray-100 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left">
                   Fecha
+                </th>*/}
+                <th className="px-6 bg-blueGray-50 text-blueGray-500 align-middle border border-solid border-blueGray-100 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left">
+                  Día
                 </th>
                 <th className="px-6 bg-blueGray-50 text-blueGray-500 align-middle border border-solid border-blueGray-100 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left">
                   Hora
@@ -75,8 +78,11 @@ export default function CardReservationsList() {
               <th className="px-6 bg-blueGray-50 text-blueGray-500 align-middle border border-solid border-blueGray-100 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left">
                 Semana
               </th>
-              <th className="px-6 bg-blueGray-50 text-blueGray-500 align-middle border border-solid border-blueGray-100 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left">
+              {/*<th className="px-6 bg-blueGray-50 text-blueGray-500 align-middle border border-solid border-blueGray-100 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left">
                 Fecha
+              </th>*/}
+              <th className="px-6 bg-blueGray-50 text-blueGray-500 align-middle border border-solid border-blueGray-100 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left">
+                Día
               </th>
               <th className="px-6 bg-blueGray-50 text-blueGray-500 align-middle border border-solid border-blueGray-100 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left">
                 Hora
@@ -102,9 +108,9 @@ export default function CardReservationsList() {
   }
 
   const showDescriptionActions = (show, description) => {
-    if(show === 'no') {
+    if(show === true) {
         return(<><h3 className="text-darkBlue-600">⚠️ Descripción no disponible</h3></>)
-    } else if(show === 'yes'){
+    } else if(show === false){
         return(<>{description}</>)
     }
   }
@@ -120,7 +126,7 @@ export default function CardReservationsList() {
                         {item.laboratory}
                       </th>
                       <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
-                        {item.date}
+                        {item.day}
                       </td>
                       <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
                         {item.scheduleSection}
@@ -145,7 +151,7 @@ export default function CardReservationsList() {
                         {item.week}
                         </td>
                         <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
-                        {item.date}
+                        {item.day}
                         </td>
                         <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
                         {item.scheduleSection}
@@ -202,7 +208,7 @@ export default function CardReservationsList() {
                         <option value="laboratory">Laboratorio</option>
                         <option value="scheduleSection">Horario</option>
                         <option value="week">Semana</option>
-                        <option value="date">Fecha</option>
+                        {/*<option value="date">Fecha</option>*/}
                     </select>
                 </div>
             </div>
