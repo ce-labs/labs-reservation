@@ -26,7 +26,4 @@ export class ReservationsClient {
         return response.data;
     }
 
-
-
-
 }

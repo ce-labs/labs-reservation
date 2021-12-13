@@ -9,7 +9,7 @@ export default function Reservations() {
     <>
       <div className="flex flex-wrap mt-4">
         <div className="w-full mb-12 px-4" style={{paddingTop:'150px', paddingLeft:'50px', paddingRight:'50px'}}>
-          <CardCalendar />
+          <CardCalendar color={"light"}/>
         </div>
       </div>
       <div className="relative  " style={{margin: 'auto', width: '35%', padding: '10px'}}>

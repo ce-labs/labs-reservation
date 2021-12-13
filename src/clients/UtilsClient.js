@@ -20,4 +20,27 @@ export class UtilsClient {
         return response.data;
     }
 
+    async getScheduleDays(){
+        const url = 'https://labs-reservation-api.herokuapp.com/api/v1/utils/scheduleDays';
+        const response =  await axios(url);
+        return response.data;
+    }
+
+    async getScheduleSections(){
+        const url = 'https://labs-reservation-api.herokuapp.com/api/v1/utils/scheduleData';
+        const response =  await axios(url);
+        return response.data;
+    }
+
+    async getStaff(){
+        const url = 'https://labs-reservation-api.herokuapp.com/api/v1/utils/staff';
+        const response =  await axios(url);
+        return response.data;
+    }
+
+    async getCourses(){
+        const url = 'https://labs-reservation-api.herokuapp.com/api/v1/utils/courses';
+        const response =  await axios(url);
+        return response.data;
+    }
 }
