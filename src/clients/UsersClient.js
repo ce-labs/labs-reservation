@@ -20,6 +20,12 @@ export class UsersClient {
         return response.data;
     }
 
+    async getUserMail(userId){        
+      const url = 'https://labs-reservation-api.herokuapp.com/api/v1/users/' + userId;
+      const response =  await axios(url);
+      return response.data.mail;
+    }
+
     async getUserStatus(userId){        
       const url = 'https://labs-reservation-api.herokuapp.com/api/v1/users/userStatus/' + userId;
       const response =  await axios(url);

@@ -16,7 +16,7 @@ export class BlockadesClient {
 
     async createBlockade(year, semester, laboratory, day, scheduleSection, description, manager, showDescription, creationAuthor, creationMail){
         const requestUrl = 'https://labs-reservation-api.herokuapp.com/api/v1/blockades/';
-        const userData = {"year": year, "semester": semester, "laboratory":laboratory, "day":day, "scheduleSection":scheduleSection, "description":description,"manager":manager, "showDescription":showDescription, "creationAuthor":creationAuthor, "creationMail":creationMail};
+        const userData = {"year": year, "semester": semester, "laboratory":laboratory, "day":day, "scheduleSection":scheduleSection, "description":description,"manager":manager, "showDescription":showDescription, "creationAuthor":creationAuthor, "creationAuthorMail":creationMail};
         const headers = { 'Content-Type': 'application/json' };
         const response = await axios.post(requestUrl, userData, headers)
           .catch((error) => {

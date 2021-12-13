@@ -6,6 +6,7 @@ import { ReservationsClient } from '../../clients/ReservationsClient';
 import { BlockadesClient } from '../../clients/BlockadesClient';
 import CreateBlockade from './Reservations/CreateBlockade';
 import CreateReservation from './Reservations/CreateReservation';
+import { UsersClient } from '../../clients/UsersClient';
 
 const customStyles = { content: { top: '50%', left: '58%', right: 'auto', bottom: 'auto', marginRight: '-50%', transform: 'translate(-50%, -50%)' }, };
 
@@ -32,6 +33,7 @@ export default function CardCalendar({ color }) {
   let utilsClient = new UtilsClient();
   let reservationsClient = new ReservationsClient();
   let blockadesClient = new BlockadesClient();
+  let usersClient = new UsersClient();
 
   useEffect(() => {
     getLabsList();
@@ -177,13 +179,17 @@ export default function CardCalendar({ color }) {
 
           </div>
         </div>
+
         <div className="block w-full overflow-x-auto">
+
           {blockades.map(data => 
             <p>{data.type} {data.day} {data.scheduleSection} {data.description}</p>
           )}
           {reservations.map(data =>
             <p>{data.type} {data.day} {data.date}{data.scheduleSection} {data.description}</p>
           )}
+
+   
 
         </div>
         </div>

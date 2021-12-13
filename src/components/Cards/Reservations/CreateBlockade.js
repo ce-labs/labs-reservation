@@ -4,6 +4,7 @@ import toast from "react-hot-toast";
 import { UtilsClient } from "../../../clients/UtilsClient";
 import { sleep } from "../../../assets/utils/Sleep";
 import { BlockadesClient } from "../../../clients/BlockadesClient";
+import { UsersClient } from "../../../clients/UsersClient";
 
 const customStyles = { content: { top: '50%', left: '58%', right: 'auto', bottom: 'auto', marginRight: '-50%', transform: 'translate(-50%, -50%)' }, };
 
@@ -17,6 +18,7 @@ export default function CreateBlockade() {
   const [staff, setStaff] = useState([]);
   const [courses, setCourses] = useState([]);
 
+  const [userMail, setUserMail] = useState('');
   const [currentLab, setCurrentLab] = useState('');
   const [currentDay, setCurrentDay] = useState('');
   const [currentSection, setCurrentSection] = useState('');
@@ -28,12 +30,14 @@ export default function CreateBlockade() {
 
   let utilsClient = new UtilsClient();
   let blockadesClient = new BlockadesClient();
+  let usersClient = new UsersClient();
 
   const openModal = () => {setIsOpen(true)};
   const closeModal = () => {setIsOpen(false)};
 
 
   useEffect(() => {
+    getUserMail();
     getLabsList(); 
     getDaysList();
     getSectionsList();
@@ -41,6 +45,10 @@ export default function CreateBlockade() {
     getCoursesList();
   }, [])
 
+  const getUserMail = async() => {
+    const response = await usersClient.getUserMail(localStorage.getItem('userId'));
+    setUserMail(response);
+  }
 
   const getLabsList = async() => {
     const response = await utilsClient.getLabs();
@@ -90,14 +98,10 @@ export default function CreateBlockade() {
   }
 
   const createBlockade = async() => {
-    /*var blockadeData = {"year":localStorage.getItem('currentSemester-Year'), "semester": localStorage.getItem('currentSemester-Semester'),
-        "laboratory":currentLab,"day":currentDay,"scheduleSection":currentSection,"description":currentDescription,"manager":currentStaff,"showDescription":showDescription,
-        "creationAuthor":localStorage.getItem('userId'), creationAuthorMail:localStorage.getItem('currentMail')                      
-    }*/
 
     const response = await blockadesClient.createBlockade(localStorage.getItem('currentSemester-Year'),localStorage.getItem('currentSemester-Semester'),
                                                           currentLab, currentDay, currentSection, currentDescription, currentStaff, showDescription,
-                                                          localStorage.getItem('userId'), localStorage.getItem('currentMail') 
+                                                          localStorage.getItem('userId'), userMail
                                                         );
     if(response === '☑️ The blockade was created successfully ... ') {
         toast.success('Bloqueo de Espacio Creado exitosamente');

@@ -5,6 +5,7 @@ import { UtilsClient } from "../../../clients/UtilsClient";
 import { sleep } from "../../../assets/utils/Sleep";
 import { BlockadesClient } from "../../../clients/BlockadesClient";
 import { ReservationsClient } from "../../../clients/ReservationsClient";
+import { UsersClient } from "../../../clients/UsersClient";
 
 const customStyles = { content: { top: '50%', left: '58%', right: 'auto', bottom: 'auto', marginRight: '-50%', transform: 'translate(-50%, -50%)' }, };
 
@@ -19,6 +20,7 @@ export default function CreateReservation() {
   const [courses, setCourses] = useState([]);
   const [weeks, setWeeks] = useState([]);
 
+  const [userMail, setUserMail] = useState('');
   const [currentLab, setCurrentLab] = useState('');
   const [currentDay, setCurrentDay] = useState('');
   const [currentWeek, setCurrentWeek] = useState('');
@@ -30,14 +32,15 @@ export default function CreateReservation() {
   const [isChecked, setIsChecked] = useState(false);
 
   let utilsClient = new UtilsClient();
-  let blockadesClient = new BlockadesClient();
   let reservationsClient = new ReservationsClient();
+  let usersClient = new UsersClient();
 
   const openModal = () => {setIsOpen(true)};
   const closeModal = () => {setIsOpen(false)};
 
 
   useEffect(() => {
+    getUserMail();
     getLabsList(); 
     getDaysList();
     getSectionsList();
@@ -46,6 +49,10 @@ export default function CreateReservation() {
     setWeeksList();
   }, [])
 
+  const getUserMail = async() => {
+    const response = await usersClient.getUserMail(localStorage.getItem('userId'));
+    setUserMail(response);
+  }
 
   const getLabsList = async() => {
     const response = await utilsClient.getLabs();
@@ -105,11 +112,10 @@ export default function CreateReservation() {
   }
 
   const createReservation = async() => {
-
-    
+   
     const response = await reservationsClient.createReservation(localStorage.getItem('currentSemester-Year'),localStorage.getItem('currentSemester-Semester'),
                                                                 currentWeek, currentLab, currentDay, currentSection, currentDescription, currentStaff, showDescription,
-                                                                localStorage.getItem('userId'), localStorage.getItem('currentMail') 
+                                                                localStorage.getItem('userId'), userMail
                                                             );
             
     if(response === '☑️ The reservation was created successfully ... ') {
