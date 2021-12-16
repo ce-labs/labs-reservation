@@ -8,10 +8,15 @@ import CreateBlockade from './Reservations/CreateBlockade';
 import CreateReservation from './Reservations/CreateReservation';
 import { UsersClient } from '../../clients/UsersClient';
 
-const customStyles = { content: { top: '50%', left: '58%', right: 'auto', bottom: 'auto', marginRight: '-50%', transform: 'translate(-50%, -50%)' }, };
+import moment from 'moment';
+import WeekCalendar from 'react-week-calendar';
+
+import 'react-week-calendar/dist/style.css';
+
+
+const customStyles = { content: { outline:'none', top: '50%', left: '58%', right: 'auto', bottom: 'auto', marginRight: '-50%', transform: 'translate(-50%, -50%)' }, };
 
 export default function CardCalendar({ color }) {
-  const [schedule, setSchedule] = useState([]);
   const [reservations, setReservations] = useState([]);
   const [blockades, setBlockades] = useState([]);
   const [labs, setLabs] = useState([]);
@@ -90,6 +95,16 @@ export default function CardCalendar({ color }) {
       )
     }
   }
+
+  /*const [selectedIntervals, setSelectedIntervals] = useState([]);
+
+  useEffect(() => {
+    const intervals = {uid:1, 
+                       startTime: moment().add(4, 'm'),
+                       endTime: moment().add(4, 'm'),
+                      }
+    setSelectedIntervals(intervals);
+  }, [])*/
 
   return (
     <>
@@ -188,6 +203,21 @@ export default function CardCalendar({ color }) {
           {reservations.map(data =>
             <p>{data.type} {data.day} {data.date}{data.scheduleSection} {data.description}</p>
           )}
+
+          <WeekCalendar 
+            fistDay = {0}
+            scaleFormat = "HH:mm"
+            startTime = {moment({h:7,m:30})}
+            endTime = {moment({h:21,m:15})}
+            scaleUnit = {30}
+            scaleHeaderTitle = "Horario"
+            cellHeight = {20}
+            numberOfDays = {6}
+
+            //selectedIntervals = {selectedIntervals}
+            onIntervalSelect = ''
+          />
+
 
    
 
