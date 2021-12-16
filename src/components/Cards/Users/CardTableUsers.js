@@ -64,7 +64,7 @@ export default function CardTable({ color }) {
       if(response.length === 0){
         toast.error('No se encontraron resultados con las especificaciones indicadas ...');
       } else {
-        toast.success('Mostrando ' + response.length + ' resultados.')
+        toast.success('Mostrando ' + response.length + ' resultado (s).')
       }
       setCurrentUsers(response);
     }
@@ -125,8 +125,13 @@ export default function CardTable({ color }) {
     <>
       <Toaster />
       <div className="flex flex-wrap">
-            <div className="w-full lg:w-4/12 ">
+            <div className="w-full lg:w-3/12 " style={{paddingRight:'20px'}}>
                 <div className="relative w-full mb-3">
+                    <label
+                      className="block uppercase text-blueGray-600 text-xs font-bold mb-2"
+                    >
+                      Filtro
+                    </label>
                     <input
                         type="text"
                         className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
@@ -134,8 +139,13 @@ export default function CardTable({ color }) {
                     />
                 </div>
             </div>
-            <div className="w-full lg:w-3/12 " style={{paddingLeft:'20px'}}>
+            <div className="w-full lg:w-3/12 " style={{paddingRight:'20px'}}>
                 <div className="relative w-full mb-3">
+                    <label
+                      className="block uppercase text-blueGray-600 text-xs font-bold mb-2"
+                    >
+                      Categoría
+                    </label>
                     <select 
                         name="category" id="category"        
                         onChange={handleInputChangeForCategory}
@@ -149,15 +159,24 @@ export default function CardTable({ color }) {
                     </select>
                 </div>
             </div>
-            <div className="w-full lg:w-4/12 px-4" style={{paddingTop:'3px'}} >
+
+            <div className="w-full lg:w-3/12"  style={{paddingRight:'20px'}}>
+            <div className="relative w-full mb-3">
+                <label
+                  className="block uppercase text-blueGray-100 text-xs font-bold mb-2"
+                >
+                  .
+                </label>
                 <button 
-                  className=" text-white font-bold px-6 py-3 rounded outline-none focus:outline-none  bg-darkBlue-001 active:bg-lightBlue-600 uppercase text-sm shadow hover:shadow-lg"
+                  className="border-0 px-3 py-3 text-white bg-darkBlue-001 active:bg-lightBlue-600 rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
                   type="button"
                   onClick={searchUsers}
                 >
-                        <i class="fas fa-search"></i> Buscar Usuario (s)
+                  <i class="fas fa-search"></i> Buscar Usuario (s)
                 </button>
               </div>
+            </div>
+
         </div>
       <div
         className={

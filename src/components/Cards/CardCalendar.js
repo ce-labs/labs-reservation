@@ -110,7 +110,7 @@ export default function CardCalendar({ color }) {
     <>
         <Toaster />
         <div className="flex flex-wrap">
-            <div className="w-full lg:w-3/12 " >
+            <div className="w-full lg:w-3/12 " style={{paddingRight:'20px'}}>
                 <div className="relative w-full mb-3">
                     <label
                       className="block uppercase text-blueGray-600 text-xs font-bold mb-2"
@@ -129,7 +129,7 @@ export default function CardCalendar({ color }) {
                     </select>
                 </div>
             </div>
-            <div className="w-full lg:w-3/12 " style={{paddingLeft:'20px'}}>
+            <div className="w-full lg:w-3/12 "  style={{paddingRight:'20px'}}>
                 <div className="relative w-full mb-3">
                     <label
                       className="block uppercase text-blueGray-600 text-xs font-bold mb-2"
@@ -148,7 +148,7 @@ export default function CardCalendar({ color }) {
                     </select>
                 </div>
             </div>
-            <div className="w-full lg:w-3/12" style={{paddingLeft:'20px'}}>
+            <div className="w-full lg:w-3/12"  style={{paddingRight:'20px'}}>
             <div className="relative w-full mb-3">
                 <label
                   className="block uppercase text-blueGray-100 text-xs font-bold mb-2"
@@ -156,7 +156,7 @@ export default function CardCalendar({ color }) {
                   .
                 </label>
                 <button 
-                  className="border-0 px-3 py-3 placeholder-blueGray-300 bg-darkBlue-001 text-white active:bg-lightBlue-600  rounded text-sm shadow focus:outline-none focus:ring ease-linear transition-all duration-150"
+                  className="border-0 px-3 py-3 text-white bg-darkBlue-001 active:bg-lightBlue-600 rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
                   type="button"
                   onClick={searchReservations}
                 >
@@ -195,7 +195,7 @@ export default function CardCalendar({ color }) {
           </div>
         </div>
 
-        <div className="block w-full overflow-x-auto">
+        <div className="block w-full overflow-x-auto" >
 
           {blockades.map(data => 
             <p>{data.type} {data.day} {data.scheduleSection} {data.description}</p>
@@ -204,7 +204,7 @@ export default function CardCalendar({ color }) {
             <p>{data.type} {data.day} {data.date}{data.scheduleSection} {data.description}</p>
           )}
 
-          <WeekCalendar 
+          {/*<WeekCalendar 
             fistDay = {0}
             scaleFormat = "HH:mm"
             startTime = {moment({h:7,m:30})}
@@ -216,7 +216,7 @@ export default function CardCalendar({ color }) {
 
             //selectedIntervals = {selectedIntervals}
             onIntervalSelect = ''
-          />
+          />*/}
 
 
    

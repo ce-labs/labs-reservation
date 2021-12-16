@@ -6,8 +6,8 @@ import CardReservationsList from "../../../components/Cards/Reservations/CardRes
 export default function ReservationsList() {
   return (
     <>
-      <div className="flex flex-wrap mt-4" style={{paddingTop:'150px', paddingLeft:'50px', paddingRight:'50px'}}> 
-        <div className="w-full xl:w-12/12 mb-12 xl:mb-0 px-4">
+      <div className="flex flex-wrap mt-4" > 
+        <div className="w-full mb-12 px-4" style={{paddingTop:'120px', paddingLeft:'50px', paddingRight:'50px'}}>
           <CardReservationsList />
         </div>
       </div>

@@ -194,8 +194,13 @@ export default function CardReservationsList() {
     <>
           <Toaster/>
           <div className="flex flex-wrap">
-            <div className="w-full lg:w-4/12 ">
+            <div className="w-full lg:w-3/12 " style={{paddingRight:'20px'}}>
                 <div className="relative w-full mb-3">
+                    <label
+                      className="block uppercase text-blueGray-600 text-xs font-bold mb-2"
+                    >
+                      Filtro
+                    </label>
                     <input
                         type="text"
                         className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
@@ -203,8 +208,13 @@ export default function CardReservationsList() {
                     />
                 </div>
             </div>
-            <div className="w-full lg:w-3/12 " style={{paddingLeft:'20px'}}>
+            <div className="w-full lg:w-3/12 " style={{paddingRight:'20px'}}>
                 <div className="relative w-full mb-3">
+                    <label
+                      className="block uppercase text-blueGray-600 text-xs font-bold mb-2"
+                    >
+                      Categoría
+                    </label>
                     <select 
                         name="category" id="category"        
                         onChange={handleInputChangeForCategory}
@@ -218,16 +228,22 @@ export default function CardReservationsList() {
                     </select>
                 </div>
             </div>
-            <div className="w-full lg:w-4/12 px-4" style={{paddingTop:'3px'}} >
-                <button 
-                  className="bg-darkBlue-001 text-white active:bg-lightBlue-600 text-sm font-bold uppercase px-4 py-2 rounded shadow hover:shadow-lg outline-none focus:outline-none lg:mr-1 lg:mb-0 ml-3 mb-3 ease-linear transition-all duration-150"
-                  type="button"
+            <div className="w-full lg:w-3/12"  style={{paddingRight:'20px'}}>
+            <div className="relative w-full mb-3">
+                <label
+                  className="block uppercase text-blueGray-100 text-xs font-bold mb-2"
                 >
-                    <button type="button" onClick={searchReservations}>
-                        <i class="fas fa-search"></i> Buscar Reservaciones
-                    </button>
+                  .
+                </label>
+                <button 
+                  className="border-0 px-3 py-3 text-white bg-darkBlue-001 active:bg-lightBlue-600 rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
+                  type="button"
+                  onClick={searchReservations}
+                >
+                  <i class="fas fa-search"></i> Buscar Reservaciones
                 </button>
               </div>
+            </div>
         </div>
       <div className="relative flex flex-col min-w-0 break-words bg-white w-full mb-6 shadow-lg rounded">
         <div className="rounded-t mb-0 px-4 py-3 border-0">
