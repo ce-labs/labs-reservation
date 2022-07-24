@@ -23,7 +23,20 @@ export default function CardTable({ color }) {
   }, [])
 
   const getAllUsers = async() => {
-    const currentUsers = await usersClient.getAllUsers();
+    var currentUsers = await usersClient.getAllUsers();
+    console.log("Original data from card");
+    console.log(currentUsers);
+
+    var currentData = await usersClient.getSingleUser(localStorage.getItem('userId'));
+    console.log(currentData.data);
+    var filteredUsers;
+    for (var i = 0; i < currentUsers.length; i++) {
+      if (currentUsers[i].userId === currentData.data.userId) {
+        currentUsers.splice(i, 1);
+      }
+  }
+    console.log("Parsed data from card");
+    console.log(currentUsers);
     setCurrentUsers(currentUsers);
   }
 

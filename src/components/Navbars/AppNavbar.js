@@ -23,7 +23,7 @@ export default function AppNavbar() {
             href="#pablo"
             onClick={(e) => e.preventDefault()}
           >
-            {navbarTitle}
+            
           </a>
 
           {/*<ul className="flex-col md:flex-row list-none items-center hidden md:flex">
