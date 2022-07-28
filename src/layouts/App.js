@@ -8,7 +8,6 @@ import Sidebar from "../components/Sidebar/Sidebar";
 import AppNavbar from "../components/Navbars/AppNavbar";
 import FooterApp from "../components/Footers/FooterApp";
 
-
 // views
 
 import Profile from "../views/app/Profile";
@@ -18,30 +17,37 @@ import ReservationsList from "../views/app/Reservations/ReservationsList";
 import BlockadesList from "../views/app/Reservations/BlockadesList";
 
 export default function App() {
+  let history = useHistory();
 
-    let history = useHistory();
+  if (!localStorage.getItem("activeSession")) {
+    history.push("/auth");
+  }
 
-    if(!localStorage.getItem('activeSession')){
-        history.push('/auth');
-    }
-
-    return (
-        <>
-            <Sidebar />
-            <div className="relative md:ml-64 bg-blueGray-100">
-                <AppNavbar />
-                <div className=" mx-auto -m-24">
-                    <Switch>
-                        <Route path="/app/reservations" exact component={Reservations} />
-                        <Route path="/app/reservations/reservations" exact component={ReservationsList} />
-                        <Route path="/app/reservations/blockades" exact component={BlockadesList} />
-                        <Route path="/app/users" exact component={Users} />
-                        <Route path="/app/profile" exact component={Profile} />
-                        <Redirect from="/app" to="/app/reservations" />
-                    </Switch>
-                    <FooterApp />
-                </div>
-            </div>
-        </>
-    );
+  return (
+    <>
+      <Sidebar />
+      <div className="relative md:ml-64 bg-blueGray-100">
+        <AppNavbar />
+        <div className=" mx-auto -m-24">
+          <Switch>
+            <Route path="/app/reservations" exact component={Reservations} />
+            <Route
+              path="/app/reservations/reservations"
+              exact
+              component={ReservationsList}
+            />
+            <Route
+              path="/app/reservations/blockades"
+              exact
+              component={BlockadesList}
+            />
+            <Route path="/app/users" exact component={Users} />
+            <Route path="/app/profile" exact component={Profile} />
+            <Redirect from="/app" to="/app/reservations" />
+          </Switch>
+          <FooterApp />
+        </div>
+      </div>
+    </>
+  );
 }

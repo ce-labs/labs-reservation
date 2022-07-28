@@ -15,12 +15,12 @@ export default function FooterSmall(props) {
           <div className="flex flex-wrap items-center md:justify-between justify-center">
             <div className="w-full md:w-4/12 px-4">
               <div className="text-sm text-blueGray-500 font-semibold py-1 text-center md:text-left">
-                Copyright © {new Date().getFullYear()} {" "}
+                Copyright © {new Date().getFullYear()}{" "}
                 <a
                   href="https://github.com/ce-labs"
                   className="text-blueGray-100 hover:text-blueGray-300"
                 >
-                  Sistema de Reservación de Laboratorios 
+                  Sistema de Reservación de Laboratorios
                 </a>
                 .
               </div>
@@ -37,16 +37,16 @@ export default function FooterSmall(props) {
                 </li>
                 <li>
                   <a
-                        href="https://github.com/ce-labs/labs-reservation/blob/main/LICENSE.md"
-                        className="text-white hover:text-blueGray-300 text-sm font-semibold block py-1 px-3"
+                    href="https://github.com/ce-labs/labs-reservation/blob/main/LICENSE.md"
+                    className="text-white hover:text-blueGray-300 text-sm font-semibold block py-1 px-3"
                   >
-                    Licencia 
+                    Licencia
                   </a>
                 </li>
                 <li>
                   <a
-                        href="mailto:celabscr@gmail.com"
-                        className="text-white hover:text-blueGray-300 text-sm font-semibold block py-1 px-3"
+                    href="mailto:laboratorioscefk@gmail.com"
+                    className="text-white hover:text-blueGray-300 text-sm font-semibold block py-1 px-3"
                   >
                     Contacto
                   </a>

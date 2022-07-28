@@ -1,17 +1,6 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 
 export default function AppNavbar() {
-
-  const [navbarTitle, setNavbarTitle] = useState('');
-
-  useEffect(() => {
-    getTitle();
-  });
-
-  const getTitle = () => {
-    setNavbarTitle(window.location.pathname);
-  }
-
   return (
     <>
       {/* Navbar */}
@@ -20,15 +9,8 @@ export default function AppNavbar() {
           {/* Brand */}
           <a
             className="text-white text-sm uppercase hidden lg:inline-block font-semibold"
-            href="#pablo"
             onClick={(e) => e.preventDefault()}
-          >
-            
-          </a>
-
-          {/*<ul className="flex-col md:flex-row list-none items-center hidden md:flex">
-            <ProfileDropdown />
-          </ul>*/}
+          ></a>
         </div>
       </nav>
       {/* End Navbar */}

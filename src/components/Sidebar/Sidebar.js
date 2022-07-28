@@ -1,43 +1,45 @@
 /*eslint-disable*/
 import React from "react";
 import { Link } from "react-router-dom";
+import { decrypt } from "../../assets/utils/Security";
 
 export default function Sidebar() {
-  
   const [collapseShow, setCollapseShow] = React.useState("hidden");
 
   const setUsersActions = () => {
-    if(localStorage.getItem('userType') === 'operator' || localStorage.getItem('userType') === 'teachingStaff'){
-      return(<></>)
+    if (
+      localStorage.getItem("userType") === "operator" ||
+      localStorage.getItem("userType") === "teachingStaff"
+    ) {
+      return <></>;
     } else {
-      return(
-      <>
-      <Link
-        className={
-          "text-xs uppercase py-3 font-bold block " +
-          (window.location.href.indexOf("/app/users") !== -1
-          ? "text-black hover:text-blueGray-700 "
-          : "text-blueGray-800 hover:text-blueGray-600")
-        }
-        to="/app/users"
-      >
-        <i
-          className={
-            "fas fa-users mr-2 text-sm " +
-            (window.location.href.indexOf("/app/users") !== -1
-              ? "opacity-75"
-              : "text-blueGray-300")
-          }
-        ></i>{" "}
-        Usuarios
-      </Link>
-      </>)
+      return (
+        <>
+          <Link
+            className={
+              "text-xs uppercase py-3 font-bold block " +
+              (window.location.href.indexOf("/app/users") !== -1
+                ? "text-black hover:text-blueGray-700 "
+                : "text-blueGray-800 hover:text-blueGray-600")
+            }
+            to="/app/users"
+          >
+            <i
+              className={
+                "fas fa-users mr-2 text-sm " +
+                (window.location.href.indexOf("/app/users") !== -1
+                  ? "opacity-75"
+                  : "text-blueGray-300")
+              }
+            ></i>{" "}
+            Usuarios
+          </Link>
+        </>
+      );
     }
-  }
-
+  };
 
   return (
-
     <>
       <nav className="md:left-0 md:block md:fixed md:top-0 md:bottom-0 md:overflow-y-auto md:flex-row md:flex-nowrap md:overflow-hidden shadow-xl bg-white flex flex-wrap items-center justify-between relative md:w-64 z-10 py-4 px-6">
         <div className="md:flex-col md:items-stretch md:min-h-full md:flex-nowrap px-0 flex flex-wrap items-center justify-between w-full mx-auto">
@@ -89,9 +91,6 @@ export default function Sidebar() {
             {/* Divider */}
             <hr className="my-4 md:min-w-full" />
             {/* Heading */}
-            {/*<h6 className="md:min-w-full text-blueGray-500 text-xs uppercase font-bold block pt-1 pb-4 no-underline">
-              Páginas 
-            </h6>*/}
             {/* Navigation */}
 
             <ul className="md:flex-col md:min-w-full flex flex-col list-none">
@@ -100,8 +99,8 @@ export default function Sidebar() {
                   className={
                     "text-xs uppercase py-3 font-bold block " +
                     (window.location.href.indexOf("/app/reservations") !== -1
-                    ? "text-black hover:text-blueGray-700"
-                    : "text-blueGray-800 hover:text-blueGray-600")
+                      ? "text-black hover:text-blueGray-700"
+                      : "text-blueGray-800 hover:text-blueGray-600")
                   }
                   to="/app/reservations"
                 >
@@ -117,17 +116,15 @@ export default function Sidebar() {
                 </Link>
               </li>
 
-              <li className="items-center">
-                {setUsersActions()}
-              </li>
+              <li className="items-center">{setUsersActions()}</li>
 
               <li className="items-center">
                 <Link
                   className={
                     "text-xs uppercase py-3 font-bold block " +
                     (window.location.href.indexOf("/app/profile") !== -1
-                    ? "text-black hover:text-blueGray-700 "
-                    : "text-blueGray-800 hover:text-blueGray-600")
+                      ? "text-black hover:text-blueGray-700 "
+                      : "text-blueGray-800 hover:text-blueGray-600")
                   }
                   to="/app/profile"
                 >
@@ -143,15 +140,17 @@ export default function Sidebar() {
                 </Link>
               </li>
             </ul>
-
           </div>
           <ul className="md:flex-col md:min-w-full flex flex-col list-none">
-              <li className="items-center">
-                <a className="text-black hover:text-blueGray-700 align-middle text-xs mt-0 mb-2" href="https://github.com/ce-labs" target="_blank">
-                    Sistema de Reservación de Laboratorios v1.0 
-                </a>
-              </li>
-            </ul>
+            <li className="items-center">
+              <a
+                className="text-black hover:text-blueGray-700 align-middle text-xs mt-0 mb-2"
+                target="_blank"
+              >
+                Sistema de Reservación de Laboratorios v1.0
+              </a>
+            </li>
+          </ul>
         </div>
       </nav>
     </>

@@ -5,6 +5,7 @@ import { toast, Toaster } from "react-hot-toast";
 import { Link, useHistory } from "react-router-dom";
 import { sleep } from "../../assets/utils/Sleep";
 import { UtilsClient } from "../../clients/UtilsClient";
+import { decrypt, encrypt } from "../../assets/utils/Security";
 
 export default function Login() {
   let history = useHistory();
@@ -52,6 +53,14 @@ export default function Login() {
         case "OK":
           const userType = await usersClient.getUserType(userId);
           localStorage.setItem("userType", userType);
+          /*let savedUserType = encrypt(userType);
+          localStorage.setItem(
+            "userType",
+            JSON.stringify({
+              encryptedData: savedUserType.encryptedData,
+              iv: savedUserType.iv,
+            })
+          );*/
           const currentSemesterData = await utilsClient.getCurrentSemester();
           localStorage.setItem(
             "currentSemester-Year",
@@ -61,12 +70,16 @@ export default function Login() {
             "currentSemester-Semester",
             currentSemesterData[0].semester
           );
-          localStorage.setItem(
-            "currentSemester-Week",
-            currentSemesterData[0].week
-          );
           const userStatus = await usersClient.getUserStatus(userId);
           localStorage.setItem("userStatus", userStatus);
+          /*let savedUserStatus = encrypt(userStatus);
+          localStorage.setItem(
+            "userStatus",
+            JSON.stringify({
+              encryptedData: savedUserStatus.encryptedData,
+              iv: savedUserStatus.iv,
+            })
+          );*/
           if (userStatus === "inactive") {
             toast.error(
               "Su estado de usuario es inactvo \n Favor contactar al correo: celabscr@gmail.com"
@@ -78,6 +91,15 @@ export default function Login() {
             toast.success("Bienvenido: " + userId);
             localStorage.setItem("userId", userId);
             localStorage.setItem("activeSession", true);
+            /*let savedUserId = encrypt(userId);
+            localStorage.setItem(
+              "userId",
+              JSON.stringify({
+                encryptedData: savedUserId.encryptedData,
+                iv: savedUserId.iv,
+              })
+            );*/
+
             sleep(2500).then(() => {
               history.push("/app");
             });

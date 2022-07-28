@@ -4,7 +4,7 @@ export default function FooterApp() {
   return (
     <>
       <footer className="block py-4">
-      <div className="container mx-auto px-4">
+        <div className="container mx-auto px-4">
           <hr className="mb-6 border-b-1 border-blueGray-600" />
           <div className="flex flex-wrap items-center md:justify-between justify-center">
             <div className="w-full md:w-4/12 px-4">
@@ -30,16 +30,16 @@ export default function FooterApp() {
                 </li>
                 <li>
                   <a
-                        href="https://github.com/ce-labs/labs-reservation/blob/main/LICENSE.md"
-                        className="text-black hover:text-blueGray-700 text-sm font-semibold block py-1 px-3"
+                    href="https://github.com/ce-labs/labs-reservation/blob/main/LICENSE.md"
+                    className="text-black hover:text-blueGray-700 text-sm font-semibold block py-1 px-3"
                   >
-                    Licencia 
+                    Licencia
                   </a>
                 </li>
                 <li>
                   <a
-                        href="mailto:celabscr@gmail.com"
-                        className="text-black hover:text-blueGray-700 text-sm font-semibold block py-1 px-3"
+                    href="mailto:laboratorioscefk@gmail.com"
+                    className="text-black hover:text-blueGray-700 text-sm font-semibold block py-1 px-3"
                   >
                     Contacto
                   </a>

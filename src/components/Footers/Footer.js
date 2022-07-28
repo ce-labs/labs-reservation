@@ -28,7 +28,8 @@ export default function Footer() {
             <div className="w-full lg:w-6/12 px-4">
               <h4 className="text-3xl font-semibold">¡Mantente en contacto!</h4>
               <h5 className="text-lg mt-0 mb-2 text-blueGray-600">
-                Para cualquier duda sobre la plataforma: celabscr@gmail.com
+                Para cualquier duda sobre la plataforma:
+                laboratorioscefk@gmail.com
               </h5>
             </div>
             <div className="w-full lg:w-6/12 px-4">
@@ -38,14 +39,6 @@ export default function Footer() {
                     Enlaces Útiles
                   </span>
                   <ul className="list-unstyled">
-                    <li>
-                      <a
-                        className="text-blueGray-600 hover:text-blueGray-800 font-semibold block pb-2 text-sm"
-                        href="https://github.com/ce-labs"
-                      >
-                        CE Labs
-                      </a>
-                    </li>
                     <li>
                       <a
                         className="text-blueGray-600 hover:text-blueGray-800 font-semibold block pb-2 text-sm"
@@ -66,7 +59,7 @@ export default function Footer() {
                         className="text-blueGray-600 hover:text-blueGray-800 font-semibold block pb-2 text-sm"
                         href="https://github.com/ce-labs/labs-reservation/blob/main/LICENSE.md"
                       >
-                        Licencia  
+                        Licencia
                       </a>
                     </li>
                     <li>
@@ -88,7 +81,7 @@ export default function Footer() {
                     <li>
                       <a
                         className="text-blueGray-600 hover:text-blueGray-800 font-semibold block pb-2 text-sm"
-                        href="mailto:celabscr@gmail.com"
+                        href="mailto:laboratorioscefk@gmail.com"
                       >
                         Contacto
                       </a>
@@ -102,7 +95,8 @@ export default function Footer() {
           <div className="flex flex-wrap items-center md:justify-between justify-center">
             <div className="w-full md:w-4/12 px-4 mx-auto text-center">
               <div className="text-sm text-blueGray-500 font-semibold py-1">
-                Copyright © {new Date().getFullYear()} Sistema de Reservación de Laboratorios por{" "}
+                Copyright © {new Date().getFullYear()} Sistema de Reservación de
+                Laboratorios por{" "}
                 <a
                   href="https://github.com/ce-labs"
                   className="text-blueGray-500 hover:text-blueGray-800"
