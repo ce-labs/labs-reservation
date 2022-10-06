@@ -20,12 +20,14 @@ import Auth from "layouts/Auth.js";
 
 // views without layouts
 import Index from "views/Index.js";
+import App from "layouts/App";
 
 ReactDOM.render(
   <BrowserRouter>
     <Switch>
       {/* add routes with layouts */}
       <Route path="/auth" component={Auth} />
+      <Route path="/app" component={App} />
       {/* add routes without layouts */}
       <Route path="/" exact component={Index} />
       {/* add redirect for first page */}

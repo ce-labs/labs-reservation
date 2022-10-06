@@ -48,8 +48,8 @@ export default function Login() {
         case "OK":
           const currentSemesterData = await utilsClient.getCurrentSemester();
           let semester = {
-            "currentSemester-Year": currentSemesterData[0].year,
-            "currentSemester-Semester": currentSemesterData[0].semester,
+            Year: currentSemesterData[0].year,
+            Semester: currentSemesterData[0].semester,
           };
           localStorage.setItem("currentSemester", JSON.stringify(semester));
 
@@ -64,8 +64,11 @@ export default function Login() {
               history.push("/auth");
             });
           } else {
-            toast.success("Bienvenido: " + userData.data.name);
+            toast.success("Bienvenido " + userData.data.firstName);
             localStorage.setItem("session", true);
+            sleep(2500).then(() => {
+              history.push("/app");
+            });
           }
 
           break;
