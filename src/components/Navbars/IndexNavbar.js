@@ -1,5 +1,7 @@
+/*eslint-disable*/
 import React from "react";
 import { Link } from "react-router-dom";
+// components
 
 export default function Navbar(props) {
   const [navbarOpen, setNavbarOpen] = React.useState(false);
@@ -29,15 +31,13 @@ export default function Navbar(props) {
             }
             id="example-navbar-warning"
           >
-            <ul className="flex flex-col lg:flex-row list-none lg:ml-auto"> 
-              <li className="flex items-center" to='/auth'>
-                <button 
-                  className="bg-darkBlue-001 active:bg-lightBlue-600 text-white 2 text-xs font-bold uppercase px-4 py-2 rounded shadow hover:shadow-lg outline-none focus:outline-none lg:mr-1 lg:mb-0 ml-3 mb-3 ease-linear transition-all duration-150"
+            <ul className="flex flex-col lg:flex-row list-none lg:ml-auto">
+              <li className="flex items-center">
+                <button
+                  className="bg-lightBlue-500 text-white active:bg-lightBlue-600 text-xs font-bold uppercase px-4 py-2 rounded shadow hover:shadow-lg outline-none focus:outline-none lg:mr-1 lg:mb-0 ml-3 mb-3 ease-linear transition-all duration-150"
                   type="button"
                 >
-                    <a href="/auth">
-                        <i class="fas fa-sign-in-alt"></i> Iniciar Sesión
-                    </a>
+                  <i className="fas fa-sign-in-alt"></i> Iniciar Sesión
                 </button>
               </li>
             </ul>

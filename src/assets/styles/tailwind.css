@@ -47,9 +47,7 @@ Remove the margin in all browsers.
 
 body {
   margin: 0;
-  background-color: rgba(241, 245, 249, 1);
 }
-
 
 /**
 Improve consistency of default fonts in all browsers. (https://github.com/sindresorhus/modern-normalize/issues/3)
@@ -1082,10 +1080,6 @@ select {
   }
 }
 
-.bg-readonly {
-  background-color: rgba(213, 213, 213);
-}
-
 .bg-black {
   --tw-bg-opacity: 1;
   background-color: rgba(0, 0, 0, var(--tw-bg-opacity));
@@ -1134,11 +1128,6 @@ select {
 .bg-lightBlue-500 {
   --tw-bg-opacity: 1;
   background-color: rgba(14, 165, 233, var(--tw-bg-opacity));
-}
-
-.bg-darkBlue-001 {
-  --tw-bg-opacity: 1;
-  background-color: rgba(20, 12, 60, var(--tw-bg-opacity));
 }
 
 .bg-lightBlue-600 {
@@ -2350,19 +2339,6 @@ select {
   text-align: right;
 }
 
-
-.text-darkBlue-001 {
-  color: rgba(20, 12, 60);
-}
-
-.text-darkBlue-500 {
-  color: #3a23ae ;
-}
-
-.text-darkBlue-600 {
-  color: #c4242c ;
-}
-
 .text-black {
   --tw-text-opacity: 1;
   color: rgba(0, 0, 0, var(--tw-text-opacity));
@@ -2457,11 +2433,6 @@ select {
   --tw-text-opacity: 1;
   color: rgba(30, 41, 59, var(--tw-text-opacity));
 }
-
-.text-green-001 {
-    --tw-text-opacity: 1;
-    color: rgba(26, 159, 80, var(--tw-text-opacity));
-  }
 
 .hover\:text-lightBlue-600:hover {
   --tw-text-opacity: 1;
