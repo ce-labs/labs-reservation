@@ -48,6 +48,8 @@ export default function Footer() {
                       <a
                         className="text-blueGray-600 hover:text-blueGray-800 font-semibold block pb-2 text-sm"
                         href="https://github.com/ce-labs"
+                        target="_blank"
+                        rel="noreferrer"
                       >
                         Github
                       </a>
@@ -63,6 +65,8 @@ export default function Footer() {
                       <a
                         className="text-blueGray-600 hover:text-blueGray-800 font-semibold block pb-2 text-sm"
                         href="https://github.com/ce-labs/labs-reservation/blob/main/LICENSE.md"
+                        target="_blank"
+                        rel="noreferrer"
                       >
                         Licencia
                       </a>
@@ -71,6 +75,8 @@ export default function Footer() {
                       <a
                         className="text-blueGray-600 hover:text-blueGray-800 font-semibold block pb-2 text-sm"
                         href="https://github.com/ce-labs/labs-reservation/blob/main/LICENSE.md"
+                        target="_blank"
+                        rel="noreferrer"
                       >
                         Términos y Condiciones
                       </a>
@@ -79,6 +85,8 @@ export default function Footer() {
                       <a
                         className="text-blueGray-600 hover:text-blueGray-800 font-semibold block pb-2 text-sm"
                         href="https://github.com/ce-labs/labs-reservation/blob/main/LICENSE.md"
+                        target="_blank"
+                        rel="noreferrer"
                       >
                         Politica de Privacidad
                       </a>
