@@ -72,4 +72,41 @@ export class UsersClient {
       });
     return response.data;
   }
+
+  async updateUserStatus(userId, userStatus) {
+    const requestUrl = apiUrl + "/api/v1/users/status/" + userId;
+    const userData = { userStatus: userStatus };
+    const headers = { "Content-Type": "application/json" };
+    const response = await axios
+      .put(requestUrl, userData, headers)
+      .catch((error) => {
+        return error.response;
+      });
+    return response.data;
+  }
+
+  async removeUser(userId) {
+    const requestUrl = apiUrl + "/api/v1/users/" + userId;
+    const headers = { "Content-Type": "application/json" };
+    const response = await axios.delete(requestUrl, headers).catch((error) => {
+      return error.response;
+    });
+    return response.data;
+  }
+
+  async updateUserInformation(userId, mail, phone) {
+    const requestUrl = apiUrl + "/api/v1/users/" + userId;
+    const userData = {
+      mail: mail,
+      phone: phone,
+      modificationAuthor: userId,
+    };
+    const headers = { "Content-Type": "application/json" };
+    const response = await axios
+      .put(requestUrl, userData, headers)
+      .catch((error) => {
+        return error.response;
+      });
+    return response.data;
+  }
 }

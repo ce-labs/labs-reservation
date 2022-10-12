@@ -1,10 +1,10 @@
 import { UsersClient } from "communication/UsersClient";
+import UpdateUserDropdown from "components/Dropdowns/UpdateUserDropdown";
 import { customStyles } from "constants/styles";
 import React, { useEffect, useState } from "react";
 import toast from "react-hot-toast";
-import Modal from 'react-modal';
+import Modal from "react-modal";
 import CreateUser from "./CreateUser";
-
 
 export default function UsersTable({ color }) {
   const [userData, setUserData] = useState([]);
@@ -91,7 +91,7 @@ export default function UsersTable({ color }) {
     if (userStatus === "active") {
       return (
         <>
-          <i className="fas fa-circle text-green-001 mr-2"></i> Activo{" "}
+          <i className="fas fa-circle text-emerald-500 mr-2"></i> Activo{" "}
         </>
       );
     } else if (userStatus === "inactive") {
@@ -110,12 +110,44 @@ export default function UsersTable({ color }) {
       return (
         <>
           <button
-                className="bg-primary text-white active:bg-primary-light text-xs font-bold uppercase px-3 py-1 rounded outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
-                type="button"
+            className="bg-primary text-white active:bg-primary-light text-xs font-bold uppercase px-3 py-1 rounded outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
+            type="button"
             onClick={openModal}
           >
             <i className="fas fa-plus"></i> Crear Nuevo Usuario
           </button>
+        </>
+      );
+    }
+  };
+
+  const setUserActions = (
+    userId,
+    password,
+    firstName,
+    lastName,
+    userType,
+    userStatus,
+    mail,
+    phone
+  ) => {
+    if (userData.userType != "admin") {
+      return <></>;
+    } else {
+      return (
+        <>
+          <UpdateUserDropdown
+            userData={{
+              userId: userId,
+              password: password,
+              firstName: firstName,
+              lastName: lastName,
+              userType: userType,
+              userStatus: userStatus,
+              mail: mail,
+              phone: phone,
+            }}
+          />
         </>
       );
     }
@@ -208,8 +240,7 @@ export default function UsersTable({ color }) {
                   "font-semibold text-lg " +
                   (color === "light" ? "text-blueGray-700" : "text-white")
                 }
-              >
-              </h3>
+              ></h3>
             </div>
             {setCreateUserButton()}
           </div>
@@ -328,7 +359,7 @@ export default function UsersTable({ color }) {
                     {/*<TableDropdown userData={{"userId": item.userId, "password":item.password, "firstName":item.firstName, "lastName":item.lastName, "userType":item.userType, "userStatus": item.userStatus, "mail": item.mail, "phone": item.phone} }/>
                      */}
                     <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-right">
-                      {/*{setUserActions(
+                      {setUserActions(
                         item.userId,
                         item.password,
                         item.firstName,
@@ -337,8 +368,7 @@ export default function UsersTable({ color }) {
                         item.userStatus,
                         item.mail,
                         item.phone
-                      )}*/}
-                      sadsad
+                      )}
                     </td>
                   </tr>
                 );

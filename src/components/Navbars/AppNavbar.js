@@ -1,7 +1,17 @@
 import UserDropdown from "components/Dropdowns/UserDropdown";
-import React from "react";
+import React, { useEffect, useState } from "react";
 
 export default function AppNavbar() {
+  const [navbarTitle, setNavbarTitle] = useState("");
+
+  const getTitle = () => {
+    setNavbarTitle(window.location.pathname);
+  };
+
+  useEffect(() => {
+    getTitle();
+  });
+
   return (
     <>
       {/* Navbar */}
@@ -11,10 +21,12 @@ export default function AppNavbar() {
           <a
             className="text-white text-sm uppercase hidden lg:inline-block font-semibold"
             onClick={(e) => e.preventDefault()}
-          ></a>
+          >
+            {navbarTitle}
+          </a>
           {/* User */}
           <ul className="flex-col md:flex-row list-none items-center hidden md:flex">
-            <UserDropdown/>
+            <UserDropdown />
           </ul>
         </div>
       </nav>
