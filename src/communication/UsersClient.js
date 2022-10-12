@@ -8,6 +8,24 @@ export class UsersClient {
     return response;
   }
 
+  async getAllUsers() {
+    const url = apiUrl + "/api/v1/users/all";
+    const response = await axios(url);
+    return response.data;
+  }
+
+  async searchUsers(category, filter) {
+    const url =
+      apiUrl +
+      '/api/v1/users/search/{"category":"' +
+      category +
+      '","filter":"' +
+      filter +
+      '"}';
+    const response = await axios(url);
+    return response.data;
+  }
+
   async updatePersonalInformation(userId, mail, phone, password) {
     const requestUrl = apiUrl + "/api/v1/users/" + userId;
     const userData = {

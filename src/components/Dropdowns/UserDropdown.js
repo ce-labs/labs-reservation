@@ -1,7 +1,7 @@
 import React, { createRef, useState } from "react";
 import { createPopper } from "@popperjs/core";
 import { useHistory } from "react-router";
-import toast, { Toaster } from "react-hot-toast";
+import toast from "react-hot-toast";
 import Modal from "react-modal";
 import { sleep } from "utils/Sleep";
 import { customStyles } from "constants/styles";
