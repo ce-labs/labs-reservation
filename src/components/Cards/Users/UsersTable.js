@@ -1,6 +1,10 @@
 import { UsersClient } from "communication/UsersClient";
+import { customStyles } from "constants/styles";
 import React, { useEffect, useState } from "react";
 import toast from "react-hot-toast";
+import Modal from 'react-modal';
+import CreateUser from "./CreateUser";
+
 
 export default function UsersTable({ color }) {
   const [userData, setUserData] = useState([]);
@@ -343,6 +347,13 @@ export default function UsersTable({ color }) {
           </table>
         </div>
       </div>
+      <Modal
+        isOpen={createUserIsOpen}
+        onRequestClose={closeModal}
+        style={customStyles}
+      >
+        <CreateUser />
+      </Modal>
     </>
   );
 }

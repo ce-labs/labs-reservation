@@ -23,7 +23,7 @@ export default function Sidebar() {
       case "admin":
         setUserTypeTitle("Vista Administrador");
         break;
-      case "operador":
+      case "operator":
         setUserTypeTitle("Vista Operador");
         break;
       case "coordinationStaff":

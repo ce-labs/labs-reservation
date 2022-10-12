@@ -42,4 +42,34 @@ export class UsersClient {
       });
     return response.data;
   }
+
+  async createUser(
+    userId,
+    password,
+    userType,
+    firstName,
+    lastName,
+    mail,
+    phone,
+    creationAuthor
+  ) {
+    const requestUrl = apiUrl + "/api/v1/users/";
+    const userData = {
+      userId: userId,
+      password: password,
+      userType: userType,
+      firstName: firstName,
+      lastName: lastName,
+      mail: mail,
+      phone: phone,
+      creationAuthor: creationAuthor,
+    };
+    const headers = { "Content-Type": "application/json" };
+    const response = await axios
+      .post(requestUrl, userData, headers)
+      .catch((error) => {
+        return error.response;
+      });
+    return response.data;
+  }
 }

@@ -31,16 +31,10 @@ export default function Users() {
 
   return (
     <>
-      <div className="flex flex-wrap mt-4">
-        <div
-          className="w-full mb-12 px-4"
-          style={{
-            paddingTop: "120px",
-            paddingLeft: "50px",
-            paddingRight: "50px",
-          }}
-        >
-          <UsersTable color="light"/>
+      <div className="flex flex-wrap" style={{paddingTop:'150px', paddingLeft:'50px', paddingRight:'50px'}}>
+        <div className="w-full ">
+        <UsersTable color="light"/>
+
         </div>
       </div>
     </>
