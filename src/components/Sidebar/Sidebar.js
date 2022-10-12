@@ -1,9 +1,60 @@
 /*eslint-disable*/
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 
 export default function Sidebar() {
   const [collapseShow, setCollapseShow] = React.useState("hidden");
+  const [userType, setUserType] = useState("");
+  const [userTypeTitle, setUserTypeTitle] = useState("");
+
+  const getUserData = async () => {
+    const unparsedUserData = await localStorage.getItem("userData");
+    let userData = JSON.parse(unparsedUserData);
+    setUserType(userData.userType);
+    setTitle(userData.userType);
+  };
+
+  useEffect(() => {
+    getUserData();
+  }, []);
+
+  const setTitle = async (currentUserType) => {
+    switch (currentUserType) {
+      case "admin":
+        setUserTypeTitle("Vista Administrador");
+        break;
+      case "operador":
+        setUserTypeTitle("Vista Operador");
+        break;
+      case "coordinationStaff":
+        setUserTypeTitle("Vista Asistente Logística");
+        break;
+      case "teachingStaff":
+        setUserTypeTitle("Vista Profesor");
+        break;
+      default:
+        break;
+    }
+  };
+
+  const setUsersActions = () => {
+    if (userType === "operator" || userType === "teachingStaff") {
+      return <></>;
+    } else {
+      return (
+        <>
+          <Link
+            className="text-blueGray-700 hover:text-blueGray-500 text-xs uppercase py-3 font-bold block"
+            to="/app/users"
+          >
+            <i className="fas fa-newspaper text-blueGray-400 mr-2 text-sm"></i>{" "}
+            Usuarios
+          </Link>
+        </>
+      );
+    }
+  };
+
   return (
     <>
       <nav className="md:left-0 md:block md:fixed md:top-0 md:bottom-0 md:overflow-y-auto md:flex-row md:flex-nowrap md:overflow-hidden shadow-xl bg-white flex flex-wrap items-center justify-between relative md:w-64 z-10 py-4 px-6">
@@ -18,8 +69,11 @@ export default function Sidebar() {
           </button>
           {/* Brand */}
           <Link
-            className="md:block text-left md:pb-2 text-blueGray-600 mr-0 inline-block whitespace-nowrap text-sm uppercase font-bold p-4 px-0"
-            to="/"
+            className="md:block text-left md:pb-2 text-bl-
+            
+            
+            ueGray-600 mr-0 inline-block whitespace-nowrap text-sm uppercase font-bold p-4 px-0"
+            to="/app/home"
           >
             Laboratorios CE
           </Link>
@@ -32,14 +86,14 @@ export default function Sidebar() {
             }
           >
             {/* Collapse header */}
-            <div className="md:min-w-full md:hidden block pb-4 mb-4 border-b border-solid border-blueGray-200">
+            <div className="md:min-w-full md:hidden block pb-4 mb-4 border-solid border-blueGray-200">
               <div className="flex flex-wrap">
                 <div className="w-6/12">
                   <Link
                     className="md:block text-left md:pb-2 text-blueGray-600 mr-0 inline-block whitespace-nowrap text-sm uppercase font-bold p-4 px-0"
                     to="/"
                   >
-                    Notus React
+                    Laboratorios CE
                   </Link>
                 </div>
                 <div className="w-6/12 flex justify-end">
@@ -53,22 +107,12 @@ export default function Sidebar() {
                 </div>
               </div>
             </div>
-            {/* Form */}
-            <form className="mt-6 mb-4 md:hidden">
-              <div className="mb-3 pt-0">
-                <input
-                  type="text"
-                  placeholder="Search"
-                  className="border-0 px-3 py-2 h-12 border border-solid  border-blueGray-500 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-base leading-snug shadow-none outline-none focus:outline-none w-full font-normal"
-                />
-              </div>
-            </form>
 
             {/* Divider */}
             <hr className="my-4 md:min-w-full" />
             {/* Heading */}
             <h6 className="md:min-w-full text-blueGray-500 text-xs uppercase font-bold block pt-1 pb-4 no-underline">
-              No Layout Pages
+              {userTypeTitle}
             </h6>
             {/* Navigation */}
 
@@ -76,26 +120,19 @@ export default function Sidebar() {
               <li className="items-center">
                 <Link
                   className="text-blueGray-700 hover:text-blueGray-500 text-xs uppercase py-3 font-bold block"
-                  to="/landing"
+                  to="/app/home"
                 >
                   <i className="fas fa-newspaper text-blueGray-400 mr-2 text-sm"></i>{" "}
                   Reservaciones
                 </Link>
               </li>
 
+              <li className="items-center">{setUsersActions()}</li>
+
               <li className="items-center">
                 <Link
                   className="text-blueGray-700 hover:text-blueGray-500 text-xs uppercase py-3 font-bold block"
-                  to="/profile"
-                >
-                  <i className="fas fa-user-circle text-blueGray-400 mr-2 text-sm"></i>{" "}
-                  Usuarios
-                </Link>
-              </li>
-              <li className="items-center">
-                <Link
-                  className="text-blueGray-700 hover:text-blueGray-500 text-xs uppercase py-3 font-bold block"
-                  to="/profile"
+                  to="/app/profile"
                 >
                   <i className="fas fa-user-circle text-blueGray-400 mr-2 text-sm"></i>{" "}
                   Perfil

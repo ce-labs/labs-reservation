@@ -18,6 +18,10 @@ export default function Login() {
   let usersClient = new UsersClient();
   let utilsClient = new UtilsClient();
 
+  if (localStorage.getItem("session")) {
+    history.push("/app");
+  }
+
   const handleInputChangeForUserId = async (e) => {
     var value = e.target.value;
     setUserId(value);
