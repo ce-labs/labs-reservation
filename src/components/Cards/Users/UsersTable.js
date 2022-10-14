@@ -29,7 +29,6 @@ export default function UsersTable({ color }) {
     let currentUser = JSON.parse(unparsedUserData);
 
     var currentData = await usersClient.getSingleUser(currentUser.userId);
-    //console.log("🚀 ~ file: UsersTable.js ~ line 28 ~ getAllUsers ~ currentData", currentData)
     for (var i = 0; i < currentUsers.length; i++) {
       if (currentUsers[i].userId === currentData.data.userId) {
         currentUsers.splice(i, 1);
@@ -158,6 +157,17 @@ export default function UsersTable({ color }) {
       toast.error("Debe seleccionar alguna opción");
     } else {
       const response = await usersClient.searchUsers(category, filter);
+
+      const unparsedUserData = await localStorage.getItem("userData");
+      let currentUser = JSON.parse(unparsedUserData);
+  
+      var currentData = await usersClient.getSingleUser(currentUser.userId);
+      for (var i = 0; i < currentUsers.length; i++) {
+        if (response[i].userId === currentData.data.userId) {
+          response.splice(i, 1);
+        }
+      }
+      
       if (response.length === 0) {
         toast.error(
           "No se encontraron resultados con las especificaciones indicadas"

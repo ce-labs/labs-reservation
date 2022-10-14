@@ -52,8 +52,8 @@ export default function Login() {
         case "OK":
           const currentSemesterData = await utilsClient.getCurrentSemester();
           let semester = {
-            Year: currentSemesterData[0].year,
-            Semester: currentSemesterData[0].semester,
+            year: currentSemesterData[0].year,
+            semester: currentSemesterData[0].semester,
           };
           localStorage.setItem("currentSemester", JSON.stringify(semester));
 
