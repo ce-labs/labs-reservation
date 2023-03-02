@@ -6,6 +6,7 @@ import toast from "react-hot-toast";
 import CreateReservation from "./CreateReservation";
 import Modal from "react-modal";
 import CreateBlockade from "./CreateBlockade";
+import CustomCalendar from "./CustomCalendar";
 
 export default function Reservations({ color }) {
   const [userData, setUserData] = useState([]);
@@ -16,6 +17,8 @@ export default function Reservations({ color }) {
   const [category, setCategory] = useState("");
 
   const [reservations, setReservations] = useState([]);
+  const [finalReservations, setFinalReservations] = useState([]);
+  const [finalBlockades, setFinalBlockades] = useState([]);
   const [blockades, setBlockades] = useState([]);
 
   const [createReservationIsOpen, setCreateReservationIsOpen] = useState(false);
@@ -89,7 +92,7 @@ export default function Reservations({ color }) {
     ) {
       toast.error("Debe especificar el laboratorio y semana");
     } else {
-      console.log("buscar reservaciones y bloqueos");
+      //console.log("buscar reservaciones y bloqueos");
       const reservationsResponse =
         await reservationsClient.getCalendarReservations(
           semester.year,
@@ -97,25 +100,42 @@ export default function Reservations({ color }) {
           category,
           filter
         );
-      console.log(
-        "🚀 ~ file: Reservations.js ~ line 90 ~ searchReservations ~ reservationsResponse",
-        reservationsResponse
-      );
+      // console.log(
+      //   "🚀 ~ file: Reservations.js ~ line 90 ~ searchReservations ~ reservationsResponse",
+      //   reservationsResponse
+      // );
 
       if (reservationsResponse.length === 0 || reservationsResponse === []) {
         toast.error(
           "No se encontraron reservaciones en el periodo seleccionado"
         );
+        trimReservationsFormat([]);
+        setReservations([]);
       } else {
         toast.success("Mostrando reservaciones en el periodo seleccionado");
+        
         setReservations(reservationsResponse);
+
       }
-      /*const blockadesResponse = await reservationsClient.getCalendarBlockades(
+      const blockadesResponse = await reservationsClient.getCalendarBlockades(
         semester.year,
         semester.semester,
         filter
       );
+      console.log("🚀 ~ file: Reservations.js:125 ~ searchReservations ~ blockadesResponse:", blockadesResponse)
       if (blockadesResponse.length === 0 || blockadesResponse === []) {
+        console.log(
+          "No se encontraron reservaciones en el periodo seleccionado"
+        );
+        trimBlockadesFormat([]);
+        setBlockades([]);
+      } else {
+        setBlockades(blockadesResponse);
+      }
+      trimBlockadesFormat(blockadesResponse);
+      trimReservationsFormat(reservationsResponse);
+
+      /*if (blockadesResponse.length === 0 || blockadesResponse === []) {
         toast.error(
           "No se encontraron bloqueos en el periodo seleccionado"
         );
@@ -125,6 +145,62 @@ export default function Reservations({ color }) {
       }*/
     }
   };
+
+  const setDayByNumber = (day) => {
+    switch (day) {
+      case 'LUNES':
+        return (1).toString();
+      case 'MARTES':
+        return (2).toString();
+      case 'MIÉRCOLES':
+        return (3).toString();
+      case 'JUEVES':
+        return (4).toString();
+      case 'VIERNES':
+        return (5).toString();
+      case 'SÁBADO':
+        return (6).toString();
+      default:
+        break;
+    }
+  }
+
+  const trimReservationsFormat = (reservations) => {
+    //{startTime: "09:30", endTime: "11:45", dayOfWeek: "0", title: "adasd"},
+    let currentReservations = [];
+    for (let index = 0; index < reservations.length; index++) {
+      // console.log('startTime', reservations[index].scheduleSection.slice(1, reservations[index].scheduleSection.length - 6))
+      // console.log('endTime', reservations[index].scheduleSection.slice( reservations[index].scheduleSection.length - 5))
+      let dayOfWeek = setDayByNumber(reservations[index].day);
+      let currentElement = {startTime: reservations[index].scheduleSection.slice(0, reservations[index].scheduleSection.length - 6), 
+                            endTime: reservations[index].scheduleSection.slice( reservations[index].scheduleSection.length - 5),
+                            dayOfWeek: dayOfWeek,
+                            title: reservations[index].description, 
+                            type: reservations[index].type,
+                            colorType: '#820000',
+                            manager: reservations[index].manager}
+      currentReservations.push(currentElement);
+    }
+    setFinalReservations(currentReservations);
+  }
+
+  const trimBlockadesFormat = (blockades) => {
+    //{startTime: "09:30", endTime: "11:45", dayOfWeek: "0", title: "adasd"},
+    console.log(blockades)
+    let currentBlockades = [];
+    for (let index = 0; index < blockades.length; index++) {
+      let dayOfWeek = setDayByNumber(blockades[index].day);
+      let currentElement = {startTime: blockades[index].scheduleSection.slice(0, blockades[index].scheduleSection.length - 6), 
+                            endTime: blockades[index].scheduleSection.slice( blockades[index].scheduleSection.length - 5),
+                            dayOfWeek: dayOfWeek,
+                            title: blockades[index].description, 
+                            type: blockades[index].type,
+                            colorType: '#20262E',
+                            manager: blockades[index].manager}
+                            currentBlockades.push(currentElement);
+    }
+    setFinalBlockades(currentBlockades);
+  }
 
   const setCreateBlockadeButton = () => {
     if (userData.userType !== "admin") {
@@ -232,7 +308,7 @@ export default function Reservations({ color }) {
               <p>
                 {data.type} {data.day} {data.scheduleSection} {data.description}
               </p>
-            ))}*/}
+            ))}
             {reservations.map((data) => (
               <p>
                 {data.type} {data.day} {data.date}
@@ -241,6 +317,14 @@ export default function Reservations({ color }) {
                 {data.laboratory}
               </p>
             ))}
+            {console.log(finalReservations)}*/}
+
+            <CustomCalendar reservations={finalReservations} blockades={finalBlockades}/>
+            
+                      {/*{[
+                       {startTime: "09:30", endTime: "11:45", dayOfWeek: "0", title: "adasd"}, 
+                       {startTime: "09:30", endTime: "11:45", dayOfWeek: "1", title: "ASDASDASD"},
+                       {startTime: "09:30", endTime: "13:45", dayOfWeek: "2", title: "ASDASDASD"}]}/>*/}
           </div>
         </div>
       </div>

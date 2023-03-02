@@ -170,7 +170,7 @@ export default function CreateReservation() {
     );
 
     if (response === "☑️ The reservation was created successfully ... ") {
-      toast.success("Reservación Creada exitosamente");
+      toast.success("Reservación creada exitosamente");
       sleep(2000).then(() => {
         closeModal();
         window.location.reload();

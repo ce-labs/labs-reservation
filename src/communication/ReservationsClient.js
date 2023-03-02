@@ -33,13 +33,12 @@ export class ReservationsClient {
   async getCalendarBlockades(year, semester, laboratory) {
     const url =
       apiUrl +
-      '/api/v1/data/blockades/search/{"year":"' +
-      year +
-      '","semester":"' +
-      semester +
-      '","laboratory":"' +
-      laboratory +
-      '"}';
+      '/api/v1/blockades/' +
+      year + '/'+
+      semester + '/'+
+      laboratory;
+      //console.log("🚀 ~ file: ReservationsClient.js:43 ~ ReservationsClient ~ getCalendarBlockades ~ apiUrl:", url)
+
     const response = await axios(url);
     return response.data;
   }
