@@ -151,7 +151,7 @@ export default function CreateBlockade() {
       currentSection,
       currentDescription,
       currentStaff,
-      showDescription,
+      true,
       localStorage.getItem("userId"),
       userMail
     );
@@ -266,7 +266,7 @@ export default function CreateBlockade() {
                   </select>
                 </div>
               </div>
-              <div className="w-full lg:w-12/12 px-4">
+              {/* <div className="w-full lg:w-12/12 px-4">
                 <div className="relative w-full mb-3">
                   <label className="block uppercase text-blueGray-600 text-xs font-bold mb-2">
                     Mostrar Descripción
@@ -278,7 +278,7 @@ export default function CreateBlockade() {
                     onChange={handleShowDescription}
                   />
                 </div>
-              </div>
+              </div> */}
             </div>
 
             <div className="flex flex-wrap">

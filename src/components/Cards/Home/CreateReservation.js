@@ -164,7 +164,7 @@ export default function CreateReservation() {
       currentSection,
       currentDescription,
       currentStaff,
-      showDescription,
+      true,
       userData,
       userMail
     );
@@ -306,7 +306,7 @@ export default function CreateReservation() {
                   </select>
                 </div>
               </div>
-              <div className="w-full lg:w-12/12 px-4">
+              {/* <div className="w-full lg:w-12/12 px-4">
                 <div className="relative w-full mb-3">
                   <label className="block uppercase text-blueGray-600 text-xs font-bold mb-2">
                     Mostrar Descripción
@@ -318,7 +318,7 @@ export default function CreateReservation() {
                     onChange={handleShowDescription}
                   />
                 </div>
-              </div>
+              </div> */}
             </div>
 
             <div className="flex flex-wrap">
