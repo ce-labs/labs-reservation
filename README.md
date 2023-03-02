@@ -1,1 +1,1 @@
-# labs-reservation
+Sistema de Reservación de Laboratorios CE
