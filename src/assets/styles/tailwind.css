@@ -2350,6 +2350,11 @@ select {
   text-align: right;
 }
 
+.text-primary-v2 {
+  --tw-text-opacity: 1;
+  color: rgba(20, 14, 57, var(--tw-text-opacity));
+}
+
 .text-black {
   --tw-text-opacity: 1;
   color: rgba(0, 0, 0, var(--tw-text-opacity));

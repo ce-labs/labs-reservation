@@ -28,16 +28,16 @@ export default function Footer() {
             <div className="w-full lg:w-6/12 px-4">
               <h4 className="text-3xl font-semibold">¡Mantente en contacto!</h4>
               <h5 className="text-lg mt-0 mb-2 text-blueGray-600">
-                Para cualquier duda sobre la plataforma, comuniquese al correo:
+                Para cualquier duda sobre la plataforma, comuniquese al correo: 
                 <a
                   href="mailto:laboratorioscefk@gmail.com"
-                  className="text-blueGray-600"
+                  className="text-blueGray-400 font-semibold"
                 >
-                  laboratorioscefk@gmail.com
+                   laboratorioscefk@gmail.com
                 </a>
               </h5>
             </div>
-            <div className="w-full lg:w-6/12 px-4">
+            {/* <div className="w-full lg:w-6/12 px-4">
               <div className="flex flex-wrap items-top mb-6">
                 <div className="w-full lg:w-4/12 px-4 ml-auto">
                   <span className="block uppercase text-blueGray-500 text-sm font-semibold mb-2">
@@ -102,7 +102,7 @@ export default function Footer() {
                   </ul>
                 </div>
               </div>
-            </div>
+            </div> */}
           </div>
           <hr className="my-6 border-blueGray-300" />
           <div className="flex flex-wrap items-center md:justify-between justify-center">

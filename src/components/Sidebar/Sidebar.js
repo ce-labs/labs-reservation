@@ -47,7 +47,7 @@ export default function Sidebar() {
             className="text-blueGray-700 hover:text-blueGray-500 text-xs uppercase py-3 font-bold block"
             to="/app/users"
           >
-            <i className="fas fa-newspaper text-blueGray-400 mr-2 text-sm"></i>{" "}
+            <i className="fas fa-users text-blueGray-400 mr-2 text-sm"></i>{" "}
             Usuarios
           </Link>
         </>
@@ -122,7 +122,7 @@ export default function Sidebar() {
                   className="text-blueGray-700 hover:text-blueGray-500 text-xs uppercase py-3 font-bold block"
                   to="/app/home"
                 >
-                  <i className="fas fa-newspaper text-blueGray-400 mr-2 text-sm"></i>{" "}
+                  <i className="fas fa-calendar text-blueGray-400 mr-2 text-sm"></i>{" "}
                   Reservaciones
                 </Link>
               </li>

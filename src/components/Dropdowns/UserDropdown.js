@@ -70,24 +70,34 @@ const UserDropdown = () => {
           "bg-white text-base z-50 float-left py-2 list-none text-left rounded shadow-lg min-w-48"
         }
       >
-        <a
+        {/* <a
           href=""
           className={
             "text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-blueGray-700"
           }
           onClick={() => history.push("/app/profile")}
         >
-          Perfil
-        </a>
+          <i class="fas fa-user"></i> Perfil
+        </a> */}
+        <button
+          href=""
+          className={
+            "text-sm py-2 px-4 font-normal w-full whitespace-nowrap bg-transparent text-blueGray-700"
+          }
+          onClick={() => history.push("/app/profile")}
+        >
+          <i class="fas fa-user"></i> Perfil
+        </button>
+
         <div className="h-0 my-2 border border-solid border-blueGray-100" />
         <button
           href=""
           className={
-            "text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-blueGray-700"
+            "text-sm py-2 px-4 font-normal w-full whitespace-nowrap bg-transparent text-blueGray-700"
           }
           onClick={openLogoutModal}
         >
-          Cerrar Sesión
+          <i class="fas fa-window-close"></i> Cerrar Sesión
         </button>
       </div>
       <Modal
