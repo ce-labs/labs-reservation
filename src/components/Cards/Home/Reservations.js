@@ -195,7 +195,7 @@ export default function Reservations({ color }) {
                             dayOfWeek: dayOfWeek,
                             title: blockades[index].description, 
                             type: blockades[index].type,
-                            colorType: '#20262E',
+                            colorType: '#334155',
                             manager: blockades[index].manager}
                             currentBlockades.push(currentElement);
     }
