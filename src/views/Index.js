@@ -31,10 +31,10 @@ export default function Index() {
                     <i class="fas fa-sign-in-alt"></i> Iniciar Sesión
                   </a>
                   <a
-                    href="/auth"
+                    href="mailto:laboratorioscefk@gmail.com"
                     className="github-star ml-1 text-white font-bold px-6 py-4 rounded mr-1 mb-1 bg-blueGray-700 active:bg-blueGray-600 uppercase text-sm shadow hover:shadow-lg ease-linear transition-all duration-150"
                   >
-                    <i class="fas fa-calendar"></i> Disponibilidad
+                    <i class="fas fa-user"></i> Contacto
                   </a>
                 </div>
               </div>
