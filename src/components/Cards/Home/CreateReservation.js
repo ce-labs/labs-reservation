@@ -155,6 +155,13 @@ export default function CreateReservation() {
   };
 
   const createReservation = async () => {
+    const currentAuthor = userData;
+    delete currentAuthor.password;
+    delete currentAuthor.recoveryCode;
+    delete currentAuthor.reservations;
+    delete currentAuthor.userStatus;
+    delete currentAuthor.userType;
+
     const response = await reservationsClient.createReservation(
       semester.year,
       semester.semester,
@@ -165,7 +172,7 @@ export default function CreateReservation() {
       currentDescription,
       currentStaff,
       true,
-      userData,
+      currentAuthor,
       userMail
     );
 
