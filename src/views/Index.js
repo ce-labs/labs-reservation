@@ -2,7 +2,7 @@
 import React from "react";
 
 import IndexNavbar from "components/Navbars/IndexNavbar.js";
-import Footer from "components/Footers/Footer.js";
+
 
 export default function Index() {
   return (
@@ -13,10 +13,10 @@ export default function Index() {
           <div className="items-center flex flex-wrap">
             <div className="w-full md:w-5/12 ml-auto px-12 md:px-4">
               <div className="md:pr-12">
-                <h3 className="text-3xl font-semibold">
+                <h4 className="text-2xl font-semibold ">
                   Sistema de Reservación de Laboratorios - Área Académica de
                   Ingeniería en Computadores.
-                </h3>
+                </h4>
                 <p className="mt-4 text-lg leading-relaxed text-blueGray-500">
                   El Sistema de Reservación de Laboratorios es una herramienta
                   que tiene como propósito principal la consulta y reserva sobre
@@ -54,8 +54,6 @@ export default function Index() {
           </div>
         </div>
       </section>
-
-      <Footer />
     </>
   );
 }
