@@ -13,11 +13,13 @@ export default function Index() {
           <div className="items-center flex flex-wrap">
             <div className="w-full md:w-5/12 ml-auto px-12 md:px-4">
               <div className="md:pr-12">
-                <h4 className="text-2xl font-semibold ">
-                  Sistema de Reservación de Laboratorios - Área Académica de
-                  Ingeniería en Computadores.
+                <h4 className="text-2xl font-semibold mb-2">
+                  Sistema de Reservación de Laboratorios
                 </h4>
-                <p className="mt-4 text-lg leading-relaxed text-blueGray-500">
+                <h5 className="text-md font-semibold mb-5">
+                  Área Académica de Ingeniería en Computadores.
+                </h5>
+                <p className="mt-4 text-lg leading-relaxed text-slate-500">
                   El Sistema de Reservación de Laboratorios es una herramienta
                   que tiene como propósito principal la consulta y reserva sobre
                   disponibilidad de los laboratorios del Área Académica de
@@ -26,13 +28,13 @@ export default function Index() {
                 <div className="mt-12 flex flex-wrap ">
                   <a
                     href="/auth"
-                    className="get-started text-white font-bold px-6 py-4 rounded mr-1 mb-1 bg-primary active:bg-primary-light uppercase text-sm shadow hover:shadow-lg ease-linear transition-all duration-150"
+                    className="get-started text-white font-bold px-6 py-4 rounded-2xl mr-10 mb-1 bg-sky-600 active:bg-sky-500 uppercase text-sm shadow-lg shadow-sky-500 hover:shadow-lg ease-linear transition-all duration-150" 
                   >
                     <i class="fas fa-sign-in-alt"></i> Iniciar Sesión
                   </a>
                   <a
                     href="mailto:laboratorioscefk@gmail.com"
-                    className="github-star ml-1 text-white font-bold px-6 py-4 rounded mr-1 mb-1 bg-blueGray-700 active:bg-blueGray-600 uppercase text-sm shadow hover:shadow-lg ease-linear transition-all duration-150"
+                    className="github-star ml-1 text-white font-bold px-6 py-4 rounded-2xl mr-1 mb-1 bg-gray-700 active:bg-blueGray-600 uppercase text-sm shadow hover:shadow-lg ease-linear transition-all duration-150"
                   >
                     <i class="fas fa-user"></i> Contacto
                   </a>
